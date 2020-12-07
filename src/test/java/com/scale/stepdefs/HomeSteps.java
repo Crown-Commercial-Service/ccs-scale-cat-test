@@ -38,7 +38,7 @@ public class HomeSteps {
     public void user_should_be_navigated_to_CCS_home_page() {
         homePageObj = objectManager.getHomePageObj();
         homePageObj.homePage1();
-        testContextObj.takeSnapShot();
+        
     }
 
     @And("User is navigated to CCS home page")
@@ -66,7 +66,7 @@ public class HomeSteps {
         //        String iniUrl = driver.getCurrentUrl();
 //        iniUrl = iniUrl + "&feature=guidedmatch";
 //        driver.navigate().to(iniUrl);
-     //   testContextObj.takeSnapShot();
+     
 
 
     }
@@ -74,7 +74,7 @@ public class HomeSteps {
     @And("User clicks on the \"([^\"]*)\" button")
     public void user_clicks_on_the_button(String buttonName) throws InterruptedException {
         homePageObj = objectManager.getHomePageObj();
-//        testContextObj.takeSnapShot();
+
         homePageObj.clickButton(buttonName);
 
     }
@@ -82,7 +82,7 @@ public class HomeSteps {
     @And("User clicks on the \"([^\"]*)\" link")
     public void user_clicks_on_the_link(String linkName) throws InterruptedException {
         homePageObj = objectManager.getHomePageObj();
-        testContextObj.takeSnapShot();
+        
         homePageObj.clickButton(linkName);
 
     }

@@ -130,7 +130,7 @@ public class TestContext {
         //Code to take full page screenshot
         ByteArrayOutputStream imageStream = new ByteArrayOutputStream();
         scenario.write("URL - "+driver.getCurrentUrl());
-        PageSnapshot snapshot = Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS, true);
+        PageSnapshot snapshot = Shutterbug.shootPage(driver, ScrollStrategy.VERTICALLY, true);
         ((JavascriptExecutor) driver).executeScript("window.scrollTo(0,0)");
 
         try {

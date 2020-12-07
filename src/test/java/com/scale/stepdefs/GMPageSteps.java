@@ -43,6 +43,6 @@ public class GMPageSteps {
     public void the_gm_journey_is_opened_in_the_same_tab() {
         gmLandingPage = objectManager.getGmLandingPageObj();
         gmLandingPage.isGmJourneyOpenedInTheSameTab();
-        testContextObj.takeSnapShot();
+        
     }
 }
