@@ -161,6 +161,31 @@
             <artifactId>selenium-shutterbug</artifactId>
             <version>0.8</version>
         </dependency>
+        <!-- Copy the below dependencies to the BaT pom.xml -->
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/json-path -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-path</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>json-schema-validator</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>4.3.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.dzieciou.testing/curl-logger -->
+        <dependency>
+            <groupId>com.github.dzieciou.testing</groupId>
+            <artifactId>curl-logger</artifactId>
+            <version>1.0.3</version>
+        </dependency>
     </dependencies>
     <profiles>
         <profile>
@@ -235,11 +260,11 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <groupId>org.sonarsource.scanner.maven</groupId>
-                        <artifactId>sonar-maven-plugin</artifactId>
-                        <version>${sonar.maven.version}</version>
-                    </plugin>
+<!--                    <plugin>-->
+<!--                        <groupId>org.sonarsource.scanner.maven</groupId>-->
+<!--                        <artifactId>sonar-maven-plugin</artifactId>-->
+<!--                        <version>${sonar.maven.version}</version>-->
+<!--                    </plugin>-->
                 </plugins>
                 <pluginManagement>
                     <plugins>
@@ -324,11 +349,11 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <groupId>org.sonarsource.scanner.maven</groupId>
-                        <artifactId>sonar-maven-plugin</artifactId>
-                        <version>${sonar.maven.version}</version>
-                    </plugin>
+<!--                    <plugin>-->
+<!--                        <groupId>org.sonarsource.scanner.maven</groupId>-->
+<!--                        <artifactId>sonar-maven-plugin</artifactId>-->
+<!--                        <version>${sonar.maven.version}</version>-->
+<!--                    </plugin>-->
                 </plugins>
                 <pluginManagement>
                     <plugins>
