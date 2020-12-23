@@ -1,7 +1,5 @@
 package com.scale.stepdefs;
 
-
-import com.scale.context.ScenarioContext;
 import com.scale.context.TestContext;
 import com.scale.framework.utility.*;
 import com.scale.businessPages.*;
