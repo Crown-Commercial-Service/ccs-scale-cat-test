@@ -27,6 +27,9 @@ public class ContactCCSPage extends Actions{
     @FindBy(xpath = "//h1[@class='govuk-heading-xl page-title'][contains(text(),'Contact CCS')]")
     private WebElement cCSContactPageHeader;
 
+    @FindBy(xpath = "")
+    private WebElement cCSContactPageHeader1;
+
     public void contactCCSPage() {
         if (cCSContactPageHeader.isDisplayed()) {
             String homeLogoText = cCSContactPageHeader.getText();

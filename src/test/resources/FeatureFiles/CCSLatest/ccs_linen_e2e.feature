@@ -455,7 +455,7 @@ Feature: GM Journey for Linen framework -> See Linen schema from https://miro.co
       | Scenario 4 | linen     | Service    | No          | Yes           | 18             | Standard wash                 | No, I have everything I need | RM6154      | 19/03/2023     | linenDetails | lot1b          | 1    |
 
    #budget: don't know/not sure, months: >12, addFacilities: answer Other, Security, Grounds maintenance, Catering, Pest Control
-  @linenService10 @Regression @Updates
+  @linenService10 @Regression @Update
   Scenario Outline: To verify Buyer has provided with different recommendations "<recommendation>" and after answering different set of question as looking for "<lookingFor>", Budget radio as "<budgetRadio>", Contract radio as "<contractRadio>" and enters contract length "<contractLength>" , selects Service area as "<serviceArea>" and Additional facilities as "<addFacilities>" during the journey
     Given User logs in to the CCS application for "<ScenarioID>"
     When User enters "<framework>" details

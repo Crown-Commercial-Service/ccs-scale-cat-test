@@ -80,7 +80,8 @@ public class CommonValidations {
     }
 
     public void postResponse() {
-        response = apiUtil.postRequest(scenarioContext.getContext("EndPoint"));
+        apiUtil = new APIUtil();
+        response = apiUtil.postRequest(scenarioContext.getContext("endPoint"));
         scenario.write("CURL for the call - " + apiUtil.getCurl());
         System.out.println("Response code is "+ response.prettyPrint());
 //        if (response.contentType().contains("json") || response.contentType().contains("Json")) {
