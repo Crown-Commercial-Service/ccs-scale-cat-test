@@ -35,11 +35,12 @@ public class FTSESteps {
     @When("^POST request is triggered for FTSE stocks$")
     public void POST_request_is_triggered_for_FTSE_Stocks() {
         ftse.postResponse();
+
     }
 
     @Then("^User should get Expected results for FTSE$")
     public void user_should_get_expected_result_for_FTSE() {
-        ftse.validateResponseCode();
+        //ftse.validateResponseCode();
         if (scenarioContext.getContext("ExpectedStatus").equalsIgnoreCase("200"))
             ftse.validateResponse_200();
         else if (scenarioContext.getContext("ExpectedStatus").equalsIgnoreCase("403"))
@@ -55,11 +56,13 @@ public class FTSESteps {
 
     @When("user calls addPlaceAPI with {string} http request")
     public void user_calls_addPlaceAPI_with_http_request(String method) {
-        ftse.postResponse();
+      //  ftse.postResponse();
+        addPlace.setRequest(method);
     }
 
     @Then("API call should be success with {string}")
-    public void api_call_should_be_success_with(String string) {
+    public void api_call_should_be_success_with(String statusCode) {
+        ftse.validateResponseCode(statusCode);
 
     }
 

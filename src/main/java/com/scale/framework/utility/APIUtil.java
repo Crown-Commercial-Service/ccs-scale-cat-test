@@ -12,7 +12,7 @@ import org.junit.Assert;
 
 import static io.restassured.RestAssured.given;
 //import static io.restassured.RestAssured.module.jsv.JsonSchemaValidator.matchesjsonSchemaInClasspath;
-//import com.github.dzieciou.testing.curl.CurlLoggingRestAssuredConfigFactory;
+import com.github.dzieciou.testing.curl.CurlLoggingRestAssuredConfigFactory;
 
 
 public class APIUtil {
@@ -23,7 +23,7 @@ public class APIUtil {
 
     private String curl = "No request has been made yet";
 
-    private void reportCurlCommand(CurlCommand curlCommand){
+    private void reportCurlCommand(CurlCommand curlCommand) {
         {
             curl = curlCommand.toString();
         }
@@ -38,9 +38,9 @@ public class APIUtil {
         RestAssured.useRelaxedHTTPSValidation();
     }
 
-//    public void compareJSONSchema(Response response, String fileName) {
-//        response.then().assertThat().body(matchesJsonSchemaInClass(fileName + ".json"));
-//    }
+    public void compareJSONSchema(Response response, String fileName) {
+       // response.then().assertThat().body(matchesJsonSchemaInClass(fileName + ".json"));
+    }
 
     public void setBasicAuth(String username, String password) {
         if (request == null)
@@ -68,9 +68,9 @@ public class APIUtil {
 
     public void setHeader(String headerName, String headerValue) {
         if (request == null)
-            request = given().header(headerName,headerValue);
+            request = given().header(headerName, headerValue);
         else {
-            request.header(headerName,headerValue);
+            request.header(headerName, headerValue);
         }
     }
 
@@ -84,19 +84,24 @@ public class APIUtil {
 
     public void setQueryParam(String key, String value) {
         if (request == null)
-            request = given().queryParam(key,value);
+            request = given().queryParam(key, value);
         else {
-            request.queryParam(key,value);
+            request.queryParam(key, value);
         }
     }
 
     public Response getRequest(String path) {
-       response = request.config(config).get(path);
-       return response;
+        response = request.config(config).get(path);
+        return response;
     }
 
-    public Response postRequest(String path) {
-        response = request.config(config).request("post", path);
+    public Response postRequest(String method,String path) {
+        response = request.config(config).request(method, path);
+        return response;
+    }
+
+    public Response putRequest(String method,String path) {
+        response = request.config(config).put(method,path);
         return response;
     }
 
@@ -110,18 +115,18 @@ public class APIUtil {
         return response;
     }
 
-    public void verifyStatusCode(Response response,int expectedStatusCode){
-        Assert.assertEquals(response.statusCode(),expectedStatusCode);
+    public void verifyStatusCode(Response response, int expectedStatusCode) {
+        Assert.assertEquals(response.statusCode(), expectedStatusCode);
 
     }
 
-    public String getToken(){
+    public String getToken() {
         JsonPath jsonPath = response.jsonPath();
         String token = jsonPath.get("accesstoken");
         return token;
     }
 
-    public String getRequestBody(){
+    public String getRequestBody() {
         return toString();
     }
 

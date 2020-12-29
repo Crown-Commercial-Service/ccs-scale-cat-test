@@ -5,6 +5,7 @@ import com.scale.framework.utility.CommonValidations;
 import com.scale.framework.utility.ScenarioContext;
 import cucumber.api.Scenario;
 import com.scale.pojo.FTSEPojo;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class FTSE extends CommonValidations {
     public FTSE(Scenario scenario, ScenarioContext scenarioContext) {
@@ -31,7 +32,7 @@ public class FTSE extends CommonValidations {
         //Add all assertions.
         scenario.write("Schema validation for response 200");
         // Create a valid schema and validate schema
-//      response.then().assertThat().body(matchesJsonSchemaInClasspath("data/schema/valid200.json"));
+      response.then().assertThat().body(matchesJsonSchemaInClasspath("data/schema/valid200.json"));
         scenario.write("Asserting the presence of response message");
         scenario.write("Asserting the presence of response element "+"firstName");
 //        Assert.assertTrue(jsonObject.has("firstName"));

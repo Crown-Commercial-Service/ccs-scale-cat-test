@@ -1,5 +1,6 @@
 package com.scale.framework.utility;
 
+import com.scale.validations.FTSE;
 import cucumber.api.Scenario;
 import io.restassured.response.Response;
 import org.json.JSONObject;
@@ -15,6 +16,7 @@ public class CommonValidations {
     protected JSONObject jsonObject;
     protected Response response;
     protected ConfigurationReader configurationReader = new ConfigurationReader();
+    protected FTSE ftse;
 
     public CommonValidations(Scenario scenario, ScenarioContext scenarioContext) {
         this.scenario = scenario;
@@ -81,7 +83,7 @@ public class CommonValidations {
 
     public void postResponse() {
         apiUtil = new APIUtil();
-        response = apiUtil.postRequest(scenarioContext.getContext("endPoint"));
+        response = apiUtil.postRequest("POST",scenarioContext.getContext("endPoint"));
         scenario.write("CURL for the call - " + apiUtil.getCurl());
         System.out.println("Response code is "+ response.prettyPrint());
 //        if (response.contentType().contains("json") || response.contentType().contains("Json")) {
@@ -101,9 +103,18 @@ public class CommonValidations {
         responseTypeValidator(response);
     }
 
-    public void validateResponseCode() {
-        scenario.write("Asserting the response code :- " + "Expected response code is" + scenarioContext.getContext("ExpectedStatus"));
-        Assert.assertEquals(Integer.parseInt(scenarioContext.getContext("ExpectedStatus")), response.getStatusCode());
+    public void validateResponseCode(String statusCode) {
+        scenario.write("Asserting the response code :- " + "Expected response code is" + statusCode);
+        Assert.assertEquals(Integer.parseInt(statusCode), response.getStatusCode());
+       // if (scenarioContext.getContext("ExpectedStatus").equalsIgnoreCase("200"))
+            if(Integer.parseInt(statusCode) == 200)
+            ftse.validateResponse_200();
+       // else if (scenarioContext.getContext("ExpectedStatus").equalsIgnoreCase("403"))
+        if(Integer.parseInt(statusCode) == 403)
+            ftse.validateResponse_403();
+       // else if (scenarioContext.getContext("ExpectedStatus").equalsIgnoreCase("500"))
+        if(Integer.parseInt(statusCode) == 500)
+            ftse.validateResponse_500();
     }
 
     protected void setPathAndToken() {
