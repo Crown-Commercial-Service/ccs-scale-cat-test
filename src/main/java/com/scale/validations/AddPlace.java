@@ -44,7 +44,8 @@ public class AddPlace extends CommonValidations {
                 response = apiUtil.postRequest(method, scenarioContext.getContext("endPoint"));
                 break;
             case "GET":
-                response = apiUtil.getRequest(scenarioContext.getContext("endPoint"));
+//                response = apiUtil.getRequest(scenarioContext.getContext("endPoint"));
+                getResponse();
                 break;
             case "PUT":
                 createPutRquest();

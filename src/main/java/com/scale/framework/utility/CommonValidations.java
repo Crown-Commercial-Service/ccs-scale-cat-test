@@ -14,7 +14,7 @@ public class CommonValidations {
     protected ScenarioContext scenarioContext;
     protected APIUtil apiUtil;
     protected JSONObject jsonObject;
-    protected Response response;
+    public Response response;
     protected ConfigurationReader configurationReader = new ConfigurationReader();
     protected FTSE ftse;
 
