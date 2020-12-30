@@ -28,7 +28,7 @@ public class CommonValidations {
     protected void basicAuthValidation() {
         scenario.write("");
         if (!((scenarioContext.getContext("username")) == null ||
-                !((scenarioContext.getContext("password"))==null))) {
+                !((scenarioContext.getContext("password")) == null))) {
             if (scenarioContext.getContext("username").equalsIgnoreCase("empty"))
                 apiUtil.setBasicAuth("", configurationReader.get("PasswordRI"));
             else if (scenarioContext.getContext("Password").equalsIgnoreCase("empty"))
@@ -58,8 +58,8 @@ public class CommonValidations {
     protected void setHeaderParameters(String[] headerParameters) {
         scenario.write("Header parameters are : ");
         for (String headerParameter : headerParameters) {
-                scenario.write(headerParameter + " - " + scenarioContext.getContext(headerParameter));
-                apiUtil.setHeader(headerParameter, scenarioContext.getContext(headerParameter));
+            scenario.write(headerParameter + " - " + scenarioContext.getContext(headerParameter));
+            apiUtil.setHeader(headerParameter, scenarioContext.getContext(headerParameter));
         }
     }
 
@@ -76,44 +76,42 @@ public class CommonValidations {
     }
 
     public void getResponse() {
-        response = apiUtil.getRequest(scenarioContext.getContext("Endpoint"));
-        System.out.println("Response code is "+ response.prettyPrint());
+        response = apiUtil.getRequest(scenarioContext.getContext("endpoint"));
+        System.out.println("Response code is " + response.prettyPrint());
         responseTypeValidator(response);
     }
 
-    public void postResponse() {
-        apiUtil = new APIUtil();
-        response = apiUtil.postRequest("POST",scenarioContext.getContext("endPoint"));
+    public void postResponse(String method) {
+        System.out.println(scenarioContext.getContext("endPoint"));
+        response = apiUtil.postRequest(method, scenarioContext.getContext("endPoint"));
         scenario.write("CURL for the call - " + apiUtil.getCurl());
-        System.out.println("Response code is "+ response.prettyPrint());
-//        if (response.contentType().contains("json") || response.contentType().contains("Json")) {
-//            jsonObject = new JSONObject(response.jsonPath().prettyPrint());
-//            scenario.write("Response for the above request is " + jsonObject.toString());
-//        } else if (scenarioContext.getContext("ExpectedStatus").equalsIgnoreCase("201")) {
+        System.out.println("Response code is " + response.prettyPrint());
+        if (response.contentType().contains("json") || response.contentType().contains("Json")) {
+            jsonObject = new JSONObject(response.jsonPath().prettyPrint());
+            scenario.write("Response for the above request is " + jsonObject.toString());
+        }
+//        else if (scenarioContext.getContext("ExpectedStatus").equalsIgnoreCase("201")) {
 //            scenario.write("Response for 201 contains no body hence no implementation for body validation");
 //            junit.framework.Assert.assertTrue("The response code is 201 created", true);
 //        } else {
 //            scenario.write("Response type is not Json, please check with the developer");
 //            fail("The content type is not json");
-//        }
+//       }
     }
 
     public void deleteResponse() {
-        response = apiUtil.deleteRequest(scenarioContext.getContext("Endpoint"));
+        response = apiUtil.deleteRequest(scenarioContext.getContext("endpoint"));
         responseTypeValidator(response);
     }
 
     public void validateResponseCode(String statusCode) {
         scenario.write("Asserting the response code :- " + "Expected response code is" + statusCode);
         Assert.assertEquals(Integer.parseInt(statusCode), response.getStatusCode());
-       // if (scenarioContext.getContext("ExpectedStatus").equalsIgnoreCase("200"))
-            if(Integer.parseInt(statusCode) == 200)
+        if (Integer.parseInt(statusCode) == 200)
             ftse.validateResponse_200();
-       // else if (scenarioContext.getContext("ExpectedStatus").equalsIgnoreCase("403"))
-        if(Integer.parseInt(statusCode) == 403)
+        else if (Integer.parseInt(statusCode) == 403)
             ftse.validateResponse_403();
-       // else if (scenarioContext.getContext("ExpectedStatus").equalsIgnoreCase("500"))
-        if(Integer.parseInt(statusCode) == 500)
+        else if (Integer.parseInt(statusCode) == 500)
             ftse.validateResponse_500();
     }
 

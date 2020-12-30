@@ -3,28 +3,27 @@ Feature: To verify Add Place API's
   @AddPlaceapiPOST
   Scenario Outline:Verify if Place is being Succesfully added using AddPlaceAPI "<scenarioID>"
     Given User has environment setup for <scenarioID>
-    And Add Place Payload request is updated
-    When user calls addPlaceAPI with "<method>" http request
+    And "<API>" request payload is updated for "<method>"
+    When user calls "<API>" with "<method>" http request
     Then API call should be success with "<statusCode>"
     And "status" in response body is "OK"
     And "scope" in response body is "APP"
 
     Examples:
-      | scenarioID | method | statusCode |
-      | Scenario 1 | POST   | 200        |
+      | scenarioID | API         | method | statusCode |
+      | Scenario 1 | AddPlaceAPI | POST   | 200        |
 
   @AddPlaceapiGET
   Scenario Outline:Verify if Place is being Succesfully added using AddPlaceAPI "<scenarioID>"
     Given User has environment setup for <scenarioID>
-    And Add Place Payload request is updated
-    When user calls addPlaceAPI with "<method>" http request
+    And "<API>" request payload is updated for "<method>"
+    When user calls "<API>" with "<method>" http request
     Then API call should be success with "<statusCode>"
     And "status" in response body is "OK"
     And "scope" in response body is "APP"
-
     Examples:
-      | scenarioID | method | statusCode |
-      | Scenario 2 | GET    | 200        |
+      | scenarioID | API         | method | statusCode |
+      | Scenario 2 | AddPlaceAPI | GET    | 200        |
 
 
   Scenario Outline: User Makes a Post request for <Scenario ID>

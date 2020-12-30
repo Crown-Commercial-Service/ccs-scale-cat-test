@@ -5,8 +5,6 @@ import com.scale.framework.utility.CommonValidations;
 import com.scale.framework.utility.ScenarioContext;
 import com.scale.pojo.*;
 import cucumber.api.Scenario;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 
 public class AddPlace extends CommonValidations {
@@ -18,20 +16,7 @@ public class AddPlace extends CommonValidations {
         super(scenario, scenarioContext);
     }
 
-    public void postRequest() {
-        apiUtil = new APIUtil();
-        apiUtil.setBaseURI(configurationReader.get("BaseURL"));
-//        String[] headerParameters = {"content-Type", "host", "origin"};
-//        setHeaderParameters(headerParameters);
-//        String[] queryParameters = {"key"};
-//        setQueryParameters(queryParameters);
-//        createPostRequest();
-//        apiUtil.setRequestBody(addPlacePojo.toString());
-//        System.out.println(addPlacePojo.toString());
-
-    }
-
-    public void setRequest(String method) {
+    public void postRequest(String method) {
         apiUtil = new APIUtil();
         apiUtil.setBaseURI(configurationReader.get("BaseURL"));
         String[] headerParameters = {"content-Type", "host", "origin"};
@@ -41,10 +26,10 @@ public class AddPlace extends CommonValidations {
         switch (method.toUpperCase()) {
             case "POST":
                 createPostRequest();
-                response = apiUtil.postRequest(method, scenarioContext.getContext("endPoint"));
+                apiUtil.setRequestBody(addPlacePojo.toString());
                 break;
             case "GET":
-                response = apiUtil.getRequest(scenarioContext.getContext("endPoint"));
+                getResponse();
                 break;
             case "PUT":
                 createPutRquest();
@@ -54,10 +39,7 @@ public class AddPlace extends CommonValidations {
                 response = apiUtil.deleteRequest(scenarioContext.getContext("endPoint"));
                 break;
         }
-
     }
-
-
     public void createPostRequest() {
         addPlacePojo.setAccuracy(scenarioContext.getContext("accuracy"));
         addPlacePojo.setAddress(scenarioContext.getContext("address"));
@@ -69,6 +51,8 @@ public class AddPlace extends CommonValidations {
         locationPojo.setLat(scenarioContext.getContext("location_lat"));
         locationPojo.setLng(scenarioContext.getContext("location_lng"));
         addPlacePojo.setLocation(locationPojo);
+        apiUtil.setRequestBody(addPlacePojo.toString());
+        System.out.println(addPlacePojo.toString());
     }
 
     public void createPutRquest(){

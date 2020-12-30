@@ -50,9 +50,9 @@ public class TestContext {
         configReader = new ConfigurationReader();
         allPageScreenshotFlag = configReader.get("allPageScreenshot");
         browserFactory = new BrowserFactory();
-      //  browserFactory.initiateDriver(configReader.getBrowserName());
-        //driver = browserFactory.getDriver();
-        //objectManager = new PageObjectManager(driver, scenario);
+        browserFactory.initiateDriver(configReader.getBrowserName());
+        driver = browserFactory.getDriver();
+        objectManager = new PageObjectManager(driver, scenario);
         long threadId = Thread.currentThread().getId();
         String processName = ManagementFactory.getRuntimeMXBean().getName();
         System.out.println("Started in thread: " + threadId + ", in JVM: " + processName);

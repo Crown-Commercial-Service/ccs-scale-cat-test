@@ -1,6 +1,7 @@
 package com.scale.stepdefs;
 
 import com.scale.context.TestContext;
+import com.scale.framework.utility.APIUtil;
 import com.scale.framework.utility.ScenarioContext;
 import com.scale.framework.utility.SingletonObjectManager;
 import com.scale.validations.AddPlace;
@@ -9,14 +10,18 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import com.scale.validations.FTSE;
+import io.restassured.response.Response;
 
-public class FTSESteps {
+import static org.junit.Assert.assertEquals;
+
+public class FTSESteps extends APIUtil {
     private TestContext testContextObj;
     private SingletonObjectManager singletonObjectManager;
     private ScenarioContext scenarioContext;
     private Scenario scenario;
     private FTSE ftse;
     private AddPlace addPlace;
+    Response response;
 
     public FTSESteps(TestContext testContextObj) {
         this.testContextObj = testContextObj;
@@ -49,25 +54,5 @@ public class FTSESteps {
             ftse.validateResponse_500();
     }
 
-    @Given("Add Place Payload request is updated")
-    public void add_Place_Payload_request_is_updated() {
-        addPlace.postRequest();
-    }
 
-    @When("user calls addPlaceAPI with {string} http request")
-    public void user_calls_addPlaceAPI_with_http_request(String method) {
-      //  ftse.postResponse();
-        addPlace.setRequest(method);
-    }
-
-    @Then("API call should be success with {string}")
-    public void api_call_should_be_success_with(String statusCode) {
-        ftse.validateResponseCode(statusCode);
-
-    }
-
-    @Then("{string} in response body is {string}")
-    public void in_response_body_is(String string, String string2) {
-
-    }
 }
