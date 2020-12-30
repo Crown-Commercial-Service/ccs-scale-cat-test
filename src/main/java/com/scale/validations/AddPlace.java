@@ -5,6 +5,8 @@ import com.scale.framework.utility.CommonValidations;
 import com.scale.framework.utility.ScenarioContext;
 import com.scale.pojo.*;
 import cucumber.api.Scenario;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 
 public class AddPlace extends CommonValidations {
@@ -26,7 +28,7 @@ public class AddPlace extends CommonValidations {
         switch (method.toUpperCase()) {
             case "POST":
                 createPostRequest();
-                apiUtil.setRequestBody(addPlacePojo.toString());
+                response = apiUtil.postRequest(method, scenarioContext.getContext("endPoint"));
                 break;
             case "GET":
                 getResponse();
@@ -40,6 +42,8 @@ public class AddPlace extends CommonValidations {
                 break;
         }
     }
+
+
     public void createPostRequest() {
         addPlacePojo.setAccuracy(scenarioContext.getContext("accuracy"));
         addPlacePojo.setAddress(scenarioContext.getContext("address"));
