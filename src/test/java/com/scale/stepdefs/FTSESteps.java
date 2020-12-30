@@ -39,7 +39,7 @@ public class FTSESteps extends APIUtil {
 
     @When("^POST request is triggered for FTSE stocks$")
     public void POST_request_is_triggered_for_FTSE_Stocks() {
-        ftse.postResponse();
+      //  ftse.postResponse();
 
     }
 

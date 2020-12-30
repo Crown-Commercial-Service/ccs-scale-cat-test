@@ -26,7 +26,6 @@ public class AddPlace extends CommonValidations {
         switch (method.toUpperCase()) {
             case "POST":
                 createPostRequest();
-                response = apiUtil.postRequest(method, scenarioContext.getContext("endPoint"));
                 break;
             case "GET":
                 getResponse();
@@ -55,6 +54,7 @@ public class AddPlace extends CommonValidations {
         addPlacePojo.setLocation(locationPojo);
         apiUtil.setRequestBody(addPlacePojo.toString());
         System.out.println(addPlacePojo.toString());
+
     }
 
     public void createPutRquest(){
