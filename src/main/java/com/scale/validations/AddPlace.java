@@ -5,8 +5,6 @@ import com.scale.framework.utility.CommonValidations;
 import com.scale.framework.utility.ScenarioContext;
 import com.scale.pojo.*;
 import cucumber.api.Scenario;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
 
 public class AddPlace extends CommonValidations {

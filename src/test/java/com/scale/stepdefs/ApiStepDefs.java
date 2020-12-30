@@ -47,12 +47,6 @@ public class ApiStepDefs extends APIUtil {
         ftse.postResponse(method);
     }
 
-    @When("user calls addPlaceAPI with {string} http request")
-    public void user_calls_addPlaceAPI_with_http_request(String method) {
-        //  ftse.postResponse();
-        addPlace.setRequest(method);
-    }
-
     @Then("API call should be success with {string}")
     public void api_call_should_be_success_with(String statusCode) {
         ftse.validateResponseCode(statusCode);

@@ -23,9 +23,10 @@ Feature: To verify Add Place API's
     And "scope" in response body is "APP"
     Examples:
       | scenarioID | API         | method | statusCode |
-      | Scenario 2 | AddPlaceAPI | GET    | 200        |
+      | Scenario 2 | GetPlaceAPI | GET    | 200        |
 
 
+  @testapi
   Scenario Outline: User Makes a Post request for <Scenario ID>
     Given User has environment setup for <Scenario ID>
     When POST request is updated for FTSE request

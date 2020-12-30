@@ -17,10 +17,9 @@ import com.github.dzieciou.testing.curl.CurlLoggingRestAssuredConfigFactory;
 
 public class APIUtil {
 
-    public Response response;
-    public RequestSpecification request;
+    private Response response;
+    private RequestSpecification request;
     private RestAssuredConfig config = CurlLoggingRestAssuredConfigFactory.createConfig(Options.builder().updateCurl(this::reportCurlCommand).build());
-
     private String curl = "No request has been made yet";
 
     private void reportCurlCommand(CurlCommand curlCommand) {
