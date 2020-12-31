@@ -50,8 +50,8 @@ public class TestContext {
         configReader = new ConfigurationReader();
         allPageScreenshotFlag = configReader.get("allPageScreenshot");
         browserFactory = new BrowserFactory();
-        browserFactory.initiateDriver(configReader.getBrowserName());
-        driver = browserFactory.getDriver();
+      //  browserFactory.initiateDriver(configReader.getBrowserName());
+       // driver = browserFactory.getDriver();
         objectManager = new PageObjectManager(driver, scenario);
         long threadId = Thread.currentThread().getId();
         String processName = ManagementFactory.getRuntimeMXBean().getName();
@@ -109,7 +109,7 @@ public class TestContext {
     public void cleanUp() throws Exception {
         if(configReader.get("browserName").equalsIgnoreCase("chrome_profile")||configReader.get("browserName").equalsIgnoreCase("CHROME_HEADLESS"))
         {browserFactory.deleteDirectory();}
-        takeSnapShot();
+        //takeSnapShot();
 
         log.info("=================" + scenario.getName() + " execution ends" + "===================");
 //      eyes.closeAsync();
@@ -150,7 +150,7 @@ public class TestContext {
     public void takeSnapShot() {
         //Code to take full page screenshot
         ByteArrayOutputStream imageStream = new ByteArrayOutputStream();
-        scenario.write("URL - "+driver.getCurrentUrl());
+//        scenario.write("URL - "+driver.getCurrentUrl());
         PageSnapshot snapshot = Shutterbug.shootPage(driver, ScrollStrategy.VERTICALLY, true);
         ((JavascriptExecutor) driver).executeScript("window.scrollTo(0,0)");
 
