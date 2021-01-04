@@ -2,6 +2,7 @@ package com.scale.stepdefs;
 
 import com.scale.context.TestContext;
 import com.scale.framework.utility.APIUtil;
+import com.scale.framework.utility.CommonValidations;
 import com.scale.framework.utility.ScenarioContext;
 import com.scale.framework.utility.SingletonObjectManager;
 import com.scale.validations.AddPlace;
@@ -49,7 +50,7 @@ public class ApiStepDefs extends APIUtil {
 
     @Then("API call should be success with {string}")
     public void api_call_should_be_success_with(String statusCode) {
-        ftse.validateResponseCode(statusCode);
+        addPlace.validateResponseCode(statusCode);
 
     }
 

@@ -86,24 +86,18 @@ public class CommonValidations {
     public void postResponse(String method) {
         response = apiUtil.postRequest(method, scenarioContext.getContext("endPoint"));
         scenario.write("CURL for the call - " + apiUtil.getCurl());
-       System.out.println("Test Body " + response.getBody().asString());
-       // response.print();
+        System.out.println(response.getBody().asString());
+        // response.print();
         if (response.contentType().contains("json") || response.contentType().contains("Json")) {
-            JsonPath js = new JsonPath(response.asString());
-            scenario.write("Response for the above request is " + js.get("address").toString());
-            //     scenario.write("Response for the above request is " + js);
-            //  scenario.write("Response for the above request is " + js.prettyPrint());
-            //  response.jsonPath().prettyPrint();
-            // jsonObject = new JSONObject(response.jsonPath().prettyPrint());
-            // scenario.write("Response for the above request is " + jsonObject.toString());
+            jsonObject = new JSONObject(response.jsonPath().prettyPrint());
+            scenario.write("Response for the above request is " + jsonObject.toString());
+        } else if (scenarioContext.getContext("ExpectedStatus").equalsIgnoreCase("201")) {
+            scenario.write("Response for 201 contains no body hence no implementation for body validation");
+            // junit.framework.Assert.assertTrue("The response code is 201 created", true);
+        } else {
+            scenario.write("Response type is not Json, please check with the developer");
+            fail("The content type is not json");
         }
-//        else if (scenarioContext.getContext("ExpectedStatus").equalsIgnoreCase("201")) {
-//            scenario.write("Response for 201 contains no body hence no implementation for body validation");
-//            junit.framework.Assert.assertTrue("The response code is 201 created", true);
-//        } else {
-//            scenario.write("Response type is not Json, please check with the developer");
-//            fail("The content type is not json");
-//       }
     }
 
     public void deleteResponse() {
@@ -113,10 +107,10 @@ public class CommonValidations {
 
     public void validateResponseCode(String statusCode) {
         scenario.write("Asserting the response code :- " + "Expected response code is" + statusCode);
-        response.getStatusCode();
+        Assert.assertEquals(Integer.parseInt(statusCode), response.getStatusCode());
         //  Assert.assertEquals(Integer.parseInt(statusCode), status);
         if (Integer.parseInt(statusCode) == 200)
-            ftse.validateResponse_200();
+            validateResponse_200();
         else if (Integer.parseInt(statusCode) == 403)
             ftse.validateResponse_403();
         else if (Integer.parseInt(statusCode) == 500)
@@ -126,6 +120,20 @@ public class CommonValidations {
     protected void setPathAndToken() {
         apiUtil.setBaseURI(configurationReader.get("BaseURL"));
         apiUtil.setOauth2(scenarioContext.getContext("Bearer Token"));
+    }
+
+    public void validateResponse_200() {
+        //Add all assertions.
+        scenario.write("Schema validation for response 200");
+        // Create a valid schema and validate schema
+        response.then().assertThat().body(matchesJsonSchemaInClasspath("data/schema/valid200.json"));
+        scenario.write("Asserting the presence of response message");
+        scenario.write("Asserting the presence of response element " + "place_id");
+        Assert.assertTrue(jsonObject.has("place_id"));
+        scenario.write("Asserting the presence of response element " + "reference");
+        Assert.assertTrue(jsonObject.has("reference"));
+        scenario.write("Asserting the presence of response element " + "id");
+        Assert.assertTrue(jsonObject.has("id"));
     }
 
     public void validateResponse_400() {
@@ -181,6 +189,5 @@ public class CommonValidations {
         scenario.write("Asserting the message body, body should contain message " + scenarioContext.getContext("expectedMessage"));
         Assert.assertTrue(jsonObject.get("message").toString().contains(scenarioContext.getContext("expectedMessage")));
     }
-
 
 }

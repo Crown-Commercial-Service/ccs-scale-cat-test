@@ -8,8 +8,8 @@ import io.restassured.config.RestAssuredConfig;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.json.JSONObject;
 import org.junit.Assert;
-
 import static io.restassured.RestAssured.given;
 //import static io.restassured.RestAssured.module.jsv.JsonSchemaValidator.matchesjsonSchemaInClasspath;
 import com.github.dzieciou.testing.curl.CurlLoggingRestAssuredConfigFactory;
@@ -17,8 +17,9 @@ import com.github.dzieciou.testing.curl.CurlLoggingRestAssuredConfigFactory;
 
 public class APIUtil {
 
-    private Response response;
+    protected Response response;
     private RequestSpecification request;
+    protected JSONObject jsonObject;
     private RestAssuredConfig config = CurlLoggingRestAssuredConfigFactory.createConfig(Options.builder().updateCurl(this::reportCurlCommand).build());
     private String curl = "No request has been made yet";
 
@@ -38,7 +39,7 @@ public class APIUtil {
     }
 
     public void compareJSONSchema(Response response, String fileName) {
-       // response.then().assertThat().body(matchesJsonSchemaInClass(fileName + ".json"));
+        // response.then().assertThat().body(matchesJsonSchemaInClass(fileName + ".json"));
     }
 
     public void setBasicAuth(String username, String password) {
@@ -94,13 +95,13 @@ public class APIUtil {
         return response;
     }
 
-    public Response postRequest(String method,String path) {
+    public Response postRequest(String method, String path) {
         response = request.config(config).request(method, path);
         return response;
     }
 
-    public Response putRequest(String method,String path) {
-        response = request.config(config).put(method,path);
+    public Response putRequest(String method, String path) {
+        response = request.config(config).put(method, path);
         return response;
     }
 
@@ -130,8 +131,7 @@ public class APIUtil {
     }
 
 
-    public String getJsonPath(Response response,String key)
-    {
+    public String getJsonPath(Response response, String key) {
         String resp=response.asString();
         JsonPath   js = new JsonPath(resp);
         return js.get(key).toString();

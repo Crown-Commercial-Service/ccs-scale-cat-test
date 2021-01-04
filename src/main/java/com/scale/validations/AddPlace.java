@@ -1,5 +1,7 @@
 package com.scale.validations;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.scale.framework.utility.APIUtil;
 import com.scale.framework.utility.CommonValidations;
 import com.scale.framework.utility.ScenarioContext;
@@ -52,8 +54,12 @@ public class AddPlace extends CommonValidations {
         locationPojo.setLat(scenarioContext.getContext("location_lat"));
         locationPojo.setLng(scenarioContext.getContext("location_lng"));
         addPlacePojo.setLocation(locationPojo);
-        apiUtil.setRequestBody(addPlacePojo.toString());
-        System.out.println(addPlacePojo.toString());
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            apiUtil.setRequestBody(objectMapper.writeValueAsString(addPlacePojo));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
 
     }
 
