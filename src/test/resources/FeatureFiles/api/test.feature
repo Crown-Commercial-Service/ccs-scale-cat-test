@@ -5,25 +5,37 @@ Feature: To verify Add Place API's
     Given User has environment setup for <scenarioID>
     And "<API>" request payload is updated for "<method>"
     When user calls "<API>" with "<method>" http request
-    Then API call should be success with "<statusCode>"
-    And "status" in response body is "OK"
-    And "scope" in response body is "APP"
+    Then API call should be success with "<statusCode>" for "<method>"
+#    And "status" in response body is "OK"
+#    And "scope" in response body is "APP"
 
     Examples:
       | scenarioID | API         | method | statusCode |
       | Scenario 1 | AddPlaceAPI | POST   | 200        |
 
-  @AddPlaceapiGET
+  @GetPlaceapi
   Scenario Outline:Verify if Place is being Succesfully added using AddPlaceAPI "<scenarioID>"
     Given User has environment setup for <scenarioID>
     And "<API>" request payload is updated for "<method>"
     When user calls "<API>" with "<method>" http request
-    Then API call should be success with "<statusCode>"
-    And "status" in response body is "OK"
-    And "scope" in response body is "APP"
+    Then API call should be success with "<statusCode>" for "<method>"
+#    And "status" in response body is "OK"
+#    And "scope" in response body is "APP"
     Examples:
       | scenarioID | API         | method | statusCode |
       | Scenario 2 | GetPlaceAPI | GET    | 200        |
+
+  @DeletePlaceapi
+  Scenario Outline:Verify if Place is being Succesfully added using AddPlaceAPI "<scenarioID>"
+    Given User has environment setup for <scenarioID>
+    And "<API>" request payload is updated for "<method>"
+    When user calls "<API>" with "<method>" http request
+    Then API call should be success with "<statusCode>" for "<method>"
+#    And "status" in response body is "OK"
+#    And "scope" in response body is "APP"
+    Examples:
+      | scenarioID | API            | method | statusCode |
+      | Scenario 3 | DeletePlaceAPI | DELETE | 200        |
 
 
   @testapi

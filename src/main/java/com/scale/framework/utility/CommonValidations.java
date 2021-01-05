@@ -45,11 +45,12 @@ public class CommonValidations {
     protected void setQueryParameters(String[] queryParameters) {
         scenario.write("Query parameters are : ");
         for (String queryParameter : queryParameters) {
-            if (!scenarioContext.getContext("queryParameter").isEmpty()) {
+            if (!(scenarioContext.getContext("queryParameter").isEmpty() || scenarioContext.getContext("queryParameter") == null)) {
                 if (scenarioContext.getContext("queryParameter").equalsIgnoreCase("empty")) {
                     scenario.write(queryParameter + " - " + " ");
                     apiUtil.setQueryParam(queryParameter, "");
-                } else {
+                }
+                else {
                     scenario.write(queryParameter + " - " + scenarioContext.getContext(queryParameter));
                     apiUtil.setQueryParam(queryParameter, scenarioContext.getContext(queryParameter));
                 }
@@ -105,12 +106,12 @@ public class CommonValidations {
         responseTypeValidator(response);
     }
 
-    public void validateResponseCode(String statusCode) {
+    public void validateResponseCode(String statusCode, String method) {
         scenario.write("Asserting the response code :- " + "Expected response code is" + statusCode);
         Assert.assertEquals(Integer.parseInt(statusCode), response.getStatusCode());
         //  Assert.assertEquals(Integer.parseInt(statusCode), status);
         if (Integer.parseInt(statusCode) == 200)
-            validateResponse_200();
+            validateResponse_200(method);
         else if (Integer.parseInt(statusCode) == 403)
             ftse.validateResponse_403();
         else if (Integer.parseInt(statusCode) == 500)
@@ -122,8 +123,28 @@ public class CommonValidations {
         apiUtil.setOauth2(scenarioContext.getContext("Bearer Token"));
     }
 
-    public void validateResponse_200() {
+    public void validateResponse_200(String method) {
         //Add all assertions.
+        scenario.write("Schema validation for response 200");
+        scenario.write("Asserting the presence of response message");
+        switch (method.toUpperCase()) {
+            case "POST":
+                validatePOSTResponse();
+                break;
+            case "GET":
+                validateGETResponse();
+                break;
+            case "PUT":
+                validatePUTResponse();
+                break;
+            case "DELETE":
+                validateDELETEResponse();
+                break;
+        }
+
+    }
+
+    public void validatePOSTResponse() {
         scenario.write("Schema validation for response 200");
         // Create a valid schema and validate schema
         response.then().assertThat().body(matchesJsonSchemaInClasspath("data/schema/valid200.json"));
@@ -134,6 +155,24 @@ public class CommonValidations {
         Assert.assertTrue(jsonObject.has("reference"));
         scenario.write("Asserting the presence of response element " + "id");
         Assert.assertTrue(jsonObject.has("id"));
+    }
+
+    public void validateGETResponse() {
+        // Create a valid schema and validate schema
+        JsonPath js = new JsonPath(response.jsonPath().prettyPrint());
+        response.then().assertThat().body(matchesJsonSchemaInClasspath("data/schema/valid200.json"));
+
+
+    }
+
+    public void validateDELETEResponse() {
+        // Create a valid schema and validate schema
+        response.then().assertThat().body(matchesJsonSchemaInClasspath("data/schema/valid200.json"));
+    }
+
+    public void validatePUTResponse() {
+        // Create a valid schema and validate schema
+        response.then().assertThat().body(matchesJsonSchemaInClasspath("data/schema/valid200.json"));
     }
 
     public void validateResponse_400() {

@@ -23,21 +23,21 @@ public class AddPlace extends CommonValidations {
         apiUtil.setBaseURI(configurationReader.get("BaseURL"));
         String[] headerParameters = {"content-Type", "host", "origin"};
         setHeaderParameters(headerParameters);
-        String[] queryParameters = {"key"};
+        String[] queryParameters = {"key","place_id"};
         setQueryParameters(queryParameters);
         switch (method.toUpperCase()) {
             case "POST":
                 createPostRequest();
                 break;
             case "GET":
-                getResponse();
+                apiUtil.getRequestBody();
                 break;
             case "PUT":
                 createPutRquest();
-                response = apiUtil.putRequest(method,scenarioContext.getContext("endPoint"));
+                response = apiUtil.putRequest(method, scenarioContext.getContext("endPoint"));
                 break;
             case "DELETE":
-                response = apiUtil.deleteRequest(scenarioContext.getContext("endPoint"));
+                createDeleteRequest();
                 break;
         }
     }
@@ -63,7 +63,18 @@ public class AddPlace extends CommonValidations {
 
     }
 
-    public void createPutRquest(){
+    public void createDeleteRequest() {
+        addPlacePojo.setPlace_id(scenarioContext.getContext("place_id"));
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            apiUtil.setRequestBody(objectMapper.writeValueAsString(addPlacePojo));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void createPutRquest() {
 
     }
 

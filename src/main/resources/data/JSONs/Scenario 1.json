@@ -14,5 +14,6 @@
   "phone_number": "(+91) 983 893 3937",
   "SC_ID": "Scenario 1",
   "key": "qaclick123",
-  "location_lat": -38.383494
+  "location_lat": -38.383494,
+  "place_id": ""
 }

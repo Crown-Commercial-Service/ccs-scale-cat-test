@@ -48,9 +48,9 @@ public class ApiStepDefs extends APIUtil {
         addPlace.postResponse(method);
     }
 
-    @Then("API call should be success with {string}")
-    public void api_call_should_be_success_with(String statusCode) {
-        addPlace.validateResponseCode(statusCode);
+    @Then("API call should be success with {string} for {string}")
+    public void api_call_should_be_success_with(String statusCode, String method) {
+        addPlace.validateResponseCode(statusCode,method);
 
     }
 

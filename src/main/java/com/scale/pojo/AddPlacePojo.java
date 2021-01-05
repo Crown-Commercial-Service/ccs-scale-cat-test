@@ -14,6 +14,7 @@ public class AddPlacePojo {
     private String types;
     private String website;
     private String language;
+    private String place_id;
 
     public LocationPojo getLocation() {
         return location;
@@ -77,5 +78,13 @@ public class AddPlacePojo {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getPlace_id() {
+        return place_id;
+    }
+
+    public void setPlace_id(String place_id) {
+        this.place_id = place_id;
     }
 }
