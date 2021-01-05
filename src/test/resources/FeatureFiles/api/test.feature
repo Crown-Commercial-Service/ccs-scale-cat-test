@@ -31,7 +31,7 @@ Feature: To verify Add Place API's
     And "<API>" request payload is updated for "<method>"
     When user calls "<API>" with "<method>" http request
     Then API call should be success with "<statusCode>" for "<method>"
-#    And "status" in response body is "OK"
+    And "status" in response body is "OK"
 #    And "scope" in response body is "APP"
     Examples:
       | scenarioID | API            | method | statusCode |
@@ -42,7 +42,7 @@ Feature: To verify Add Place API's
   Scenario Outline: User Makes a Post request for <Scenario ID>
     Given User has environment setup for <Scenario ID>
     When POST request is updated for FTSE request
-    And POST request is triggered for FTSE stocks
+    And "POST" request is triggered for FTSE stocks
     Then User should get Expected results for FTSE
     Examples:
       | Scenario ID |

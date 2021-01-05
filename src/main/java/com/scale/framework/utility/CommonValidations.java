@@ -159,9 +159,11 @@ public class CommonValidations {
 
     public void validateGETResponse() {
         // Create a valid schema and validate schema
-        JsonPath js = new JsonPath(response.jsonPath().prettyPrint());
+        JsonPath js = response.jsonPath();
         response.then().assertThat().body(matchesJsonSchemaInClasspath("data/schema/valid200.json"));
-
+        String actualname = js.get("name");
+        String expectedname = "Frontline house";
+        Assert.assertEquals(actualname,expectedname);
 
     }
 

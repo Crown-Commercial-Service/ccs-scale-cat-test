@@ -45,7 +45,7 @@ public class ApiStepDefs extends APIUtil {
 
     @When("user calls {string} with {string} http request")
     public void user_calls_with_http_request(String API, String method) {
-        addPlace.postResponse(method);
+        addPlace.postResponse("POST");
     }
 
     @Then("API call should be success with {string} for {string}")
