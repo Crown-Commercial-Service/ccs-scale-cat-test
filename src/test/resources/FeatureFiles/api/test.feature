@@ -1,7 +1,7 @@
 Feature: To verify Add Place API's
 
   @AddPlaceapiPOST
-  Scenario Outline:Verify if Place is being Succesfully added using AddPlaceAPI "<scenarioID>"
+  Scenario Outline:Verify if Place is being Succesfully added using "<API>" for "<scenarioID>"
     Given User has environment setup for <scenarioID>
     And "<API>" request payload is updated for "<method>"
     When user calls "<API>" with "<method>" http request
@@ -14,7 +14,7 @@ Feature: To verify Add Place API's
       | Scenario 1 | AddPlaceAPI | POST   | 200        |
 
   @GetPlaceapi
-  Scenario Outline:Verify if Place is being Succesfully added using AddPlaceAPI "<scenarioID>"
+  Scenario Outline:Verify if Place details is being Succesfully displayed using "<API>" for "<scenarioID>"
     Given User has environment setup for <scenarioID>
     And "<API>" request payload is updated for "<method>"
     When user calls "<API>" with "<method>" http request
@@ -25,8 +25,20 @@ Feature: To verify Add Place API's
       | scenarioID | API         | method | statusCode |
       | Scenario 2 | GetPlaceAPI | GET    | 200        |
 
+  @UpdatePlaceapi
+  Scenario Outline:Verify if Place is being Succesfully updated using "<API>" for "<scenarioID>"
+    Given User has environment setup for <scenarioID>
+    And "<API>" request payload is updated for "<method>"
+    When user calls "<API>" with "<method>" http request
+    Then API call should be success with "<statusCode>" for "<method>"
+#    And "status" in response body is "OK"
+#    And "scope" in response body is "APP"
+    Examples:
+      | scenarioID | API            | method | statusCode |
+      | Scenario 4 | UpdatePlaceAPI | PUT    | 200        |
+
   @DeletePlaceapi
-  Scenario Outline:Verify if Place is being Succesfully added using AddPlaceAPI "<scenarioID>"
+  Scenario Outline:Verify if Place is being Succesfully deleted using "<API>" for "<scenarioID>"
     Given User has environment setup for <scenarioID>
     And "<API>" request payload is updated for "<method>"
     When user calls "<API>" with "<method>" http request

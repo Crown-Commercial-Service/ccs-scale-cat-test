@@ -3,17 +3,17 @@
   "website": "http:\/\/google.com",
   "address": "29, side layout, cohen 09",
   "origin": "https:\/\/rahulshettyacademy.com",
-  "description": "Get place API call",
-  "accuracy": 50,
+  "description": "Update place API call",
+  "accuracy": 50.0,
   "language": "English",
   "content-Type": "application\/json",
   "location_lng": 33.427362,
-  "endPoint": "\/maps\/api\/place\/get\/json",
+  "endPoint": "\/maps\/api\/place\/update\/json",
   "host": "rahulshettyacademy.com",
   "name": "Frontline House",
-  "phone_number": "(+91) 983 893 3937",
-  "SC_ID": "Scenario 2",
+  "phone_number": "(+91) 929 875 0767",
+  "SC_ID": "Scenario 4",
   "key": "qaclick123",
   "location_lat": -38.383494,
-  "place_id": "4b36ad784a376c15de91483720a4edf8"
+  "place_id": "816ace91062905c0809b8f8455d435b9"
 }

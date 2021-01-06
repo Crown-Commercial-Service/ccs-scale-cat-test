@@ -34,7 +34,6 @@ public class AddPlace extends CommonValidations {
                 break;
             case "PUT":
                 createPutRquest();
-                response = apiUtil.putRequest(method, scenarioContext.getContext("endPoint"));
                 break;
             case "DELETE":
                 createDeleteRequest();
@@ -75,7 +74,15 @@ public class AddPlace extends CommonValidations {
     }
 
     public void createPutRquest() {
-
+        addPlacePojo.setPlace_id(scenarioContext.getContext("place_id"));
+        addPlacePojo.setPlace_id(scenarioContext.getContext("key"));
+        addPlacePojo.setPhone_number(scenarioContext.getContext("phone_number"));
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            apiUtil.setRequestBody(objectMapper.writeValueAsString(addPlacePojo));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
     }
 
 
