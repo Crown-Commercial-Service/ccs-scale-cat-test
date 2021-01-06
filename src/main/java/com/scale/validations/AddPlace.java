@@ -23,19 +23,25 @@ public class AddPlace extends CommonValidations {
         apiUtil.setBaseURI(configurationReader.get("BaseURL"));
         String[] headerParameters = {"content-Type", "host", "origin"};
         setHeaderParameters(headerParameters);
-        String[] queryParameters = {"key","place_id"};
-        setQueryParameters(queryParameters);
         switch (method.toUpperCase()) {
             case "POST":
+                String[] queryParameters1 = {"key"};
+                setQueryParameters(queryParameters1);
                 createPostRequest();
                 break;
             case "GET":
+                String[] queryParameters = {"key","place_id"};
+                setQueryParameters(queryParameters);
                 apiUtil.getRequestBody();
                 break;
             case "PUT":
+                String[] queryParameters2 = {"key","place_id"};
+                setQueryParameters(queryParameters2);
                 createPutRquest();
                 break;
             case "DELETE":
+                String[] queryParameters3 = {"key"};
+                setQueryParameters(queryParameters3);
                 createDeleteRequest();
                 break;
         }

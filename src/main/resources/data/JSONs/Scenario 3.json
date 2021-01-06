@@ -9,11 +9,11 @@
   "content-Type": "application\/json",
   "location_lng": 33.427362,
   "endPoint": "\/maps\/api\/place\/delete\/json",
-  "host": "",
+  "host": "rahulshettyacademy.com",
   "name": "Frontline House",
   "phone_number": "(+91) 983 893 3937",
   "SC_ID": "Scenario 3",
-  "key": "",
+  "key": "qaclick123",
   "location_lat": -38.383494,
-  "place_id": "4b36ad784a376c15de91483720a4edf8"
+  "place_id": "157c2cb101e8f1beaa2ce10526f99c84"
 }
