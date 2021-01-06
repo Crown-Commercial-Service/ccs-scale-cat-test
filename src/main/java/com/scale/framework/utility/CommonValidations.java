@@ -161,15 +161,25 @@ public class CommonValidations {
         // Create a valid schema and validate schema
         JsonPath js = response.jsonPath();
         response.then().assertThat().body(matchesJsonSchemaInClasspath("data/schema/valid200.json"));
-        String actualname = js.get("name");
-        String expectedname = "Frontline house";
-        Assert.assertEquals(actualname,expectedname);
-
+        String actName = js.get("name");
+        Assert.assertEquals(actName,scenarioContext.getContext("name"));
+        String actAccuracy = js.get("accuracy");
+        Assert.assertEquals(actAccuracy,scenarioContext.getContext("accuracy"));
+        String actPhoneNum = js.get("phone_number");
+        Assert.assertEquals(actPhoneNum,scenarioContext.getContext("phone_number"));
+        String actAddress = js.get("address");
+        Assert.assertEquals(actAddress,scenarioContext.getContext("address"));
+        String actTypes = js.get("types");
+        Assert.assertEquals(actTypes,scenarioContext.getContext("types"));
+        String actLang = js.get("language");
+        Assert.assertEquals(actLang,scenarioContext.getContext("language"));
     }
 
     public void validateDELETEResponse() {
         // Create a valid schema and validate schema
         response.then().assertThat().body(matchesJsonSchemaInClasspath("data/schema/valid200.json"));
+        Assert.assertTrue(jsonObject.has("status"));
+        scenario.write("Asserting the presence of response element " + "status");
     }
 
     public void validatePUTResponse() {

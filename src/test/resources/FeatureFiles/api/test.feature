@@ -31,7 +31,7 @@ Feature: To verify Add Place API's
     And "<API>" request payload is updated for "<method>"
     When user calls "<API>" with "<method>" http request
     Then API call should be success with "<statusCode>" for "<method>"
-    And "status" in response body is "OK"
+#    And "status" in response body is "OK"
 #    And "scope" in response body is "APP"
     Examples:
       | scenarioID | API            | method | statusCode |
