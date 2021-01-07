@@ -160,19 +160,19 @@ public class CommonValidations {
 
     public void validateGETResponse() {
         // Create a valid schema and validate schema
-        JsonPath js = response.jsonPath();
+        jsonPath = response.jsonPath();
         response.then().assertThat().body(matchesJsonSchemaInClasspath("data/schema/valid200.json"));
-        String actName = js.get("name");
+        String actName = jsonPath.get("name");
         Assert.assertEquals(actName, scenarioContext.getContext("name"));
-        String actAccuracy = js.get("accuracy");
+        String actAccuracy = jsonPath.get("accuracy");
         Assert.assertEquals(actAccuracy,scenarioContext.getContext("accuracy"));
-        String actPhoneNum = js.get("phone_number");
+        String actPhoneNum = jsonPath.get("phone_number");
         Assert.assertEquals(actPhoneNum,scenarioContext.getContext("phone_number"));
-        String actAddress = js.get("address");
+        String actAddress = jsonPath.get("address");
         Assert.assertEquals(actAddress,scenarioContext.getContext("address"));
-//        String actTypes = js.get("types");
+//        String actTypes = jsonPath.get("types");
 //        Assert.assertEquals(actTypes,scenarioContext.getContext("types"));
-        String actLang = js.get("language");
+        String actLang = jsonPath.get("language");
         Assert.assertEquals(actLang,scenarioContext.getContext("language"));
     }
 
@@ -186,6 +186,12 @@ public class CommonValidations {
     public void validatePUTResponse() {
         // Create a valid schema and validate schema
         response.then().assertThat().body(matchesJsonSchemaInClasspath("data/schema/valid200.json"));
+        Assert.assertTrue(jsonObject.has("msg"));
+        scenario.write("Asserting the presence of response element " + "msg");
+        jsonPath = response.jsonPath();
+
+        String actName = jsonPath.get("msg");
+        Assert.assertEquals(actName, scenarioContext.getContext("msg"));
     }
 
     public void validateResponse_400() {

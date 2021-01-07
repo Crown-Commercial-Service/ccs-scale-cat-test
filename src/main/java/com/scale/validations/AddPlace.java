@@ -21,7 +21,7 @@ public class AddPlace extends CommonValidations {
     public void postRequest(String method) {
         apiUtil = new APIUtil();
         apiUtil.setBaseURI(configurationReader.get("BaseURL"));
-        String[] headerParameters = {"content-Type", "host", "origin"};
+        String[] headerParameters = {"content-Type"};
         setHeaderParameters(headerParameters);
         switch (method.toUpperCase()) {
             case "POST":
@@ -35,7 +35,7 @@ public class AddPlace extends CommonValidations {
                 apiUtil.getRequestBody();
                 break;
             case "PUT":
-                String[] queryParameters2 = {"key","place_id"};
+                String[] queryParameters2 = {"key"};
                 setQueryParameters(queryParameters2);
                 createPutRquest();
                 break;
@@ -81,8 +81,8 @@ public class AddPlace extends CommonValidations {
 
     public void createPutRquest() {
         addPlacePojo.setPlace_id(scenarioContext.getContext("place_id"));
-        addPlacePojo.setPlace_id(scenarioContext.getContext("key"));
-        addPlacePojo.setPhone_number(scenarioContext.getContext("phone_number"));
+        addPlacePojo.setKey(scenarioContext.getContext("key"));
+        addPlacePojo.setAddress(scenarioContext.getContext("address"));
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             apiUtil.setRequestBody(objectMapper.writeValueAsString(addPlacePojo));

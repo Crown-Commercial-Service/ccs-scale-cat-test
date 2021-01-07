@@ -35,7 +35,7 @@ Feature: To verify Add Place API's
 #    And "scope" in response body is "APP"
     Examples:
       | scenarioID | API            | method | statusCode |
-      | Scenario 4 | UpdatePlaceAPI | PUT    | 200        |
+      | Scenario 3 | UpdatePlaceAPI | PUT    | 200        |
 
   @DeletePlaceapi
   Scenario Outline:Verify if Place is being Succesfully deleted using "<API>" for "<scenarioID>"
@@ -47,7 +47,7 @@ Feature: To verify Add Place API's
 #    And "scope" in response body is "APP"
     Examples:
       | scenarioID | API            | method | statusCode |
-      | Scenario 3 | DeletePlaceAPI | DELETE | 200        |
+      | Scenario 4 | DeletePlaceAPI | DELETE | 200        |
 
 
   @testapi

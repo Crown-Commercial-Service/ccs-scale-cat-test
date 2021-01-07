@@ -1,19 +1,17 @@
 {
-  "types": "Shoe park_shop",
+  "msg": "Address successfully updated",
+  "types": "Shoe park, shop",
   "website": "http:\/\/google.com",
-  "address": "29, side layout, cohen 09",
-  "origin": "https:\/\/rahulshettyacademy.com",
-  "description": "Delete place API call",
-  "accuracy": 50.0,
+  "address": "70 Summer walk, UAE",
+  "accuracy": 50,
   "language": "English",
   "content-Type": "application\/json",
   "location_lng": 33.427362,
-  "endPoint": "\/maps\/api\/place\/delete\/json",
-  "host": "rahulshettyacademy.com",
-  "name": "Frontline House",
-  "phone_number": "(+91) 983 893 3937",
+  "endPoint": "\/maps\/api\/place\/update\/json",
+  "name": "Frontline house",
+  "phone_number": "(+91) 983 893 3937",
   "SC_ID": "Scenario 3",
   "key": "qaclick123",
   "location_lat": -38.383494,
-  "place_id": "157c2cb101e8f1beaa2ce10526f99c84"
+  "place_id": "b2a02a18457c171a598437f197b916ec"
 }

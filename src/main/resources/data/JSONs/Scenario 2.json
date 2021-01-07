@@ -1,19 +1,17 @@
 {
-  "types": "Shoe park_shop",
+  "msg": "",
+  "types": "Shoe park, shop",
   "website": "http:\/\/google.com",
   "address": "29, side layout, cohen 09",
-  "origin": "https:\/\/rahulshettyacademy.com",
-  "description": "Get place API call",
   "accuracy": 50,
-  "language": "French-IN",
+  "language": "English",
   "content-Type": "application\/json",
   "location_lng": 33.427362,
   "endPoint": "\/maps\/api\/place\/get\/json",
-  "host": "rahulshettyacademy.com",
   "name": "Frontline house",
   "phone_number": "(+91) 983 893 3937",
   "SC_ID": "Scenario 2",
   "key": "qaclick123",
   "location_lat": -38.383494,
-  "place_id": "157c2cb101e8f1beaa2ce10526f99c84"
+  "place_id": "b2a02a18457c171a598437f197b916ec"
 }
