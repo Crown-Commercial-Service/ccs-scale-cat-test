@@ -62,6 +62,7 @@ public class AddPlace extends CommonValidations {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             apiUtil.setRequestBody(objectMapper.writeValueAsString(addPlacePojo));
+            //apiUtil.setRequestBody(objectMapper.readv(addPlacePojo));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }

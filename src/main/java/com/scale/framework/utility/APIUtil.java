@@ -4,6 +4,7 @@ import com.github.dzieciou.testing.curl.CurlCommand;
 import com.github.dzieciou.testing.curl.CurlLoggingRestAssuredConfigFactory;
 import com.github.dzieciou.testing.curl.Options;
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.config.RestAssuredConfig;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
@@ -98,6 +99,7 @@ public class APIUtil {
     public Response postRequest(String method, String path) {
         response = request.config(config).request(method, path);
         return response;
+
     }
 
     public Response putRequest(String method, String path) {

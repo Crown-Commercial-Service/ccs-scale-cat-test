@@ -22,6 +22,7 @@ import java.lang.management.ManagementFactory;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import com.scale.framework.utility.SingletonObjectManager;
 
 
@@ -39,19 +40,23 @@ public class TestContext {
     public String allPageScreenshotFlag;
     private String randomlyPickedKeyWord;
     SingletonObjectManager singletonObjectManager;
+    APIUtil apiUtil;
+    private String curl = "No request has been made yet";
 
 
     @Before
     public void setUp(Scenario scenario) throws MalformedURLException {
-         log.info("=================" + scenario.getName() + " execution starts" + "===================");
-         this.scenario = scenario;
+        log.info("=================" + scenario.getName() + " execution starts" + "===================");
+        this.scenario = scenario;
         jsonUtilityObj = new JSONUtility();
-        scenarioContext = new ScenarioContext();
-        configReader = new ConfigurationReader();
-        allPageScreenshotFlag = configReader.get("allPageScreenshot");
-        browserFactory = new BrowserFactory();
-      //  browserFactory.initiateDriver(configReader.getBrowserName());
-       // driver = browserFactory.getDriver();
+        if(configReader.get("apiautmation").equalsIgnoreCase("true")) {
+            scenarioContext = new ScenarioContext();
+            configReader = new ConfigurationReader();
+            allPageScreenshotFlag = configReader.get("allPageScreenshot");
+            browserFactory = new BrowserFactory();
+            browserFactory.initiateDriver(configReader.getBrowserName());
+            driver = browserFactory.getDriver();
+        }
         objectManager = new PageObjectManager(driver, scenario);
         long threadId = Thread.currentThread().getId();
         String processName = ManagementFactory.getRuntimeMXBean().getName();
@@ -65,8 +70,9 @@ public class TestContext {
         configReader = new ConfigurationReader();
 //        long threadId = Thread.currentThread().getId();
 //        String processName = ManagementFactory.getRuntimeMXBean().getName();
-        singletonObjectManager = new SingletonObjectManager(this.scenario,scenarioContext);
+        singletonObjectManager = new SingletonObjectManager(this.scenario, scenarioContext);
         System.out.println("Started in thread: " + threadId + ", in JVM: " + processName);
+
     }
 
     @Given("User open a chrome browser")
@@ -76,13 +82,13 @@ public class TestContext {
 
     @When("User enter ccs url")
     public void user_enter_ccs_url() {
-       // objectManager = new PageObjectManager(driver,scenario);
+        objectManager = new PageObjectManager(driver,scenario);
         browserFactory.launchURL("appWelcomeURL");
     }
 
     @Given("User logs in to the CCS application for \"([^\"]*)\"$")
     public void User_logs_in_to_the_CCS_application_for(String ScenarioID) throws MalformedURLException, InterruptedException {
-        scenarioContext.setKeyValue("ScenarioID",ScenarioID);
+        scenarioContext.setKeyValue("ScenarioID", ScenarioID);
         objectManager = new PageObjectManager(driver, scenario);
         browserFactory.launchURL("appccswebdev");
         scenario.write("CCS application is launched");
@@ -97,7 +103,7 @@ public class TestContext {
             scenario.write("CCS application is launched");
         } else {
             String frameworksName = StringUtils.getMatchedGroupByIndexFromAString(searchedFramework, "(\\w+)(\\srandom)", 1);
-            ArrayList<String> keywordsList = StringUtils.getTxtItemsAsList("\\config\\" + frameworksName+ "KeywordsSets.txt");
+            ArrayList<String> keywordsList = StringUtils.getTxtItemsAsList("\\config\\" + frameworksName + "KeywordsSets.txt");
             int keywordIndex = StringUtils.getRandomIntNumberInRange(0, keywordsList.size() - 1);
             randomlyPickedKeyWord = keywordsList.get(keywordIndex);
             browserFactory.launchURL("appscaleintURL", randomlyPickedKeyWord.toLowerCase());
@@ -107,10 +113,10 @@ public class TestContext {
 
     @After
     public void cleanUp() throws Exception {
-        if(configReader.get("browserName").equalsIgnoreCase("chrome_profile")||configReader.get("browserName").equalsIgnoreCase("CHROME_HEADLESS"))
-        {browserFactory.deleteDirectory();}
+        if (configReader.get("browserName").equalsIgnoreCase("chrome_profile") || configReader.get("browserName").equalsIgnoreCase("CHROME_HEADLESS")) {
+            browserFactory.deleteDirectory();
+        }
         //takeSnapShot();
-
         log.info("=================" + scenario.getName() + " execution ends" + "===================");
 //      eyes.closeAsync();
         if (driver != null) {
@@ -146,7 +152,8 @@ public class TestContext {
     public WebDriver getDriver() {
         return driver;
     }
-//@AfterStep
+
+    //@AfterStep
     public void takeSnapShot() {
         //Code to take full page screenshot
         ByteArrayOutputStream imageStream = new ByteArrayOutputStream();
@@ -175,4 +182,9 @@ public class TestContext {
     public void setRandomlyPickedKeyWord(String randomlyPickedKeyWord) {
         this.randomlyPickedKeyWord = randomlyPickedKeyWord;
     }
+
+    public String getCurl() {
+        return curl;
+    }
+
 }

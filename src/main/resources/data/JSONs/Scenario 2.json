@@ -4,7 +4,7 @@
   "website": "http:\/\/google.com",
   "address": "29, side layout, cohen 09",
   "accuracy": 50,
-  "language": "English",
+  "language": "French-IN",
   "content-Type": "application\/json",
   "location_lng": 33.427362,
   "endPoint": "\/maps\/api\/place\/get\/json",
@@ -13,5 +13,5 @@
   "SC_ID": "Scenario 2",
   "key": "qaclick123",
   "location_lat": -38.383494,
-  "place_id": "b2a02a18457c171a598437f197b916ec"
+  "place_id": "256edd42f02a5a324969c9c34fd1c56e"
 }

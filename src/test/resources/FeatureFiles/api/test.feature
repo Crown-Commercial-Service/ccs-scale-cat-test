@@ -49,6 +49,20 @@ Feature: To verify Add Place API's
       | scenarioID | API            | method | statusCode |
       | Scenario 4 | DeletePlaceAPI | DELETE | 200        |
 
+    @TestPOSTGET
+  Scenario Outline:Verify if Place is being Succesfully added using "<API>" for "<scenarioID>"
+    Given User has environment setup for <scenarioID>
+    And "<API>" request payload is updated for "<method>"
+    And user calls "<API>" with "<method>" http request
+    And API call should be success with "<statusCode>" for "<method>"
+    When "GetPlaceAPI" request payload is updated for "GET"
+    And user calls "GetPlaceAPI" with "GET" http request
+    Then API call should be success with "<statusCode>" for "GET"
+
+    Examples:
+      | scenarioID | API         | method | statusCode |
+      | Scenario 1 | AddPlaceAPI | POST   | 200        |
+
 
   @testapi
   Scenario Outline: User Makes a Post request for <Scenario ID>

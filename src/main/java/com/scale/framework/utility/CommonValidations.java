@@ -1,9 +1,12 @@
 package com.scale.framework.utility;
 
+import com.scale.pojo.AddPlacePojo;
 import com.scale.validations.FTSE;
 import cucumber.api.Scenario;
+import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.junit.Assert;
 
@@ -19,6 +22,8 @@ public class CommonValidations {
     protected Response response;
     protected ConfigurationReader configurationReader = new ConfigurationReader();
     protected FTSE ftse;
+    private Logger log = Log.getLogger(CommonValidations.class);
+    AddPlacePojo addPlacePojo = new AddPlacePojo();
 
     public CommonValidations(Scenario scenario, ScenarioContext scenarioContext) {
         this.scenario = scenario;
@@ -49,6 +54,7 @@ public class CommonValidations {
                 if (scenarioContext.getContext("queryParameter").equalsIgnoreCase("empty")) {
                     scenario.write(queryParameter + " - " + " ");
                     apiUtil.setQueryParam(queryParameter, "");
+                    apiUtil.setQueryParam(queryParameter,addPlacePojo.getPlace_id());
                 }
                 else {
                     scenario.write(queryParameter + " - " + scenarioContext.getContext(queryParameter));
@@ -87,18 +93,19 @@ public class CommonValidations {
     public void postResponse(String method) {
         response = apiUtil.postRequest(method, scenarioContext.getContext("endPoint"));
         scenario.write("CURL for the call - " + apiUtil.getCurl());
-        System.out.println(response.getBody().asString());
-        System.out.println(response.getStatusCode());
-        // response.print();
+        log.info("Request details for \n " + apiUtil.getCurl());
         if (response.contentType().contains("json") || response.contentType().contains("Json")) {
             jsonObject = new JSONObject(response.jsonPath().prettyPrint());
             scenario.write("Response for the above request is " + jsonObject.toString());
+            log.info("Response details \n "  + response.jsonPath().prettyPrint());
         } else if (scenarioContext.getContext("ExpectedStatus").equalsIgnoreCase("201")) {
             scenario.write("Response for 201 contains no body hence no implementation for body validation");
+            log.info("Response for 201 contains");
             // junit.framework.Assert.assertTrue("The response code is 201 created", true);
         } else {
             scenario.write("Response type is not Json, please check with the developer");
             fail("The content type is not json");
+            log.info("Response type is not Json");
         }
     }
 
@@ -156,6 +163,12 @@ public class CommonValidations {
         Assert.assertTrue(jsonObject.has("reference"));
         scenario.write("Asserting the presence of response element " + "id");
         Assert.assertTrue(jsonObject.has("id"));
+
+        jsonPath = response.jsonPath();
+        String id = jsonPath.get("place_id");
+        addPlacePojo.setPlace_id(id);
+
+
     }
 
     public void validateGETResponse() {
