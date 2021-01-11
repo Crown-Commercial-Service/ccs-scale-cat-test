@@ -49,15 +49,15 @@ public class TestContext {
         log.info("=================" + scenario.getName() + " execution starts" + "===================");
         this.scenario = scenario;
         jsonUtilityObj = new JSONUtility();
-        if(configReader.get("apiautmation").equalsIgnoreCase("true")) {
-            scenarioContext = new ScenarioContext();
-            configReader = new ConfigurationReader();
+        scenarioContext = new ScenarioContext();
+        configReader = new ConfigurationReader();
+        if(configReader.get("apiAutomation").equalsIgnoreCase("true")) {
             allPageScreenshotFlag = configReader.get("allPageScreenshot");
             browserFactory = new BrowserFactory();
             browserFactory.initiateDriver(configReader.getBrowserName());
             driver = browserFactory.getDriver();
+            objectManager = new PageObjectManager(driver, scenario);
         }
-        objectManager = new PageObjectManager(driver, scenario);
         long threadId = Thread.currentThread().getId();
         String processName = ManagementFactory.getRuntimeMXBean().getName();
         System.out.println("Started in thread: " + threadId + ", in JVM: " + processName);

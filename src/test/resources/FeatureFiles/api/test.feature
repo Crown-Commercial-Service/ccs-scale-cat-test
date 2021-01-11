@@ -4,7 +4,7 @@ Feature: To verify Add Place API's
   Scenario Outline:Verify if Place is being Succesfully added using "<API>" for "<scenarioID>"
     Given User has environment setup for <scenarioID>
     And "<API>" request payload is updated for "<method>"
-    When user calls "<API>" with "<method>" http request
+    When user calls "AddPlaceAPI" with "<method>" http request
     Then API call should be success with "<statusCode>" for "<method>"
 #    And "status" in response body is "OK"
 #    And "scope" in response body is "APP"
@@ -17,7 +17,7 @@ Feature: To verify Add Place API's
   Scenario Outline:Verify if Place details is being Succesfully displayed using "<API>" for "<scenarioID>"
     Given User has environment setup for <scenarioID>
     And "<API>" request payload is updated for "<method>"
-    When user calls "<API>" with "<method>" http request
+    When user calls "GetPlaceAPI" with "<method>" http request
     Then API call should be success with "<statusCode>" for "<method>"
 #    And "status" in response body is "OK"
 #    And "scope" in response body is "APP"
@@ -29,7 +29,7 @@ Feature: To verify Add Place API's
   Scenario Outline:Verify if Place is being Succesfully updated using "<API>" for "<scenarioID>"
     Given User has environment setup for <scenarioID>
     And "<API>" request payload is updated for "<method>"
-    When user calls "<API>" with "<method>" http request
+    When user calls "UpdatePlaceAPI" with "<method>" http request
     Then API call should be success with "<statusCode>" for "<method>"
 #    And "status" in response body is "OK"
 #    And "scope" in response body is "APP"
@@ -41,27 +41,28 @@ Feature: To verify Add Place API's
   Scenario Outline:Verify if Place is being Succesfully deleted using "<API>" for "<scenarioID>"
     Given User has environment setup for <scenarioID>
     And "<API>" request payload is updated for "<method>"
-    When user calls "<API>" with "<method>" http request
+    When user calls "DeletePlaceAPI" with "<method>" http request
     Then API call should be success with "<statusCode>" for "<method>"
 #    And "status" in response body is "OK"
 #    And "scope" in response body is "APP"
     Examples:
       | scenarioID | API            | method | statusCode |
       | Scenario 4 | DeletePlaceAPI | DELETE | 200        |
+      | Scenario 4 | DeletePlaceAPI | DELETE | 404        |
 
-    @TestPOSTGET
-  Scenario Outline:Verify if Place is being Succesfully added using "<API>" for "<scenarioID>"
+  @TestPOSTGET
+  Scenario Outline:Verify if Place is being Successfully added using "<API>" for "<scenarioID>"
     Given User has environment setup for <scenarioID>
     And "<API>" request payload is updated for "<method>"
-    And user calls "<API>" with "<method>" http request
+    And user calls "AddPlaceAPI" with "<method>" http request
     And API call should be success with "<statusCode>" for "<method>"
-    When "GetPlaceAPI" request payload is updated for "GET"
+    When "<API>" request payload is updated for "GET"
     And user calls "GetPlaceAPI" with "GET" http request
     Then API call should be success with "<statusCode>" for "GET"
 
     Examples:
-      | scenarioID | API         | method | statusCode |
-      | Scenario 1 | AddPlaceAPI | POST   | 200        |
+      | scenarioID | API            | method | statusCode |
+      | Scenario 1 | AddGetPlaceAPI | POST   | 200        |
 
 
   @testapi

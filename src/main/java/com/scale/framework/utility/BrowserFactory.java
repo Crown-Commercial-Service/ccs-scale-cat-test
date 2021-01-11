@@ -30,7 +30,7 @@ public class BrowserFactory {
         String[] path = System.getProperty("user.dir").split("/");
       //  String actualPath = "/" + path[1] + "/" + path[2];
 
-        log.info("Opening " + browserName + "browser");
+        log.info("Opening " + browserName +  "browser");
         switch (browserName.toUpperCase()){
             case "FIREFOX":
                 WebDriverManager.firefoxdriver().setup();

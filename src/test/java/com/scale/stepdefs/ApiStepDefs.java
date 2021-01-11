@@ -1,10 +1,7 @@
 package com.scale.stepdefs;
 
 import com.scale.context.TestContext;
-import com.scale.framework.utility.APIUtil;
-import com.scale.framework.utility.CommonValidations;
-import com.scale.framework.utility.ScenarioContext;
-import com.scale.framework.utility.SingletonObjectManager;
+import com.scale.framework.utility.*;
 import com.scale.validations.AddPlace;
 import com.scale.validations.FTSE;
 import cucumber.api.Scenario;
@@ -44,8 +41,10 @@ public class ApiStepDefs extends APIUtil {
     }
 
     @When("user calls {string} with {string} http request")
-    public void user_calls_with_http_request(String API, String method) {
-        addPlace.postResponse(method);
+    public void user_calls_with_http_request(String resource, String method) {
+        APIResources resourceAPI = APIResources.valueOf(resource);
+        String path = resourceAPI.getResource();
+        addPlace.postResponse(path,method);
     }
 
     @Then("API call should be success with {string} for {string}")

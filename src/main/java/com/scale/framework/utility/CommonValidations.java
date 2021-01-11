@@ -3,7 +3,6 @@ package com.scale.framework.utility;
 import com.scale.pojo.AddPlacePojo;
 import com.scale.validations.FTSE;
 import cucumber.api.Scenario;
-import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.apache.log4j.Logger;
@@ -90,22 +89,23 @@ public class CommonValidations {
         responseTypeValidator(response);
     }
 
-    public void postResponse(String method) {
-        response = apiUtil.postRequest(method, scenarioContext.getContext("endPoint"));
+    public void postResponse(String path,String method) {
+       // response = apiUtil.postRequest(method, scenarioContext.getContext("endPoint"));
+        response = apiUtil.postRequest(method, path);
         scenario.write("CURL for the call - " + apiUtil.getCurl());
-        log.info("Request details for \n " + apiUtil.getCurl());
+        log.info("\n Request details for \n " + apiUtil.getCurl());
         if (response.contentType().contains("json") || response.contentType().contains("Json")) {
+            log.info("\n Response details \n "  + response.jsonPath().prettyPrint());
             jsonObject = new JSONObject(response.jsonPath().prettyPrint());
             scenario.write("Response for the above request is " + jsonObject.toString());
-            log.info("Response details \n "  + response.jsonPath().prettyPrint());
         } else if (scenarioContext.getContext("ExpectedStatus").equalsIgnoreCase("201")) {
             scenario.write("Response for 201 contains no body hence no implementation for body validation");
-            log.info("Response for 201 contains");
+            log.info("\n Response for 201 contains");
             // junit.framework.Assert.assertTrue("The response code is 201 created", true);
         } else {
             scenario.write("Response type is not Json, please check with the developer");
             fail("The content type is not json");
-            log.info("Response type is not Json");
+            log.info("\n Response type is not Json");
         }
     }
 
@@ -119,7 +119,9 @@ public class CommonValidations {
         Assert.assertEquals(Integer.parseInt(statusCode), response.getStatusCode());
         //  Assert.assertEquals(Integer.parseInt(statusCode), status);
         if (Integer.parseInt(statusCode) == 200)
-            validateResponse_200(method);
+            validateResponse(method);
+      else if (Integer.parseInt(statusCode) == 404)
+            validateResponse(method);
         else if (Integer.parseInt(statusCode) == 403)
             ftse.validateResponse_403();
         else if (Integer.parseInt(statusCode) == 500)
@@ -131,7 +133,7 @@ public class CommonValidations {
         apiUtil.setOauth2(scenarioContext.getContext("Bearer Token"));
     }
 
-    public void validateResponse_200(String method) {
+    public void validateResponse(String method) {
         //Add all assertions.
         scenario.write("Schema validation for response 200");
         scenario.write("Asserting the presence of response message");
@@ -163,12 +165,6 @@ public class CommonValidations {
         Assert.assertTrue(jsonObject.has("reference"));
         scenario.write("Asserting the presence of response element " + "id");
         Assert.assertTrue(jsonObject.has("id"));
-
-        jsonPath = response.jsonPath();
-        String id = jsonPath.get("place_id");
-        addPlacePojo.setPlace_id(id);
-
-
     }
 
     public void validateGETResponse() {
@@ -190,10 +186,22 @@ public class CommonValidations {
     }
 
     public void validateDELETEResponse() {
+        jsonPath = response.jsonPath();
         // Create a valid schema and validate schema
-        response.then().assertThat().body(matchesJsonSchemaInClasspath("data/schema/valid200.json"));
-        Assert.assertTrue(jsonObject.has("status"));
-        scenario.write("Asserting the presence of response element " + "status");
+        if(response.statusCode() ==  200) {
+            response.then().assertThat().body(matchesJsonSchemaInClasspath("data/schema/valid200.json"));
+            Assert.assertTrue(jsonObject.has("status"));
+            scenario.write("Asserting the presence of response element " + "status");
+        }
+        if(response.statusCode() == 404) {
+            Assert.assertTrue(jsonObject.has("msg"));
+            scenario.write("Asserting the presence of response element " + "msg");
+            String actName = jsonPath.get("msg");
+            //Assert.assertEquals(actName, scenarioContext.getContext("msg"));
+            Assert.assertEquals(actName, "Delete operation failed, looks like the data doesn't exists");
+
+        }
+
     }
 
     public void validatePUTResponse() {
@@ -202,7 +210,6 @@ public class CommonValidations {
         Assert.assertTrue(jsonObject.has("msg"));
         scenario.write("Asserting the presence of response element " + "msg");
         jsonPath = response.jsonPath();
-
         String actName = jsonPath.get("msg");
         Assert.assertEquals(actName, scenarioContext.getContext("msg"));
     }
