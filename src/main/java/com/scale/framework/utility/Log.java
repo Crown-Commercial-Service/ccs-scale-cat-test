@@ -7,7 +7,7 @@ public class Log {
 
     private static boolean root=false;
 
-    public static Logger getLogger(Class cls){
+    public static Logger getLogger(Class<?> cls){
         if(root){
             return Logger.getLogger(cls);
         }

@@ -4,15 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Properties;
-import org.apache.log4j.Logger;
 
 public class ConfigurationReader {
 
-	 private Logger log = Log.getLogger(ConfigurationReader.class);
-	    private Properties properties;
+	 private Properties properties;
 	    private String path = "config//ApplicationConfig.properties";
 	    public ConfigurationReader()
 	    {
@@ -31,33 +27,6 @@ public class ConfigurationReader {
 	            throw new RuntimeException("ApplicationConfig.properties not found at " + path);
 	        }
 	    }
-
-	    public ConfigurationReader(String propertiesFilePath)
-	    {
-            this.path = propertiesFilePath;
-	    	BufferedReader reader;
-	    	try {
-	    		reader = new BufferedReader(new FileReader(path));
-	    		properties = new Properties();
-	    		try {
-	    			properties.load(reader);
-	    			reader.close();
-	    		} catch (IOException e) {
-	    			e.printStackTrace();
-	    		}
-	    	} catch (FileNotFoundException e) {
-	    		e.printStackTrace();
-	    		throw new RuntimeException(StringUtils.getMatchedGroupByIndexFromAString(propertiesFilePath, "(.*//)(.*)", 2)+ " not found at " + path);
-	    	}
-	    }
-
-	    public String returnProperty(String propertyKey){
-            String returnedProperty = properties.getProperty(propertyKey);
-            if(returnedProperty!= null)
-                return returnedProperty;
-            else
-                throw new RuntimeException(propertyKey + " not specified in the " + path);
-        }
 
 	    public String getApplicationURL()
 	    {
@@ -135,10 +104,168 @@ public class ConfigurationReader {
 	            throw new RuntimeException(key + " not specified in the ApplicationConfig.properties file.");
 	    }
 
-	    /*public List<String> getNavigationButtonList()
+	    public String adminPanelUrl()
 	    {
-	        String navigationButtons = properties.getProperty("navigationButtonList");
-	        List<String> navigationButtonList = Arrays.asList(navigationButtons.split(","));
-	        return navigationButtonList;
-	    }*/
+	        String value = properties.getProperty("ccs.admin.panel.url");
+	        System.out.println(value);
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    
+	    public String adminPanelUserName(String role)
+	    {
+	        String value = properties.getProperty("ccs.admin.panel.username.userrole."+role.toLowerCase());
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    
+	    
+	    
+	    public String adminPanelPassword(String role)
+	    {
+	        String value = properties.getProperty("ccs.admin.panel.password.userrole."+role.toLowerCase());
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    
+	    public String buyerUIUrl()
+	    {
+	        String value = properties.getProperty("ccs.buyer.ui.url");
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    
+	    public String buyerUserName()
+	    {
+	        String value = properties.getProperty("ccs.buyer.panel.username");
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    
+	    public String buyerpassword()
+	    {
+	        String value = properties.getProperty("ccs.buyer.panel.password");
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    
+	    public String awsS3fileUploadBucket()
+	    {
+	        String value = properties.getProperty("ccs.amazon.s3.bucketName");
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    
+	    public String awsS3fileUploadFolder()
+	    {
+	        String value = properties.getProperty("ccs.amazon.s3.SFTP.newFileUpload");
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    
+	    public String adminPanelSupplierName(String role)
+	    {
+	        String value = properties.getProperty("ccs.admin.panel.username.userrolename."+role.toLowerCase());
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    
+	    public String postgressqlPort()
+	    {
+	        String value = properties.getProperty("ccs.postgres.port");
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    public String postgressqlServer()
+	    {
+	        String value = properties.getProperty("ccs.postgres.server");
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    public String postgressqlDataBaseName()
+	    {
+	        String value = properties.getProperty("ccs.postgres.database");
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    public String postgressqlUser()
+	    {
+	        String value = properties.getProperty("ccs.postgres.user");
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    public String postgressqlPassword()
+	    {
+	        String value = properties.getProperty("ccs.postgres.password");
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    
+	    //API UserName
+	    public String apiUserName(String role)
+	    {
+	        String value = properties.getProperty("ccs.admin.panel.apiusername.userrole."+role.toLowerCase());
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    //API User Password
+	    public String apiUserPassword(String role)
+	    {
+	        String value = properties.getProperty("ccs.admin.panel.password.userrole."+role.toLowerCase());
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    
+	    //Checkout user
+	    public String adminPanelCheckoutUserName(String role)
+	    {
+	        String value = properties.getProperty("ccs.admin.panel.username.userrole."+role.toLowerCase());
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    
+	  //Checkout User Password
+	    public String adminPanelCheckoutUserPassword(String role)
+	    {
+	        String value = properties.getProperty("ccs.admin.panel.password.userrole."+role.toLowerCase());
+	        if(value!= null)
+	            return value;
+	        else
+	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
+	    }
+	    
 }

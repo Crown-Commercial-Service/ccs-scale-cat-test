@@ -1,25 +1,24 @@
-package com.scale.framework.utility;
+package com.scale.context;
+
+import com.scale.framework.utility.*;
+import com.scale.framework.utility.PostgresSqlConnection;
 
 import java.util.HashMap;
 import java.util.Map;
 
-//import com.scale.bat.framework.utility.AwsS3Service;
-import com.scale.framework.utility.*;
-import com.scale.framework.utility.PostgresSqlConnection;
-
 public class ScenarioContext {
-
+	public String ScenarioDataFilePath = System.getProperty("user.dir") + "\\TestData\\ScenarioData.json";
 	public Map<String, Object> productDetails;
     private Map<String, Object> scenarioContext;
-    public JsonParser jsonParser;
+    public com.scale.framework.utility.JsonParser jsonParser;
     public PostgresSqlConnection postgresSqlConnection;
    
     //public AwsS3Service awsS3Service;
     public ScenarioContext(){
     	productDetails = new HashMap<String, Object>();
     	scenarioContext = new HashMap<String, Object>();
-    	jsonParser = new JsonParser();
-    	postgresSqlConnection = new PostgresSqlConnection();
+    	jsonParser = new com.scale.framework.utility.JsonParser();
+    	//postgresSqlConnection = new PostgresSqlConnection();
     		//awsS3Service = new AwsS3Service();
      }
 
