@@ -1,2 +1,2 @@
 # ccs-scale-cat-test
-QA Test repository for Contract a Thing
+QA Test repository for Contract a Thing.
