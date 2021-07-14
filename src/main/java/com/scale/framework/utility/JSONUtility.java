@@ -158,7 +158,7 @@ public class JSONUtility {
         ObjectMapper mapper = new ObjectMapper();
         Map<String, Object> map = null;
         try {
-            map = mapper.readValue(new File(JSONPath+jsonFileName+".json"), new TypeReference<Map<String, Object>>() {
+            map = mapper.readValue(new File(jsonFileName), new TypeReference<Map<String, Object>>() {
             });
 
 

@@ -19,6 +19,7 @@ import org.json.simple.JSONObject;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static io.restassured.specification.ProxySpecification.host;
 
 import java.io.File;
 import java.io.FileInputStream;;
@@ -40,27 +41,57 @@ public class APIBase extends ConfigurationReader {
     	//System.out.println("inside");
     	// 1 point
     	//setting basic url link
-        RequestSpecification  requestspec = new RequestSpecBuilder().setBaseUri(configread.get("BaseURL")).build();
-        return requestspec;
+        RequestSpecification  requestspec = null;
+        requestspec = new RequestSpecBuilder().setBaseUri(configread.get("BaseURL")).build();
+        return  requestspec;
     }
+
+    public RequestSpecification setBaseURI(String app) {
+        RequestSpecification  Jaggaerrequestspec = null;
+        if(app.contentEquals("Jaggaer")){
+            Jaggaerrequestspec= new RequestSpecBuilder().setBaseUri(configread.get("JaggaerURL")).build();
+        }
+        return Jaggaerrequestspec;
+    }
+    
+    
     // 2 point (Setting Request/Response application/json
     public String setContentType() {
         String strcontentype = configread.get("content_type");
         return strcontentype;
     }
 
+
     public Response getRequest(String URL) {
+        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
         response=null;
-        response = given().spec(setBaseURI()).header("Authorization", "Bearer "+new Auth().Authenticaion()).contentType(setContentType()).get(URL);
+        response = given()
+                .spec(setBaseURI())
+                .auth()
+                .oauth2(new Auth().Authenticaion())
+                .get(URL);
         //log.info(response.prettyPrint().toString());
         return response;
     }
-    
+
+    public Response getRequestJaggaer(String URL, String param) {
+        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+            RestAssured.proxy = host("proxy.cognizant.com").withPort(6050);
+            RestAssured.useRelaxedHTTPSValidation();
+            response = null;
+            response = given()
+                    .spec(setBaseURI("Jaggaer"))                    
+                    .auth()
+                    .oauth2(new Auth().Authenticaion("Jaggaer"))
+                    .queryParam("flt",param)
+                    .get(URL);
+        RestAssured.reset();
+        log.info("GET Request sent");
+        return response;
+    }
     
     public Response Requestpost(String URL, File filepath){
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
             response=null;
-            String token=null;
             response = given()
                     .spec(setBaseURI())
                     .auth()
@@ -70,20 +101,21 @@ public class APIBase extends ConfigurationReader {
                     .when()
                     .post(URL);
             //scenario.write(response.toString());
+        log.info("POST Request sent");
         return response;
     }
     
     public Response Requestpost(String URL, String jsonstring){
         response=null;
-        String token=null;
         response = given()
                 .spec(setBaseURI())
+                .auth()
+                .oauth2(new Auth().Authenticaion())
+                .contentType("application/json")
                 .body(jsonstring)
-                .header("Authorization", "Bearer "+new Auth().Authenticaion())
-                .contentType(setContentType())
                 .when()
                 .post(URL);
-        response.prettyPrint();
+        //response.prettyPrint();
         return response;
     }
     

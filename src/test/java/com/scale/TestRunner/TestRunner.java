@@ -1,6 +1,9 @@
 package com.scale.TestRunner;
 
 import com.scale.context.*;
+import com.scale.framework.utility.API.APIBase;
+import com.scale.framework.utility.API.Auth;
+import com.scale.framework.utility.JSONUtility;
 import org.json.simple.parser.ParseException;
 import org.junit.AfterClass;
 import org.junit.Test;
@@ -8,28 +11,29 @@ import org.junit.runner.RunWith;
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 import java.io.IOException;
-
-/*@RunWith(Cucumber.class)
+import java.util.Map;
+///*
+@RunWith(Cucumber.class)
 @CucumberOptions(
         strict = false,
         features = {"src/test/resources/FeatureFiles"},
         glue={"com.scale.stepdefs", "com.scale.context"},
         monochrome = true,
-        plugin = { "pretty", "html:target/cucumber-html-reports", "json:target/cucumber-html-reports/cucumber.json"},
-        tags = "@Updates"
-//                "@IntLinenTest,@IntLegalTest,@IntTechEduTest,@FM2HousingIntTest"
+        plugin = { "pretty", "html:target/cucumber-html-reports", "json:target/cucumber-html-reports/cucumber.json"}
+        ,tags = "@CaT"
+        //dryRun = false
 )
-
-
-// dryRun = false*/
-
-
+//*/
 
 
 public class TestRunner {
-@Test
+//@Test
     public void fun(){
-    System.out.println("Test");
+//    Map<String, Object> payload =new JSONUtility().convertJSONtoMAP("./src/test/resources/TestData/CreateProject.json");
+//    System.out.println(payload.get("agreementID").toString()+payload.get("lotID").toString());
+        System.out.println(new Auth().Authenticaion("Jaggaer"));
+
+
 }
 
 }
