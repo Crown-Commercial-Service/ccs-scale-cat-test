@@ -1,7 +1,7 @@
 # GET event types
   # Status code and response validation
 
-#@CaT
+@CaT
 Feature: GET request to retrieve event types
   Scenario: GET event types for a project
     When a GET request is sent to the endpoint

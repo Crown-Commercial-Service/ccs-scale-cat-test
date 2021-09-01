@@ -26,6 +26,7 @@ public class PostgresSqlConnection {
 	public Connection getConnections() {
 
 		Connection connection = null;
+		boolean err_flag=false;
 		try {
 			Class.forName("org.postgresql.Driver");
 			StringBuilder connectionString = new StringBuilder();
@@ -34,11 +35,13 @@ public class PostgresSqlConnection {
 			connection = DriverManager.getConnection(connectionString.toString(), user, password);
 			log.info(connection);
 		} catch (Exception e) {
+			err_flag=true;
 			e.printStackTrace();
 			System.err.println(e.getClass().getName() + ": " + e.getMessage());
-			System.exit(0);
+			//System.exit(0); // System.exit(0) crashes SureFire Plugin
 		}
-		log.info("Opened database successfully");
+		if(!err_flag){
+		log.info("Opened database successfully");}
 		return connection;
 	}
 

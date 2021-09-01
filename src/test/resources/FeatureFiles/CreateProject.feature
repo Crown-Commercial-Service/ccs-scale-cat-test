@@ -9,3 +9,4 @@ Feature: POST request to create project
     When a POST request is sent to the Endpoint with a valid payload
     Then a project is created in Jaggaer and the details are returned in the response
     And validate project status in Jaggaer
+    And Validate Project in CaT DB

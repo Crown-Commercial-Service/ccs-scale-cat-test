@@ -63,7 +63,7 @@ public class APIBase extends ConfigurationReader {
 
 
     public Response getRequest(String URL) {
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+        //RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
         response=null;
         response = given()
                 .spec(setBaseURI())
@@ -75,8 +75,7 @@ public class APIBase extends ConfigurationReader {
     }
 
     public Response getRequestJaggaer(String URL, String param) {
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-            RestAssured.proxy = host("proxy.cognizant.com").withPort(6050);
+        //RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
             RestAssured.useRelaxedHTTPSValidation();
             response = null;
             response = given()

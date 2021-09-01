@@ -49,7 +49,6 @@ public class Auth extends APIBase {
 
     public String Authenticaion(String app) {
         Response response = null;
-        RestAssured.proxy = host("proxy.cognizant.com").withPort(6050);
         RestAssured.useRelaxedHTTPSValidation();
         if(app.contentEquals("Jaggaer")) {
             HashMap<String, String> Payload = new HashMap<>();

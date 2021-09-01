@@ -94,6 +94,9 @@ public class TestContext extends BrowserFactory {
 	public WebDriver getDriver() {
 		return this.driver;
 	}
+	public void scenarioWrite(String message) {
+		this.scenario.write(message);
+	}
 
 	
 	public void takeSnapShot() {

@@ -18,7 +18,7 @@ public class ScenarioContext {
     	productDetails = new HashMap<String, Object>();
     	scenarioContext = new HashMap<String, Object>();
     	jsonParser = new com.scale.framework.utility.JsonParser();
-    	//postgresSqlConnection = new PostgresSqlConnection();
+    	postgresSqlConnection = new PostgresSqlConnection();
     		//awsS3Service = new AwsS3Service();
      }
 
