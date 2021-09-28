@@ -120,6 +120,37 @@ public class TestContext extends BrowserFactory {
 		return jsonUtilityObj;
 	}
 	
+	/**
+	 * This method is overloaded to full page take screen shot and call from any 
+	 *  class when its required
+	 *  
+	 * @param allPageScreenshotFlag
+	 * @param scenario
+	 * @param driver
+	 * 
+	 * 
+	 */
+	public void takeSnapShot(String allPageScreenshotFlag, Scenario scenario, WebDriver driver) {
+
+		if (allPageScreenshotFlag.equalsIgnoreCase("true")) {
+
+			// Code to take full page screenshot
+			ByteArrayOutputStream imageStream = new ByteArrayOutputStream();
+			scenario.write("URL - " + driver.getCurrentUrl());
+			PageSnapshot snapshot = Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS, true);
+			((JavascriptExecutor) driver).executeScript("window.scrollTo(0,0)");
+
+			try {
+				ImageIO.write(snapshot.getImage(), "png", imageStream);
+				imageStream.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			byte[] source = imageStream.toByteArray();
+			scenario.embed(source, "image/png");
+		}
+
+	}
 	
 	
 	@Given("^User has environment setup for ([^\"]*)$")
