@@ -29,7 +29,11 @@ import java.lang.management.ManagementFactory;
 import java.net.MalformedURLException;
 import java.util.List;
 
-
+/**
+ * This class is used to make all the before activity under tag "@before" i.e. making 
+ * connection, creating the objects etc. 
+ * 
+ */
 public class TestContext extends BrowserFactory {
 
 	private Logger log = Log.getLogger(TestContext.class);
@@ -123,7 +127,6 @@ public class TestContext extends BrowserFactory {
 	/**
 	 * This method is overloaded to full page take screen shot and call from any 
 	 *  class when its required
-	 *  
 	 * @param allPageScreenshotFlag
 	 * @param scenario
 	 * @param driver
