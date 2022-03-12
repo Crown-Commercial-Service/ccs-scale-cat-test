@@ -36,7 +36,7 @@
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyy-MM-dd-HH_mm</maven.build.timestamp.format>
         <sonar.maven.version>3.6.0.1398</sonar.maven.version>
-        <postgresql.driver.version>42.2.18</postgresql.driver.version>
+        <postgresql.driver.version>42.3.3</postgresql.driver.version>
     </properties>
 
     <dependencies>
@@ -145,7 +145,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.10.0.pr1</version>
+            <version>2.13.0</version>
         </dependency>
         <dependency>
             <groupId>io.github.bonigarcia</groupId>
