@@ -1,70 +1,57 @@
 package com.scale.framework.utility.API;
+
 import io.restassured.RestAssured;
 import io.restassured.filter.log.RequestLoggingFilter;
 import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.parsing.Parser;
 import io.restassured.response.Response;
-import com.scale.framework.utility.ConfigurationReader;
-
-import cucumber.api.Scenario;
-
-import org.json.JSONObject;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.junit.Assert;
 import java.util.HashMap;
-import java.util.Map;
-
 import static io.restassured.RestAssured.given;
-import static io.restassured.specification.ProxySpecification.host;
 
 public class Auth extends APIBase {
 
-    private ConfigurationReader configreader = new ConfigurationReader();
-      
-    public String Authenticaion() {
-
-        HashMap <String, String> Payload = new HashMap<>();
-        Payload.put("username",configreader.get("TokenUserName"));
-        Payload.put("password",configreader.get("TokenPassword"));
-        Payload.put("client_id",configreader.get("TokenClientID"));
-        Payload.put("client_secret",configreader.get("TokenClientSecret"));
-
-        //RestAssured.defaultParser = Parser.JSON;
-        //RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-        Response response = null;
-        response = given()
-                .spec(setBaseURI())
-                .header("x-api-key", configreader.get("x-api-key"))
-                .contentType("application/json")
-                .body(Payload)
-                .when()
-                .post(configreader.get("TokenURL"));
-        RestAssured.reset();
-
-        return response.jsonPath().getString("accessToken");
-
-    }
-
-    public String Authenticaion(String app) {
-        Response response = null;
-        RestAssured.useRelaxedHTTPSValidation();
-        if(app.contentEquals("Jaggaer")) {
-            HashMap<String, String> Payload = new HashMap<>();
+    public String Authenticaion(String app, String UserID) {
+        Response response;
+        HashMap<String, String> Payload = new HashMap<>();
+        String token="";
+        switch (app){
+            case "Jaggaer":
+            RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+            RestAssured.useRelaxedHTTPSValidation();
             Payload.put("grant_type", "client_credentials");
-            Payload.put("client_id", configreader.get("JaggaerClientID"));
-            Payload.put("client_secret", configreader.get("JaggaerClientSecret"));
-
+            Payload.put("client_id", ConfigData.get("jaggaer-client-id"));
+            Payload.put("client_secret", ConfigData.get("jaggaer-client-secret"));
             response = given()
-                    .spec(setBaseURI("Jaggaer"))
                     .contentType("application/x-www-form-urlencoded; charset=UTF-8")
                     .formParams(Payload)
                     .when()
-                    .post(configreader.get("JaggaerTokenURL"));
+                    .post(ConfigData.get("jaggaer-token-url"));
+            Assert.assertEquals("Jaggaer Token generation failed", 200, response.getStatusCode());
+            token = response.jsonPath().getString("token");
+            break;
+
+            case "Conclave":
+            Payload.put("username",ConfigData.get(UserID));
+            Payload.put("password",ConfigData.get("data-key"));
+            Payload.put("client_id",ConfigData.get("auth-server-client-id"));
+            Payload.put("client_secret",ConfigData.get("auth-server-client-secret"));
+            response = given()
+                    .header("x-api-key", ConfigData.get("api-key"))
+                    .contentType("application/json")
+                    .body(Payload)
+                    .when()
+                    .post(ConfigData.get("auth-token-url"));
+            Assert.assertEquals("Conclave Token generation failed", 200, response.getStatusCode());
+            token = response.jsonPath().getString("accessToken");
+            break;
+
+            default:
+                Assert.fail("Invalid App Name");
         }
+        Payload.clear();
         RestAssured.reset();
-        return response.jsonPath().getString("token");
+        //Assert.assertNotNull("Auth Token is Null",token);
+        return token;
     }
 }
 

@@ -36,7 +36,7 @@ public class CommonValidations extends APIBase{
     }
 
     public void getResponse() {
-        response = apiUtil.getRequest(scenarioContext.getContext("Endpoint"));
+        //response = apiUtil.getRequest(scenarioContext.getContext("Endpoint"));
         //System.out.println("Response code is "+ response.prettyPrint());
         responseTypeValidator(response);
     }

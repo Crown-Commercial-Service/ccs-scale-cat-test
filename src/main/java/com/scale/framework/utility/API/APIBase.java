@@ -1,197 +1,152 @@
 package com.scale.framework.utility.API;
 
-import cucumber.api.Scenario;
-import io.restassured.RestAssured;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.config.RestAssuredConfig;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.response.Response;
-import io.restassured.response.ValidatableResponse;
-import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.ResponseSpecification;
-import com.scale.context.ScenarioContext;
+import com.scale.context.GlobalContext;
 import com.scale.framework.utility.ConfigurationReader;
 import com.scale.framework.utility.Log;
+import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
 import org.apache.log4j.Logger;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
-import static io.restassured.RestAssured.given;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-import static io.restassured.specification.ProxySpecification.host;
-
+import org.junit.Assert;
 import java.io.File;
-import java.io.FileInputStream;;
+import java.util.HashMap;
+import java.util.Map;
+import static io.restassured.RestAssured.given;
+import static io.restassured.RestAssured.oauth2;
 
 public class APIBase extends ConfigurationReader {
 
     public Response response;
-    private RequestSpecification request;
-    private ResponseSpecification responsespec;
-    public ValidatableResponse vresponse;
-    private Scenario scenario;
-    private ScenarioContext scenarioContext;
     ConfigurationReader configread = new ConfigurationReader();
     private Logger log = Log.getLogger(APIBase.class);
-    public String access_hash;
+    HashMap<String, String> ConfigData = GlobalContext.getGlobalInstance().getGlobalData();
 
-    public RequestSpecification setBaseURI() {
-    	
-    	//System.out.println("inside");
-    	// 1 point
-    	//setting basic url link
-        RequestSpecification  requestspec = null;
+    public RequestSpecification getRequestSpec(String app, String UserID) {
+        RequestSpecification requestspec;
         requestspec = new RequestSpecBuilder().setBaseUri(configread.get("BaseURL")).build();
-        return  requestspec;
+        switch (app) {
+            case "Jaggaer":
+                requestspec = new RequestSpecBuilder()
+                        .setBaseUri(ConfigData.get("jaggaer-base-url"))
+                        .setAuth(oauth2(new Auth().Authenticaion("Jaggaer", "")))
+                        .setAccept(ContentType.ANY)
+                        .setContentType(ContentType.JSON)
+                        .build();
+                break;
+            case "Conclave":
+                requestspec = new RequestSpecBuilder()
+                        .setBaseUri(configread.get("BaseURL"))
+                        .setAuth(oauth2(new Auth().Authenticaion("Conclave", UserID)))
+                        .setAccept(ContentType.ANY)
+                        .setContentType(ContentType.JSON)
+                        .build();
+                break;
+            default:
+                Assert.fail("Invalid App name");
+        }
+
+        return requestspec;
     }
 
-    public RequestSpecification setBaseURI(String app) {
-        RequestSpecification  Jaggaerrequestspec = null;
-        if(app.contentEquals("Jaggaer")){
-            Jaggaerrequestspec= new RequestSpecBuilder().setBaseUri(configread.get("JaggaerURL")).build();
-        }
-        return Jaggaerrequestspec;
-    }
-    
-    
+
     // 2 point (Setting Request/Response application/json
     public String setContentType() {
-        String strcontentype = configread.get("content_type");
-        return strcontentype;
+        return configread.get("content_type");
     }
 
 
-    public Response getRequest(String URL) {
+    public Response getRequest(String URL, String UserID) {
         //RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-        response=null;
+        response = null;
         response = given()
-                .spec(setBaseURI())
-                .auth()
-                .oauth2(new Auth().Authenticaion())
+                .spec(getRequestSpec("Conclave", UserID))
                 .get(URL);
         //log.info(response.prettyPrint().toString());
+        Assert.assertEquals("FAILED - Tenders API GET "+URL, 200, response.getStatusCode());
         return response;
     }
 
     public Response getRequestJaggaer(String URL, String param) {
         //RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-            RestAssured.useRelaxedHTTPSValidation();
-            response = null;
-            response = given()
-                    .spec(setBaseURI("Jaggaer"))                    
-                    .auth()
-                    .oauth2(new Auth().Authenticaion("Jaggaer"))
-                    .queryParam("flt",param)
-                    .get(URL);
+        RestAssured.useRelaxedHTTPSValidation();
+        response = null;
+        response = given()
+                .spec(getRequestSpec("Jaggaer", ""))
+                .queryParam("flt", param)
+                .get(URL);
         RestAssured.reset();
         log.info("GET Request sent");
+        Assert.assertEquals("FAILED - Jaggaer GET "+URL, 200, response.getStatusCode());
         return response;
     }
-    
-    public Response Requestpost(String URL, File filepath){
-            response=null;
-            response = given()
-                    .spec(setBaseURI())
-                    .auth()
-                    .oauth2(new Auth().Authenticaion())
-                    .contentType("application/json")
-                    .body(filepath)
-                    .when()
-                    .post(URL);
-            //scenario.write(response.toString());
+
+    public Response Requestpost(String URL, File filepath, String UserID) {
+        response = null;
+        response = given()
+                .spec(getRequestSpec("Conclave", UserID))
+                .body(filepath)
+                .post(URL);
+        //scenario.write(response.toString());
+        Assert.assertEquals("FAILED - Tenders API POST "+URL, 200, response.getStatusCode());
         log.info("POST Request sent");
         return response;
     }
-    
-    public Response Requestpost(String URL, String jsonstring){
-        response=null;
+
+    public Response Requestpost(String URL, Map<String, String> Body, String UserID) {
+        //RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+        response = null;
         response = given()
-                .spec(setBaseURI())
-                .auth()
-                .oauth2(new Auth().Authenticaion())
-                .contentType("application/json")
-                .body(jsonstring)
-                .when()
+                .spec(getRequestSpec("Conclave", UserID))
+                .body(Body)
                 .post(URL);
-        //response.prettyPrint();
-        return response;
-    }
-    
-    public Response Requestpost(String URL, String jsonstring, String param){
-    	
-        response= given()
-                .spec(setBaseURI())
-                .header("Authorization", "Bearer "+new Auth().Authenticaion())
-       		    .contentType(setContentType())
-                .pathParams("access_hash",param)
-                .body(jsonstring)
-                .when()
-                .post(URL);
-       //scenario.write(response.toString());
-        return response;
-   }
-
-    
-    public Response Requestdel(String URL, File filepath){
-        response=null;
-        response= given()
-                .spec(setBaseURI())
-                .contentType(setContentType())
-                .body(filepath)
-                .header("Authorization", "Bearer "+new Auth().Authenticaion())
-                .when()
-                .delete(URL);
-        scenario.write(response.toString());
-        return response;
-    }
-    
-    public Response Requestdel(String URL, String param){
-        response=null;
-        response= given().spec(setBaseURI()).header("Authorization", "Bearer "+new Auth().Authenticaion())
-        		.contentType(setContentType()).pathParams("access_hash",param).when().delete(URL);
         //scenario.write(response.toString());
-          //System.out.println("RequestDelete response:== " + response.getStatusCode());
-        return response;
-    }
-    
-    
-    public Response Requestpatch(String URL) {
-        response=null;
-        response = given().spec(setBaseURI()).header("Authorization", "Bearer "+new Auth().Authenticaion()).contentType(setContentType()).patch(URL);
-        //log.info(response.prettyPrint().toString());
-        //System.out.println("RequestPatch response:== " + response.getStatusCode());
+        log.info("POST Request sent");
+        Assert.assertEquals("FAILED - Tenders API POST "+URL, 200, response.getStatusCode());
         return response;
     }
 
-    public String getvaluefromresponse(String path){
-        String  strpathval = response.then().extract().path(path);
-        return  strpathval;
-    }
-    
-    public int getvaluefromresponseAsInterger(String path){
-        int  strpathval = response.then().extract().path(path);
-        return  strpathval;
-    }
-    
-    public int getvaluefromresponseAsInterger(String path,Response response){
-        int  strpathval = response.then().extract().path(path);
-        return  strpathval;
-    }
-    
-    public String getvaluefromresponse(String path, Response response){
-        String  strpathval = response.then().extract().path(path);
-        return  strpathval;
+    public Response Requestpost(String URL, Object obj, String UserID) {
+        //RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+        response = null;
+        response = given()
+                .spec(getRequestSpec("Conclave", UserID))
+                .body(obj)
+                .post(URL);
+        //scenario.write(response.toString());
+        log.info("POST Request sent");
+        Assert.assertEquals("FAILED - Tenders API POST "+URL, 200, response.getStatusCode());
+        return response;
     }
 
-    public int getStatusCode(){
-        int responsecode =  response.then().extract().statusCode();
-        return responsecode;
+    public Response Requestpost(String URL, String jsonstring, String UserID) {
+        response = null;
+        response = given()
+                .spec(getRequestSpec("Conclave", UserID))
+                .body(jsonstring)
+                .post(URL);
+        Assert.assertEquals("FAILED - Tenders API POST "+URL, 200, response.getStatusCode());
+        return response;
     }
-    
-    public int getStatusCode(Response response){
-        int responsecode =  response.then().extract().statusCode();
-        return responsecode;
+
+    public Response Requestput(String URL, Map<String, String> Body, String UserID) {
+        //RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+        response = null;
+        response = given()
+                .spec(getRequestSpec("Conclave", UserID))
+                .body(Body)
+                .put(URL);
+        //scenario.write(response.toString());
+        log.info("POST Request sent");
+        Assert.assertEquals("FAILED - Tenders API PUT "+URL, 200, response.getStatusCode());
+        return response;
+    }
+
+
+
+    public int getStatusCode1() {
+        return response.then().extract().statusCode();
     }
 
 }

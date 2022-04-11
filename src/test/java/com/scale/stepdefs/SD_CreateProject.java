@@ -38,7 +38,7 @@ public class SD_CreateProject  {
     public void aRequestIsSentToTheEndpointValidPayload() {
         String Endpoint =configread.get("create.project.endpoint");
         File Payload = new File("./src/test/resources/TestData/CreateProject.json");
-        jsonResponse=apibase.Requestpost(Endpoint, Payload);
+        //jsonResponse=apibase.Requestpost(Endpoint, Payload);
         testContext.scenarioWrite(jsonResponse.prettyPrint());
 
     }
@@ -47,23 +47,37 @@ public class SD_CreateProject  {
     public void theCreatedProjectDetailsShouldBeDisplayedInTheResponse() {
         Assert.assertEquals("Status Code Validation", 200, jsonResponse.getStatusCode());
         payload =new JSONUtility().convertJSONtoMAP("./src/test/resources/TestData/CreateProject.json");
-        Assert.assertEquals("Project Name Validation",payload.get("agreementID")+"-"+payload.get("lotID")+"-CCS",jsonResponse.jsonPath().getString("defaultName.name"));
+        Assert.assertEquals("Project Name Validation",payload.get("agreementId")+"-"+payload.get("lotId")+"-CCS",jsonResponse.jsonPath().getString("defaultName.name"));
     }
 
     @And("validate project status in Jaggaer")
     public void theProjectShouldBeInRunningStatus() {
         String Endpoint =configread.get("JaggaerGETProjects");
-        String param ="tenderTitle=="+payload.get("agreementID")+"-"+payload.get("lotID")+"-CCS";
+        String param ="tenderTitle=="+payload.get("agreementId")+"-"+payload.get("lotId")+"-CCS";
         jsonResponse=apibase.getRequestJaggaer(Endpoint,param);
         Assert.assertEquals("Status Code Validation", 200, jsonResponse.getStatusCode());
         Assert.assertEquals("Project Status Validation", "project.state.running", jsonResponse.jsonPath().getString("projectList.project[0].tender.tenderStatusLabel"));
     }
 
+    @And("Validate Project in CaT DB")
+    public void validateDB() {
+        try {
+            String projectName = payload.get("agreementId")+"-"+payload.get("lotId")+"-CCS";
+            ResultSet rs = scenarioContext.postgresSqlConnection.getData("select project_id, external_reference_id from procurement_projects where project_name ="+"'"+projectName+"'");
+            while (rs.next() ) {
+                String  project_details = "project_id= "+rs.getString("project_id")+"external_reference_id= "+rs.getString("external_reference_id");
+                System.out.println(project_details);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
     @When("a request is sent to the Create Event Endpoint for the ProcID {int}")
     public void aRequestIsSentToTheEndpointWithAValidPayload(int ProcID) {
         String Endpoint =configread.get("create.event.endpoint");
-        jsonResponse=apibase.Requestpost(Endpoint+ ProcID +"/events", "{}");
+        //jsonResponse=apibase.Requestpost(Endpoint+ ProcID +"/events", "{}");
         testContext.scenarioWrite(jsonResponse.prettyPrint());
     }
 
@@ -71,7 +85,7 @@ public class SD_CreateProject  {
     public void theEventsAreCreatedAndTheDetailsShouldBeReturnedInTheResponse() {
         payload =new JSONUtility().convertJSONtoMAP("./src/test/resources/TestData/CreateEventResponse.json");
         Assert.assertEquals("Status Code Validation", 200, jsonResponse.getStatusCode());
-        Assert.assertEquals("Event Name Validation",payload.get("agreementID")+"-"+payload.get("lotID")+"-CCS-RFP",jsonResponse.jsonPath().getString("name"));
+        Assert.assertEquals("Event Name Validation",payload.get("agreementId")+"-"+payload.get("lotId")+"-CCS-RFP",jsonResponse.jsonPath().getString("name"));
         Assert.assertEquals("Event Type Validation","RFP",jsonResponse.jsonPath().getString("eventType"));
         Assert.assertEquals("Event Type Validation","planning",jsonResponse.jsonPath().getString("status"));
     }
@@ -88,10 +102,25 @@ public class SD_CreateProject  {
         Assert.assertEquals("Event Name Validation", EventName, jsonResponse.jsonPath().getString("dataList.rfx[0].rfxSetting.shortDescription"));
     }
 
+    @And("validate the event details in the DB")
+    public void validateTheEventDetailsInTheDB() {
+        try {
+            String projectName = jsonResponse.jsonPath().getString("dataList.rfx[0].rfxSetting.shortDescription");
+            ResultSet rs = scenarioContext.postgresSqlConnection.getData("select project_id, external_reference_id from procurement_projects where project_name ="+"'"+projectName+"'");
+            while (rs.next() ) {
+                String  project_details = "project_id= "+rs.getString("project_id")+"external_reference_id= "+rs.getString("external_reference_id");
+                System.out.println(project_details);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
     @When("a GET request is sent to the endpoint")
     public void aGETRequestIsSentToTheEndpoint() {
         String Endpoint =configread.get("Retrieve.eventtypes.endpoint");
-        jsonResponse=apibase.getRequest(Endpoint);
+        //jsonResponse=apibase.getRequest(Endpoint);
         testContext.scenarioWrite(jsonResponse.prettyPrint());
     }
 
@@ -106,18 +135,4 @@ public class SD_CreateProject  {
                 "]",jsonResponse.body().asString());
     }
 
-    @And("Validate Project in CaT DB")
-    public void validateDB() {
-        try {
-            String projectName = payload.get("agreementID")+"-"+payload.get("lotID")+"-CCS";
-            ResultSet rs = scenarioContext.postgresSqlConnection.getData("select external_reference_id from procurement_projects where project_name ="+"'"+projectName+"'");
-            while (rs.next() ) {
-                String  name = rs.getString("external_reference_id");
-                System.out.println("Name : "+name);
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
 }

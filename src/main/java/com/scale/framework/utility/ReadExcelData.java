@@ -36,9 +36,9 @@ public class ReadExcelData {
      *
      */
     public static Map<String, Map<String, String>> extractData(String sheetName){
-        Map<String, String> singleRow = new HashMap<>();
+        Map<String, String> singleRow;
         Map<String, Map<String, String>> multipleRows = new HashMap<>();
-        FileInputStream fis = null;
+        FileInputStream fis;
         try {
             fis = new FileInputStream(TESTDATA_FILE_PATH);
             WORK_BOOK = WorkbookFactory.create(fis);
@@ -70,7 +70,8 @@ public class ReadExcelData {
                     if (key == null)
                         key = cell.getBooleanCellValue()+"";
                 } else if(cell.getCellType() == CellType.STRING){
-                    singleRow.put(column, cell.getStringCellValue());
+                    if(!column.contentEquals("TDID")){
+                    singleRow.put(column, cell.getStringCellValue());}
                     if (key == null)
                         key = cell.getStringCellValue();
                 } else if(DateUtil.isCellDateFormatted(cell)){
