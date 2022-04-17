@@ -32,7 +32,7 @@ public class JSONUtility {
         obj.convertExcelToJsonFile("ServiceTestdata.xlsx");
    }
 
-
+    @SuppressWarnings( "unchecked" )
     public void convertCutOffExcelToJson(String fileName) throws IOException {
         FileInputStream fi = new FileInputStream(new File(excelPath+fileName));
         Workbook wb = new XSSFWorkbook(fi);
@@ -86,9 +86,10 @@ public class JSONUtility {
 
     /**
      * Converts each row present in given excel file into individual json file
-     * @param fileName
-     * @throws Exception
+     * @param fileName Filename to convert
+     * @throws Exception Exception
      */
+    @SuppressWarnings( "unchecked" )
     public void convertExcelToJsonFile(String fileName) throws Exception {
 
         FileInputStream fi = new FileInputStream(new File(excelPath+fileName));
@@ -141,6 +142,7 @@ public class JSONUtility {
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
+            assert file != null;
             file.flush();
             file.close();
             file = null;

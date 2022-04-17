@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class Steps_CreateProject {
     public APIBase apibase=new APIBase();
-    private static final Logger log = LogManager.getLogger(SD_CreateProject.class);
+    private static final Logger log = LogManager.getLogger(Steps_CreateEvent.class);
     public static Response CaT_Response;
     public static Response Jaggaer_Response;
     ConfigurationReader configread = new ConfigurationReader();

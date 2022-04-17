@@ -13,64 +13,23 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 
-import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
 
-public class SD_CreateProject  {
+public class Steps_CreateEvent {
     public APIBase apibase=new APIBase();
-    private static final Logger log = LogManager.getLogger(SD_CreateProject.class);
+    private static final Logger log = LogManager.getLogger(Steps_CreateEvent.class);
     public static Response jsonResponse;
     ConfigurationReader configread = new ConfigurationReader();
     Map<String, Object> payload;
 
     TestContext testContext;
     ScenarioContext scenarioContext;
-    public SD_CreateProject(ScenarioContext scenarioContext, TestContext testContext) {
+    public Steps_CreateEvent(ScenarioContext scenarioContext, TestContext testContext) {
         this.scenarioContext = scenarioContext;
         this.testContext= testContext;
-    }
-
-    @When("a POST request is sent to the Endpoint with a valid payload")
-    public void aRequestIsSentToTheEndpointValidPayload() {
-        String Endpoint =configread.get("create.project.endpoint");
-        File Payload = new File("./src/test/resources/TestData/CreateProject.json");
-        //jsonResponse=apibase.Requestpost(Endpoint, Payload);
-        testContext.scenarioWrite(jsonResponse.prettyPrint());
-
-    }
-
-    @Then("a project is created in Jaggaer and the details are returned in the response")
-    public void theCreatedProjectDetailsShouldBeDisplayedInTheResponse() {
-        Assert.assertEquals("Status Code Validation", 200, jsonResponse.getStatusCode());
-        payload =new JSONUtility().convertJSONtoMAP("./src/test/resources/TestData/CreateProject.json");
-        Assert.assertEquals("Project Name Validation",payload.get("agreementId")+"-"+payload.get("lotId")+"-CCS",jsonResponse.jsonPath().getString("defaultName.name"));
-    }
-
-    @And("validate project status in Jaggaer")
-    public void theProjectShouldBeInRunningStatus() {
-        String Endpoint =configread.get("JaggaerGETProjects");
-        String param ="tenderTitle=="+payload.get("agreementId")+"-"+payload.get("lotId")+"-CCS";
-        jsonResponse=apibase.getRequestJaggaer(Endpoint,param);
-        Assert.assertEquals("Status Code Validation", 200, jsonResponse.getStatusCode());
-        Assert.assertEquals("Project Status Validation", "project.state.running", jsonResponse.jsonPath().getString("projectList.project[0].tender.tenderStatusLabel"));
-    }
-
-    @And("Validate Project in CaT DB")
-    public void validateDB() {
-        try {
-            String projectName = payload.get("agreementId")+"-"+payload.get("lotId")+"-CCS";
-            ResultSet rs = scenarioContext.postgresSqlConnection.getData("select project_id, external_reference_id from procurement_projects where project_name ="+"'"+projectName+"'");
-            while (rs.next() ) {
-                String  project_details = "project_id= "+rs.getString("project_id")+"external_reference_id= "+rs.getString("external_reference_id");
-                System.out.println(project_details);
-            }
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
     }
 
     @When("a request is sent to the Create Event Endpoint for the ProcID {int}")

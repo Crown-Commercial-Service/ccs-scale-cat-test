@@ -15,7 +15,7 @@ import java.util.HashMap;
         glue={"com.scale.stepdefs", "com.scale.context"},
         monochrome = true,
         plugin = { "pretty", "html:target/cucumber-html-reports/report.html", "json:target/cucumber-html-reports/cucumber.json"}
-        ,tags = "@Runs"
+        ,tags = "@Run"
         //dryRun = false
 )
 

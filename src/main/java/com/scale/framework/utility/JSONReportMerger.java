@@ -29,8 +29,8 @@ public class JSONReportMerger {
     /**
      * Merge all reports together into master report in given reportDirectory
      *
-     * @param reportDirectory
-     * @throws Exception
+     * @param reportDirectory Folder containing reports
+     * @throws Exception Exception
      */
     public void mergeReports(File reportDirectory) throws Throwable {
         // Check if other reporter already copied json report to target directory
@@ -71,9 +71,10 @@ public class JSONReportMerger {
      * @param target
      * @param source
      */
+    @SuppressWarnings( "unchecked" )
     public void mergeFiles(File target, File source) throws Throwable {
-        String targetReport = FileUtils.readFileToString(target);
-        String sourceReport = FileUtils.readFileToString(source);
+        String targetReport = FileUtils.readFileToString(target,"UTF-8");
+        String sourceReport = FileUtils.readFileToString(source,"UTF-8");
         JSONParser jp = new JSONParser();
 
         try {
@@ -86,11 +87,9 @@ public class JSONReportMerger {
             // convert our parsedJSON to a pretty form
             parsedTargetJSON.writeJSONString(writer);
             // and save the pretty version to disk
-            FileUtils.writeStringToFile(target, writer.toString());
-        } catch (ParseException pe) {
+            FileUtils.writeStringToFile(target, writer.toString(),"UTF-8");
+        } catch (Exception pe) {
             pe.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
     /**
@@ -98,9 +97,10 @@ public class JSONReportMerger {
      *
      * @param reportFile
      */
+    @SuppressWarnings( "unchecked" )
     public void renameFeatureIDsAndNames(File reportFile) throws Throwable {
         String reportDirName = reportFile.getParentFile().getName();
-        String fileAsString = FileUtils.readFileToString(reportFile);
+        String fileAsString = FileUtils.readFileToString(reportFile,"UTF-8");
         JSONParser jp = new JSONParser();
 
         try {
@@ -120,11 +120,9 @@ public class JSONReportMerger {
             // convert our parsedJSON to a pretty form
             parsedJSON.writeJSONString(writer);
             // and save the pretty version to disk
-            FileUtils.writeStringToFile(reportFile, writer.toString());
-        } catch (ParseException pe) {
+            FileUtils.writeStringToFile(reportFile, writer.toString(),"UTF-8");
+        } catch (Exception pe) {
             pe.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
     /**
@@ -137,7 +135,7 @@ public class JSONReportMerger {
         File reportDirectory = reportFile.getParentFile();
         Collection<File> embeddedImages = FileUtils.listFiles(reportDirectory, new String[]{reportImageExtension}, true);
 
-        String fileAsString = FileUtils.readFileToString(reportFile);
+        String fileAsString = FileUtils.readFileToString(reportFile,"UTF-8");
 
         for (File image : embeddedImages) {
             String curImageName = image.getName();
@@ -146,6 +144,6 @@ public class JSONReportMerger {
             image.renameTo(new File(reportDirectory, uniqueImageName));
             fileAsString = fileAsString.replace(curImageName, uniqueImageName);
         }
-        FileUtils.writeStringToFile(reportFile, fileAsString);
+        FileUtils.writeStringToFile(reportFile, fileAsString,"UTF-8");
     }
 }
