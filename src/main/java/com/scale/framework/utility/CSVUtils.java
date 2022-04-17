@@ -10,14 +10,15 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
 
 public class CSVUtils {
-	private Logger log = Log.getLogger(CSVUtils.class);
+	private static final Logger log = LogManager.getLogger(CSVUtils.class);
 	private String filePath;
 
 	public CSVUtils(String filePath) {
@@ -29,10 +30,10 @@ public class CSVUtils {
 	 * picked to create the new product in product creation script. Once the data is
 	 * picked, isUsed value will be changed to 1.
 	 */
-	public Map<String, String> readCsvAsMap(boolean writeCsv) throws FileNotFoundException, IOException, CsvException {
+	public Map<String, String> readCsvAsMap(boolean writeCsv) throws IOException, CsvException {
 		String[] content;
 		String[] headers = readCsvHeader();
-		Map<String, String> map = new LinkedHashMap<String, String>();
+		Map<String, String> map = new LinkedHashMap<>();
 		int lineNumber = 0;
 		try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
 			while ((content = reader.readNext()) != null) {
@@ -46,7 +47,7 @@ public class CSVUtils {
 				}
 			}
 		}
-		List<String[]> csvBody = new ArrayList<>();
+		List<String[]> csvBody;
 		try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
 			csvBody = reader.readAll();
 		}
@@ -57,7 +58,7 @@ public class CSVUtils {
 		return map;
 	}
 
-	private String[] readCsvHeader() throws FileNotFoundException, IOException, CsvValidationException {
+	private String[] readCsvHeader() throws IOException, CsvValidationException {
 		String[] content;
 		try (CSVReader reader = new CSVReader(new FileReader(filePath))) {
 			content = reader.readNext();

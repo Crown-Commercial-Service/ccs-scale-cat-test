@@ -1,7 +1,8 @@
 package com.scale.framework.utility;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+//import org.apache.log4j.PropertyConfigurator;
 
 public class Log {
 
@@ -9,10 +10,10 @@ public class Log {
 
     public static Logger getLogger(Class<?> cls){
         if(root){
-            return Logger.getLogger(cls);
+            return LogManager.getLogger(cls);
         }
-        PropertyConfigurator.configure("config//log4j.properties");
+        //PropertyConfigurator.configure("config//log4j2.properties");
         root = true;
-        return Logger.getLogger(cls);
+        return LogManager.getLogger(cls);
     }
 }

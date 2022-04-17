@@ -5,12 +5,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class PostgresSqlConnection {
 
-	private Logger log = Log.getLogger(PostgresSqlConnection.class);
+	private static final Logger log = LogManager.getLogger(PostgresSqlConnection.class);
 	private String dataBase, user, password, port, server;
 	ConfigurationReader reader = new ConfigurationReader();
 
@@ -29,10 +29,9 @@ public class PostgresSqlConnection {
 		boolean err_flag=false;
 		try {
 			Class.forName("org.postgresql.Driver");
-			StringBuilder connectionString = new StringBuilder();
-			connectionString.append("jdbc:postgresql://").append(server);
-			connectionString.append(":").append(port).append("/").append(dataBase);
-			connection = DriverManager.getConnection(connectionString.toString(), user, password);
+			String connectionString = "jdbc:postgresql://" + server +
+					":" + port + "/" + dataBase;
+			connection = DriverManager.getConnection(connectionString, user, password);
 			log.info(connection);
 		} catch (Exception e) {
 			err_flag=true;
@@ -46,7 +45,7 @@ public class PostgresSqlConnection {
 	}
 
 	public ResultSet getData(String query) {
-		Statement statement = null;
+		Statement statement;
 		ResultSet resultSet = null;
 		try {
 			statement = getConnections().createStatement();

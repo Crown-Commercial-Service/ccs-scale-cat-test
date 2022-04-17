@@ -1,11 +1,8 @@
 package com.scale.framework.utility;
 
-import org.openqa.selenium.WebDriver;
-
-import com.scale.context.TestContext;
 import com.scale.framework.utility.API.Auth;
-
-import cucumber.api.Scenario;
+import io.cucumber.java.Scenario;
+import org.openqa.selenium.WebDriver;
 
 public class PageObjectManager {
 	private WebDriver driver;

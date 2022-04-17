@@ -2,13 +2,13 @@ package com.scale.framework.utility.API;
 
 import com.scale.context.GlobalContext;
 import com.scale.framework.utility.ConfigurationReader;
-import com.scale.framework.utility.Log;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 import java.io.File;
 import java.util.HashMap;
@@ -20,7 +20,7 @@ public class APIBase extends ConfigurationReader {
 
     public Response response;
     ConfigurationReader configread = new ConfigurationReader();
-    private Logger log = Log.getLogger(APIBase.class);
+    private static final Logger log = LogManager.getLogger(APIBase.class.getName());
     HashMap<String, String> ConfigData = GlobalContext.getGlobalInstance().getGlobalData();
 
     public RequestSpecification getRequestSpec(String app, String UserID) {
@@ -30,7 +30,7 @@ public class APIBase extends ConfigurationReader {
             case "Jaggaer":
                 requestspec = new RequestSpecBuilder()
                         .setBaseUri(ConfigData.get("jaggaer-base-url"))
-                        .setAuth(oauth2(new Auth().Authenticaion("Jaggaer", "")))
+                        .setAuth(oauth2(new Auth().Authentication("Jaggaer", "")))
                         .setAccept(ContentType.ANY)
                         .setContentType(ContentType.JSON)
                         .build();
@@ -38,7 +38,7 @@ public class APIBase extends ConfigurationReader {
             case "Conclave":
                 requestspec = new RequestSpecBuilder()
                         .setBaseUri(configread.get("BaseURL"))
-                        .setAuth(oauth2(new Auth().Authenticaion("Conclave", UserID)))
+                        .setAuth(oauth2(new Auth().Authentication("Conclave", UserID)))
                         .setAccept(ContentType.ANY)
                         .setContentType(ContentType.JSON)
                         .build();

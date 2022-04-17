@@ -1,8 +1,6 @@
 package com.scale.framework.utility.API;
 
 import io.restassured.RestAssured;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.response.Response;
 import org.junit.Assert;
 import java.util.HashMap;
@@ -10,13 +8,13 @@ import static io.restassured.RestAssured.given;
 
 public class Auth extends APIBase {
 
-    public String Authenticaion(String app, String UserID) {
+    public String Authentication(String app, String UserID) {
         Response response;
         HashMap<String, String> Payload = new HashMap<>();
         String token="";
         switch (app){
             case "Jaggaer":
-            RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+            //RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
             RestAssured.useRelaxedHTTPSValidation();
             Payload.put("grant_type", "client_credentials");
             Payload.put("client_id", ConfigData.get("jaggaer-client-id"));

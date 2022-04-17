@@ -1,9 +1,11 @@
 package com.scale.framework.utility;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Random;
-import cucumber.api.Scenario;
-import org.apache.log4j.Logger;
+import io.cucumber.java.Scenario;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,7 +13,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Actions {
-	private Logger log = Log.getLogger(Actions.class);
+	private Logger log = LogManager.getLogger(Actions.class);
 	protected Scenario scenario;
 	protected WebDriver driver;
 	protected WebDriverWait wait;
@@ -73,7 +75,7 @@ public class Actions {
 		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.linkText(elementName)));
 		element.click();
 		log.info("Clicked on " + elementName + " element");
-		scenario.write("User Clicked on " + elementName + " option");
+		scenario.log("User Clicked on " + elementName + " option");
 	}
 
 	public String getText(String fieldName) {
@@ -83,8 +85,7 @@ public class Actions {
 	}
 	
 	public String getTextXpath(String fieldName) {
-		String XPATH = fieldName;
-		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH)));
+		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(fieldName)));
 		return element.getText();
 	}
 	
@@ -96,15 +97,13 @@ public class Actions {
 	
 	public String getDropDownDefaultSelectedOption(String xpath) {
 		Select archiveList = new Select(driver.findElement(By.xpath(xpath)));
-		String selectedValue = archiveList.getFirstSelectedOption().getText();
-		return selectedValue;
+		return archiveList.getFirstSelectedOption().getText();
 	}
 	
 	public List<WebElement> getAllValuesOfDropDown(String xpath) {
 		Select dropdown = new Select(driver.findElement(By.xpath(xpath)));
 	    //Get all options
-	    List<WebElement> allDropDownValues = dropdown.getOptions();
-		return allDropDownValues;
+		return dropdown.getOptions();
 	}
 	
 	
@@ -112,15 +111,12 @@ public class Actions {
 
 	public List<WebElement> getWebElements(String elementClassName) {
 		wait.until(ExpectedConditions.elementToBeClickable(By.className(elementClassName)));
-		List<WebElement> elementList = driver.findElements(By.className(elementClassName));
-
-		return elementList;
+		return driver.findElements(By.className(elementClassName));
 	}
 
 	public WebElement getWebElementByXpath(String elementClassName) {
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(elementClassName)));
-		WebElement elementList = driver.findElement(By.xpath(elementClassName));
-		return elementList;
+		return driver.findElement(By.xpath(elementClassName));
 	}
 	
 	public void selectItemFromDropDown(WebElement element, String itemName) {
@@ -153,15 +149,13 @@ public class Actions {
 	public boolean isElementEnabled(String webElementclass) {
 		waitForLoad();
 		WebElement element = driver.findElement(By.className(webElementclass));
-		boolean isElementEnabled = element.isEnabled();
-		return isElementEnabled;
+		return element.isEnabled();
 	}
 
 	public boolean isElementDisabled(String webElementclass) {
 		waitForLoad();
 		WebElement element = driver.findElement(By.className(webElementclass));
-		boolean isElementEnabled = !element.isEnabled();
-		return isElementEnabled;
+		return !element.isEnabled();
 	}
 
 	public void waitForLoad() {
@@ -171,7 +165,7 @@ public class Actions {
 				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
 			}
 		};
-		WebDriverWait wait = new WebDriverWait(driver, 30);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(pageLoadCondition);
 	}
 	
@@ -183,7 +177,7 @@ public class Actions {
 				return ((JavascriptExecutor) driver).executeScript("return document.readyState").equals("complete");
 			}
 		};
-		WebDriverWait wait = new WebDriverWait(driver, 30);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 		wait.until(pageLoadCondition);
 	}
 
@@ -193,7 +187,7 @@ public class Actions {
 		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH)));
 		element.click();
 		//log.info("Clicked on " + elementName + " element");
-		scenario.write("User Clicked on " + elementName + " option");
+		scenario.log("User Clicked on " + elementName + " option");
 
 	}
 
@@ -206,7 +200,7 @@ public class Actions {
 		// waitForSeconds(1);
 		element.click();
 		log.info("Clicked on " + buttonName + " button");
-		scenario.write(" User Clicked on " + buttonName + " button");
+		scenario.log(" User Clicked on " + buttonName + " button");
 	}
 
 	public void clearTextBox(WebElement element) {
@@ -217,7 +211,7 @@ public class Actions {
 		try {
 			Thread.sleep(seconds * 1000);
 		} catch (Exception e) {
-
+			log.info(e.getMessage());
 		}
 	}
 
@@ -251,8 +245,7 @@ public class Actions {
 		String XPATH = ".//*[contains(text(),'" + fieldName + "')]";
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH)));
 		WebElement element = driver.findElement(By.xpath(XPATH));
-		boolean isButtonEnabled = element.isEnabled();
-		return isButtonEnabled;
+		return element.isEnabled();
 	}
 
 	public boolean isButtonDisabled(String fieldName) {
@@ -260,8 +253,7 @@ public class Actions {
 		String XPATH = ".//*[contains(text(),'" + fieldName + "')]";
 		wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH)));
 		WebElement element = driver.findElement(By.xpath(XPATH));
-		boolean isElementDisabled = !element.isEnabled();
-		return isElementDisabled;
+		return !element.isEnabled();
 	}
 
 	public boolean isElementPresent(String fieldName) {
@@ -314,14 +306,14 @@ public class Actions {
 
 	public void clickActionsLinkOfCustomer(String customerCIN, String linkName, WebDriver webDriver) {
 		waitForSeconds(5);
-		WebElement linkElement = (new WebDriverWait(webDriver, 50))
+		WebElement linkElement = (new WebDriverWait(webDriver, Duration.ofSeconds(50)))
 				.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'" + customerCIN
 						+ "')]/following::div/a[contains(@title,'" + linkName + "')]")));
 		linkElement.click();
 	}
 
 	public void clickActionsLinkOfUser(String CPID, String linkIcon, WebDriver webDriver) {
-		WebElement linkElement = (new WebDriverWait(webDriver, 50)).until(ExpectedConditions.elementToBeClickable(By
+		WebElement linkElement = (new WebDriverWait(webDriver, Duration.ofSeconds(50))).until(ExpectedConditions.elementToBeClickable(By
 				.xpath("//*[contains(text(),'" + CPID + "')]/following::div/a[contains(@title,'" + linkIcon + "')]")));
 		linkElement.click();
 	}
@@ -338,12 +330,12 @@ public class Actions {
 	}
 
 	public void waitForAlert() {
-		WebDriverWait wait = new WebDriverWait(driver, 15);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		wait.until(ExpectedConditions.alertIsPresent());
 	}
 	
 	public void waitForAlert(WebDriver driver) {
-		WebDriverWait wait = new WebDriverWait(driver, 15);
+		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
 		wait.until(ExpectedConditions.alertIsPresent());
 	}
 	
@@ -353,12 +345,10 @@ public class Actions {
 	        try {
 	             elementSize=driver.findElements(By.xpath(xpath)).size();
 	            return elementSize;
-	        } catch (NoSuchElementException e) {
+	        } catch (Exception e) {
 	            return elementSize;
-	        }catch (Exception e) {
-	        	return elementSize;
 	        }
-	    }
+		}
 		
 		
 		public int getElementsSizeParameterizedXpath(String xpath, WebDriver driver) {
@@ -414,7 +404,7 @@ public class Actions {
 		        wait.until(ExpectedConditions.elementToBeClickable(element));
 		        element.click();
 		        log.info("Clicked on element");
-		        scenario.write("User Clicked on element");
+		        scenario.log("User Clicked on element");
 		    }
 		 
 		 public int getElementsSizeParameterizedXpathPCP(String xpath, WebDriver driver) {

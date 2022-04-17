@@ -1,28 +1,23 @@
 package com.scale.context;
 
+import com.assertthat.selenium_shutterbug.core.Capture;
 import com.assertthat.selenium_shutterbug.core.PageSnapshot;
 import com.assertthat.selenium_shutterbug.core.Shutterbug;
-import com.assertthat.selenium_shutterbug.utils.web.ScrollStrategy;
 import com.scale.framework.utility.BrowserFactory;
 import com.scale.framework.utility.ConfigurationReader;
 import com.scale.framework.utility.JSONUtility;
-import com.scale.framework.utility.Log;
 import com.scale.framework.utility.PageObjectManager;
-import cucumber.api.Scenario;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
-import org.apache.log4j.Logger;
+import io.cucumber.java.After;
+import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
+import io.cucumber.java.en.Given;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
@@ -36,7 +31,7 @@ import java.util.List;
  */
 public class TestContext extends BrowserFactory {
 
-	private Logger log = Log.getLogger(TestContext.class);
+	private static final Logger log = LogManager.getLogger(TestContext.class);
 	private WebDriver driver;
 	private BrowserFactory browserFactory;
 	private PageObjectManager objectManager;
@@ -99,15 +94,15 @@ public class TestContext extends BrowserFactory {
 		return this.driver;
 	}
 	public void scenarioWrite(String message) {
-		this.scenario.write(message);
+		this.scenario.log(message);
 	}
 
 	
 	public void takeSnapShot() {
 		// Code to take full page screenshot
 		ByteArrayOutputStream imageStream = new ByteArrayOutputStream();
-		scenario.write("URL - " + driver.getCurrentUrl());
-		PageSnapshot snapshot = Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS, true);
+		scenario.log("URL - " + driver.getCurrentUrl());
+		PageSnapshot snapshot = Shutterbug.shootPage(driver, Capture.FULL_SCROLL, true);
 		((JavascriptExecutor) driver).executeScript("window.scrollTo(0,0)");
 
 		try {
@@ -117,7 +112,7 @@ public class TestContext extends BrowserFactory {
 			e.printStackTrace();
 		}
 		byte[] source = imageStream.toByteArray();
-		scenario.embed(source, "image/png");
+		scenario.attach(source, "image/png","");
 	}
 
 	public JSONUtility getJsonUtilityObj() {
@@ -127,9 +122,9 @@ public class TestContext extends BrowserFactory {
 	/**
 	 * This method is overloaded to full page take screen shot and call from any 
 	 *  class when its required
-	 * @param allPageScreenshotFlag
-	 * @param scenario
-	 * @param driver
+	 * @param allPageScreenshotFlag allPageScreenshotFlag
+	 * @param scenario Cucumber scenario
+	 * @param driver Webdriver
 	 * 
 	 * 
 	 */
@@ -139,8 +134,8 @@ public class TestContext extends BrowserFactory {
 
 			// Code to take full page screenshot
 			ByteArrayOutputStream imageStream = new ByteArrayOutputStream();
-			scenario.write("URL - " + driver.getCurrentUrl());
-			PageSnapshot snapshot = Shutterbug.shootPage(driver, ScrollStrategy.BOTH_DIRECTIONS, true);
+			scenario.log("URL - " + driver.getCurrentUrl());
+			PageSnapshot snapshot = Shutterbug.shootPage(driver, Capture.FULL_SCROLL, true);
 			((JavascriptExecutor) driver).executeScript("window.scrollTo(0,0)");
 
 			try {
@@ -150,16 +145,16 @@ public class TestContext extends BrowserFactory {
 				e.printStackTrace();
 			}
 			byte[] source = imageStream.toByteArray();
-			scenario.embed(source, "image/png");
+			scenario.attach(source, "image/png", "");
 		}
 
 	}
 	
 	
 	@Given("^User has environment setup for ([^\"]*)$")
-	public void user_has_environment_setup_for(String scenarioID) throws Throwable {
+	public void user_has_environment_setup_for(String scenarioID) {
 	    scenarioContext.setContext(jsonUtilityObj.convertJSONtoMAP(scenarioID));
-	    scenario.write("validating response when " + scenarioContext.getContext("scenarioID"));
+	    scenario.log("validating response when " + scenarioContext.getContext("scenarioID"));
 	}
 
 }

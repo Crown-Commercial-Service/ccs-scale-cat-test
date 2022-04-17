@@ -1,16 +1,20 @@
 package com.scale.framework.utility;
 
-import cucumber.api.Scenario;
+
+import io.cucumber.java.Scenario;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.commons.io.FileUtils;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.edge.EdgeDriverService;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -24,7 +28,7 @@ import java.util.HashMap;
 
 public class BrowserFactory {
 	Scenario scenario;
-	private Logger log = Log.getLogger(BrowserFactory.class);
+	private Logger log = LogManager.getLogger(BrowserFactory.class);
 	private WebDriver driver;
 	private ConfigurationReader configReader;
 	public static final String URL = "";
@@ -35,8 +39,8 @@ public class BrowserFactory {
 	public static final String browserStackURL = "https://" + USERNAME + ":" + AUTOMATE_KEY
 			+ "@hub-cloud.browserstack.com/wd/hub";
 
-	HashMap<String, Object> browserstackOptions = new HashMap<String, Object>();
-	HashMap<String, String> bsLocalArgs = new HashMap<String, String>();
+	HashMap<String, Object> browserstackOptions = new HashMap<>();
+	HashMap<String, String> bsLocalArgs = new HashMap<>();
 
 	public WebDriver initiateDriver(String browserName, Scenario scenario) throws MalformedURLException {
 		configReader = new ConfigurationReader();
@@ -60,20 +64,20 @@ public class BrowserFactory {
 				break;
 			case "IE":
 				WebDriverManager.iedriver().setup();
-				DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
-				capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-				capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-				capabilities.setCapability("ignoreZoomSetting", true);
-				capabilities.setCapability("ignoreProtectedModeSettings", true);
-				driver = new InternetExplorerDriver(capabilities);
+				InternetExplorerOptions ieOptions = new InternetExplorerOptions();
+				ieOptions.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+				ieOptions.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+				ieOptions.setCapability("ignoreZoomSetting", true);
+				ieOptions.setCapability("ignoreProtectedModeSettings", true);
+				driver = new InternetExplorerDriver(ieOptions);
 				driver.manage().window().maximize();
 				break;
 			case "EDGE":
 				WebDriverManager.edgedriver().setup();
-				DesiredCapabilities capabilities1 = DesiredCapabilities.edge();
-				capabilities1.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
-				EdgeDriverService service = EdgeDriverService.createDefaultService();
-				driver = new EdgeDriver(service);
+				EdgeOptions edgeOptions = new EdgeOptions();
+				edgeOptions.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+				//EdgeDriverService service = EdgeDriverService.createDefaultService();
+				driver = new EdgeDriver(edgeOptions);
 				driver.manage().window().maximize();
 				break;
 			case "SAFARI":
@@ -81,12 +85,12 @@ public class BrowserFactory {
 				driver.manage().window().maximize();
 				break;
 			case "GRID_FIREFOX":
-				caps = DesiredCapabilities.firefox();
-				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), caps);
+				FirefoxOptions ffOptions = new FirefoxOptions();
+				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), ffOptions);
 				break;
 			case "GRID_CHROME":
-				caps = DesiredCapabilities.chrome();
-				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), caps);
+				ChromeOptions chromeOptions = new ChromeOptions();
+				driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), chromeOptions);
 				break;
 			case "CHROME_HEADLESS":
 				WebDriverManager.chromedriver().setup();

@@ -5,14 +5,14 @@ import com.scale.context.ScenarioContext;
 import com.scale.context.TestContext;
 import com.scale.framework.utility.API.APIBase;
 import com.scale.framework.utility.ConfigurationReader;
-import com.scale.framework.utility.Log;
 import com.scale.framework.utility.ReadExcelData;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.restassured.response.Response;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 
 import java.sql.ResultSet;
@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class Steps_CreateProject {
     public APIBase apibase=new APIBase();
-    private Logger log = Log.getLogger(SD_CreateProject.class);
+    private static final Logger log = LogManager.getLogger(SD_CreateProject.class);
     public static Response CaT_Response;
     public static Response Jaggaer_Response;
     ConfigurationReader configread = new ConfigurationReader();
@@ -51,10 +51,11 @@ public class Steps_CreateProject {
         CaT_Response=apibase.Requestpost(Endpoint, cpo, TestDataMap.get(TDID).get("UserID"));
         //CreateProject cpo_res = CaT_Response.body().as(CreateProject.class);
         //CaT_Response=apibase.Requestpost(Endpoint, TestDataMap.get(TDID), TDID);
-        testContext.scenarioWrite(CaT_Response.prettyPrint());
+        testContext.scenarioWrite(CaT_Response.asPrettyString());
         ResponseData.put("ProcID"+counter,Integer.toString(CaT_Response.jsonPath().getInt("procurementID")));
         ResponseData.put("Name"+counter,CaT_Response.jsonPath().getString("defaultName.name"));
         counter++;
+        log.info("Completed WHEN");
     }
 
     @Then("a project should have been created in Jaggaer with the prescribed fields and status as Running")

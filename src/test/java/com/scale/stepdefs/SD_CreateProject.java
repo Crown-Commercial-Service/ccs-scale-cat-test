@@ -5,13 +5,12 @@ import com.scale.context.TestContext;
 import com.scale.framework.utility.API.APIBase;
 import com.scale.framework.utility.ConfigurationReader;
 import com.scale.framework.utility.JSONUtility;
-import com.scale.framework.utility.Log;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.restassured.response.Response;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.Assert;
 
 import java.io.File;
@@ -22,7 +21,7 @@ import java.util.Map;
 
 public class SD_CreateProject  {
     public APIBase apibase=new APIBase();
-    private Logger log = Log.getLogger(SD_CreateProject.class);
+    private static final Logger log = LogManager.getLogger(SD_CreateProject.class);
     public static Response jsonResponse;
     ConfigurationReader configread = new ConfigurationReader();
     Map<String, Object> payload;

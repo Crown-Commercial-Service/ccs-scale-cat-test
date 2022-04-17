@@ -1,10 +1,11 @@
 package com.scale.framework.utility;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DBOperations {
-	
-	private Logger log = Log.getLogger(DBOperations.class);
+
+	private static final Logger log = LogManager.getLogger(DBOperations.class);
 
 
 }

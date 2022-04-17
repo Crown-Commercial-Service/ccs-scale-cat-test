@@ -65,7 +65,7 @@ public class AWSParameterStore {
                     .maxResults(10)
                     .nextToken(Token)
                     .build();
-            GetParametersByPathResponse  response = ssmClient.getParametersByPath(request);
+            GetParametersByPathResponse response = ssmClient.getParametersByPath(request);
             Params.addAll(response.parameters());
             Token=response.nextToken();
             if(Token==null)

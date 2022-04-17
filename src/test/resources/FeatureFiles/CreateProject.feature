@@ -15,7 +15,7 @@ Feature: POST request to create project
     And Validate Project in CaT DB
 
 #SCAT-1850, SCC-740
-  @Run
+  @Runs
   Scenario Outline:
     Given an API endpoint to create new project
     When an user from an organisation requests new project using "<Payload>"
