@@ -2,7 +2,8 @@
 
 import java.io.File;
 import java.util.List;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.SdkClientException;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
@@ -15,7 +16,7 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 public class AwsS3Service {
-	private Logger log = Log.getLogger(AwsS3Service.class);
+	private Logger log = LogManager.getLogger(AwsS3Service.class);
 	BasicAWSCredentials awsCred;
 	AmazonS3 s3Client;
 	Regions clientRegion = Regions.EU_WEST_2;
