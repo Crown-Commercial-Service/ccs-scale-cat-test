@@ -6,7 +6,7 @@ Feature: POST request to create project
   @Run
   Scenario Outline: Create a Project with the status as "Running" in Jaggaer
     Given an API endpoint to create new project
-    When an user from an organisation requests new project using "<Payload>"
+    When an user from an organisation sends a request to create a project using "<Payload>"
     Then a project should have been created in Jaggaer with the prescribed fields and status as Running
     And a valid response will be returned with the created project details
     Examples:
@@ -17,8 +17,8 @@ Feature: POST request to create project
   @Run
   Scenario Outline: Two Users from same Org creating project for same Agreement and Lot
     Given an API endpoint to create new project
-    When an user from an organisation requests new project using "<Payload 1>"
-    And another user from same organisation requests same project using "<Payload 2>"
+    When an user from an organisation sends a request to create a project using "<Payload 1>"
+    And another user from same organisation sends a request to create a project using "<Payload 2>"
     Then both projects should have been created with the same default name but with different procurement ID
     Examples:
       |Payload 1|Payload 2|
@@ -28,8 +28,8 @@ Feature: POST request to create project
   @Run
   Scenario Outline: Two Users from different Org creating project for same Agreement and Lot
     Given an API endpoint to create new project
-    When an user from an organisation requests new project using "<Payload 1>"
-    And another user from different organisation requests same project using "<Payload 2>"
+    When an user from an organisation sends a request to create a project using "<Payload 1>"
+    And another user from different organisation sends a request to create a project using "<Payload 2>"
     Then both projects should have been created with different default name and procurement ID
     Examples:
       |Payload 1|Payload 2|
@@ -39,8 +39,8 @@ Feature: POST request to create project
   @Run
   Scenario Outline: Created projects should have different default name and procurement ID
     Given an API endpoint to create new project
-    When an user from an organisation requests new project using "<Payload 1>"
-    And another user from same organisation requests new project using "<Payload 2>"
+    When an user from an organisation sends a request to create a project using "<Payload 1>"
+    And another user from same organisation sends a request to create a project using "<Payload 2>"
     Then both projects should have been created with different default name and procurement ID
     Examples:
       |Payload 1|Payload 2|
@@ -50,7 +50,7 @@ Feature: POST request to create project
   @Run
   Scenario Outline: Created projects should be mapped in Tenders DB against Jaggaer Project Identifier
     Given an API endpoint to create new project
-    When an user from an organisation requests new project using "<Payload>"
+    When an user from an organisation sends a request to create a project using "<Payload>"
     Then Jaggaer Project Identifier is mapped to the procurement ID in Tenders DB
     Examples:
       |Payload|

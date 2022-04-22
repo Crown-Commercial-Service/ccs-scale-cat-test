@@ -27,7 +27,7 @@ public class AWSParameterStore {
 
     public AWSParameterStore() {
         try {
-            AWSProfile = new ConfigurationReader().get("AWSProfile");
+            //AWSProfile = new ConfigurationReader().get("AWSProfile");
             region = Region.EU_WEST_2;
             ssmClient = SsmClient.builder()
                     .region(region)

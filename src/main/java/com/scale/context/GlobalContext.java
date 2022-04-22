@@ -27,6 +27,10 @@ public class GlobalContext {
         awsdata.putAll(map);
     }
 
+    public void clearGlobalData(){
+        awsdata.clear();
+    }
+
     public HashMap<String, String> getGlobalData(){
         return awsdata;
     }

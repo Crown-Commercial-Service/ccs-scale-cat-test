@@ -4,6 +4,7 @@ import com.scale.context.GlobalContext;
 import com.scale.framework.utility.AWSParameterStore;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
@@ -36,4 +37,10 @@ public class TestRunner {
         GlobalContext.getGlobalInstance().setGlobalDataValue("Jag_Token", auth.Authenticaion("Jaggaer"));
         */
     }
+
+    @AfterClass
+    public static void teardown(){
+        GlobalContext.getGlobalInstance().clearGlobalData();
+    }
+
 }

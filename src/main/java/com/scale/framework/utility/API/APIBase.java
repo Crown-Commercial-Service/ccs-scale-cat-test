@@ -130,6 +130,16 @@ public class APIBase extends ConfigurationReader {
         return response;
     }
 
+    public Response Requestput(String URL, String jsonstring, String UserID) {
+        response = null;
+        response = given()
+                .spec(getRequestSpec("Conclave", UserID))
+                .body(jsonstring)
+                .put(URL);
+        Assert.assertEquals("FAILED - Tenders API PUT "+URL, 200, response.getStatusCode());
+        return response;
+    }
+
     public Response Requestput(String URL, Map<String, String> Body, String UserID) {
         //RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
         response = null;
@@ -142,7 +152,14 @@ public class APIBase extends ConfigurationReader {
         Assert.assertEquals("FAILED - Tenders API PUT "+URL, 200, response.getStatusCode());
         return response;
     }
-
+    public Response Requestget(String URL, String UserID) {
+        response = null;
+        response = given()
+                .spec(getRequestSpec("Conclave", UserID))
+                .get(URL);
+        Assert.assertEquals("FAILED - Tenders API GET "+URL, 200, response.getStatusCode());
+        return response;
+    }
 
 
     public int getStatusCode1() {

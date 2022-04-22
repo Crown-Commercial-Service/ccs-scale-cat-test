@@ -1,6 +1,7 @@
 package com.scale.stepdefs;
 
 import com.scale.POJO.CreateProject;
+import com.scale.context.GlobalContext;
 import com.scale.context.ScenarioContext;
 import com.scale.context.TestContext;
 import com.scale.framework.utility.API.APIBase;
@@ -44,7 +45,7 @@ public class Steps_CreateProject {
         Endpoint =configread.get("create.project.endpoint");
     }
 
-    @When("another/an user from an/same/different organisation requests new/same project using {string}")
+    @When("another/an user from an/same/different organisation sends a request to create a project using {string}")
     public void createProject(String TestData) {
         this.TDID=TestData;
         CreateProject cpo = new CreateProject(TestDataMap.get(TDID).get("agreementId"),TestDataMap.get(TDID).get("lotId"));
@@ -55,6 +56,19 @@ public class Steps_CreateProject {
         ResponseData.put("ProcID"+counter,Integer.toString(CaT_Response.jsonPath().getInt("procurementID")));
         ResponseData.put("Name"+counter,CaT_Response.jsonPath().getString("defaultName.name"));
         counter++;
+        log.info("Completed WHEN");
+    }
+
+    @And("{string} has created a project for {string} and {string} with a default event")
+    public void createProject(String UserID, String Agreement, String Lot) {
+        getCreateProjectEndpoint();
+        //this.TDID=Buyer;
+        CreateProject cpo = new CreateProject(Agreement,Lot);
+        CaT_Response=apibase.Requestpost(Endpoint, cpo, UserID);
+        testContext.scenarioWrite(CaT_Response.asPrettyString());
+        GlobalContext.getGlobalInstance().setGlobalDataValue("ProcID",Integer.toString(CaT_Response.jsonPath().getInt("procurementID")));
+        GlobalContext.getGlobalInstance().setGlobalDataValue("EventID",CaT_Response.jsonPath().getString("eventId"));
+        //ResponseData.put("Name"+counter,CaT_Response.jsonPath().getString("defaultName.name"));
         log.info("Completed WHEN");
     }
 
