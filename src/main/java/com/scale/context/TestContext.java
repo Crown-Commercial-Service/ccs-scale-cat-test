@@ -7,6 +7,8 @@ import com.scale.framework.utility.BrowserFactory;
 import com.scale.framework.utility.ConfigurationReader;
 import com.scale.framework.utility.JSONUtility;
 import com.scale.framework.utility.PageObjectManager;
+import com.scale.framework.utility.ReadExcelData;
+
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -18,11 +20,17 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import javax.imageio.ImageIO;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.net.MalformedURLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class is used to make all the before activity under tag "@before" i.e. making 
@@ -43,6 +51,9 @@ public class TestContext extends BrowserFactory {
 	public ConfigurationReader configReader;
 	protected WebDriverWait wait;
 	
+	public static HashMap<String, String> ConfigData = GlobalContext.getGlobalInstance().getGlobalData();
+	public static Map<String, Map<String, String>> OneFCTestDataMap = ReadExcelData.extractData("OneFCFlowTestData");
+	public static String TDID;
 	
 	
 	@Before
@@ -57,6 +68,7 @@ public class TestContext extends BrowserFactory {
 		String processName = ManagementFactory.getRuntimeMXBean().getName();
 		log.info("Started in thread: " + threadId + ", in JVM: " + processName);
 		//log.info("Successfully lunched the chrome browser");
+		objectManager = new PageObjectManager(this.driver, scenario);
 	}
 
 
@@ -71,7 +83,7 @@ public class TestContext extends BrowserFactory {
 		log.info("=================" + scenario.getName() + " execution ends" + "===================\n");
 
 		if (driver != null) {
-			takeSnapShot();
+			//takeSnapShot();
 			driver.quit();
 			driver = null;
 		}
@@ -155,6 +167,25 @@ public class TestContext extends BrowserFactory {
 	public void user_has_environment_setup_for(String scenarioID) {
 	    scenarioContext.setContext(jsonUtilityObj.convertJSONtoMAP(scenarioID));
 	    scenario.log("validating response when " + scenarioContext.getContext("scenarioID"));
+	}
+	
+	@Given("Active or Registered buyer launches CAS application landing page")
+	public void active_or_registered_buyer_launches_cas_application_landing_page() {
+		
+		try {
+			this.driver = initiateDriver(configReader.getBrowserName(),scenario);
+			launchURL("https://int-ccs-scale-cat-buyer-ui.london.cloudapps.digital");
+			objectManager = new PageObjectManager(this.driver, scenario);
+			assertTrue("Successfully launched the CAS application landing page",true);
+			log.info("Successfully launched the CAS application landing page");
+			//objectManager.getLoginPage().login();
+			
+		} catch (MalformedURLException e) {
+			
+			assertFalse("Unable to launched the CAS application landing page",false);
+			log.info("Unable to launched the CAS application landing page");
+		}
+		
 	}
 
 }

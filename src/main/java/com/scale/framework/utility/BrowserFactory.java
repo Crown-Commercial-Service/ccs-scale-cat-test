@@ -20,6 +20,8 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
+import com.scale.context.TestContext;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -41,6 +43,7 @@ public class BrowserFactory {
 
 	HashMap<String, Object> browserstackOptions = new HashMap<>();
 	HashMap<String, String> bsLocalArgs = new HashMap<>();
+	
 
 	public WebDriver initiateDriver(String browserName, Scenario scenario) throws MalformedURLException {
 		configReader = new ConfigurationReader();
@@ -56,8 +59,8 @@ public class BrowserFactory {
 			case "CHROME":
 				WebDriverManager.chromedriver().setup();
 				ChromeOptions option = new ChromeOptions();
-				option.addArguments("--ignore-certificate-errors");
-				option.addArguments("--ignore-ssl-errors=yes");
+				//option.addArguments("--ignore-certificate-errors");
+				//option.addArguments("--ignore-ssl-errors=yes");
 				driver = new ChromeDriver(option);
 				driver.manage().window().maximize();
 				log.info("Open the Chrome Browser");
@@ -311,9 +314,12 @@ public class BrowserFactory {
 	}
 
 	public void launchURL(String url) {
+		TestContext textContext=new TestContext();
 		// driver.get(url);
 		driver.navigate().to(url);
 		log.info(URL + " launched");
+		textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+		
 	}
 
 	public void launchURL(String portalName, String portalExtension) {

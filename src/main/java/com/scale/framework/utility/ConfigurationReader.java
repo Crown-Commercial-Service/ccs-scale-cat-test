@@ -87,4 +87,15 @@ public class ConfigurationReader {
 	            throw new RuntimeException(" Key not specified in the ApplicationConfig.properties file.");
 	    }
 	    
+	    public String getBrowserName()
+	    {
+
+	        String browserName = properties.getProperty("browserName");
+	        if(browserName!= null)
+	            return browserName;
+	        else
+	            return "";
+
+	    }
+	    
 }
