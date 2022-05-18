@@ -95,7 +95,7 @@ public class Steps_CreateProject {
 
     @And("a valid response will be returned with the created project details")
     public void validateCreateProjectResponse() {
-        Assert.assertEquals("Project Name Validation",TestDataMap.get(TDID).get("agreementId")+"-"+TestDataMap.get(TDID).get("lotId")+"-COGNIZANT BUSINESS SERVICES UK LIMITED",CaT_Response.jsonPath().getString("defaultName.name"));
+        Assert.assertEquals("Project Name Validation",TestDataMap.get(TDID).get("agreementId")+"-"+TestDataMap.get(TDID).get("lotId")+"-DUNA LIMITED",CaT_Response.jsonPath().getString("defaultName.name"));
     }
 
 
