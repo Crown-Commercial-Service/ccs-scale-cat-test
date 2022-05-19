@@ -1,4 +1,4 @@
-package com.scale.stepdefs;
+package com.scale.stepdefs.UI;
 
 import com.scale.context.ScenarioContext;
 import com.scale.context.TestContext;

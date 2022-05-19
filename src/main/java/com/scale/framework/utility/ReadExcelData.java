@@ -20,7 +20,7 @@ public class ReadExcelData {
 
     private static Workbook WORK_BOOK;
     private static Sheet WORK_SHEET;
-    private static String TESTDATA_FILE_PATH = System.getProperty("user.dir")  + "\\src\\test\\resources\\TestData\\UI_TestData.xlsx";
+    private static String TESTDATA_FILE_PATH = System.getProperty("user.dir")  + "\\src\\test\\resources\\TestData\\";
 
 
     /**
@@ -35,12 +35,12 @@ public class ReadExcelData {
      * @exception IOException If an I/O error occurs while opening or creating the file
      *
      */
-    public static Map<String, Map<String, String>> extractData(String sheetName){
+    public static Map<String, Map<String, String>> extractData(String Filename, String sheetName){
         Map<String, String> singleRow;
         Map<String, Map<String, String>> multipleRows = new HashMap<>();
         FileInputStream fis;
         try {
-            fis = new FileInputStream(TESTDATA_FILE_PATH);
+            fis = new FileInputStream(TESTDATA_FILE_PATH+Filename);
             WORK_BOOK = WorkbookFactory.create(fis);
         } catch (EncryptedDocumentException e) {
             System.out.println("Encrypt exception in getTestData method: " + e.getMessage());

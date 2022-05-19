@@ -1,11 +1,10 @@
-package com.scale.stepdefs;
+package com.scale.stepdefs.API;
 
 import com.scale.context.GlobalContext;
 import com.scale.context.ScenarioContext;
 import com.scale.context.TestContext;
 import com.scale.framework.utility.API.APIBase;
 import com.scale.framework.utility.ConfigurationReader;
-import com.scale.framework.utility.JSONUtility;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -18,7 +17,6 @@ import org.junit.Assert;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 public class Steps_CreateEvent {

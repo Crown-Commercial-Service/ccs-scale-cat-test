@@ -1,4 +1,4 @@
-package com.scale.stepdefs;
+package com.scale.stepdefs.API;
 
 import com.scale.POJO.CreateProject;
 import com.scale.context.GlobalContext;
@@ -27,8 +27,8 @@ public class Steps_CreateProject {
     public static Response CaT_Response;
     public static Response Jaggaer_Response;
     ConfigurationReader configread = new ConfigurationReader();
-    Map<String, Map<String, String>> TestDataMap = ReadExcelData.extractData("CreateProject");
-    Map<String, Map<String, String>> UpdateDataMap = ReadExcelData.extractData("UpdateProject");
+    Map<String, Map<String, String>> TestDataMap = ReadExcelData.extractData("API_Testdata.xlsx","CreateProject");
+    Map<String, Map<String, String>> UpdateDataMap = ReadExcelData.extractData("API_Testdata.xlsx","UpdateProject");
     Map<String, String> ResponseData = new HashMap<>();
     int counter = 1;
     String Endpoint,TDID,PROC_ID;

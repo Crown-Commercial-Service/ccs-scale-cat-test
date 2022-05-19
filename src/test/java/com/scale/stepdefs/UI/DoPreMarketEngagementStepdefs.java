@@ -1,4 +1,4 @@
-package com.scale.stepdefs;
+package com.scale.stepdefs.UI;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,15 +9,14 @@ import com.scale.framework.utility.PageObjectManager;
 import com.scale.pages.LoginPage;
 
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
 /**
- * Class ProcurementOverviewPageStepdefs
+ * Class DoPreMarketEngagementStepdefs
  * @author 571154
  *
  */
-public class ProcurementOverviewPageStepdefs {
+public class DoPreMarketEngagementStepdefs {
 	
 	/**
 	 * Variables declaration
@@ -27,29 +26,28 @@ public class ProcurementOverviewPageStepdefs {
 	public ScenarioContext scenarioContext;
 	
 	/**
-	 * ProcurementOverviewPageStepdefs class constructor has overloaded
+	 * DoPreMarketEngagementStepdefs class constructor has overloaded
 	 * @param testContextObj
 	 * @param scenarioContext
 	 */
-	public ProcurementOverviewPageStepdefs(TestContext testContextObj, ScenarioContext scenarioContext) {
+	public DoPreMarketEngagementStepdefs(TestContext testContextObj, ScenarioContext scenarioContext) {
 		testContextObj.getDriver();
 		objectManager = testContextObj.getObjectManager();
 		this.scenarioContext = scenarioContext;
 	}
 	
 	
-	@Given("Buyer validates the page content")
-	public void buyer_validates_the_page_content() {
-	 
-		objectManager.getProcurementOverviewPage().procurementOverviewPageContent();
+	
+	@Given("Buyer validates the Do pre-market engagement page content")
+	public void buyer_validates_the_do_pre_market_engagement_page_content() {
+	    
+		objectManager.getDoPreMarketEngagementPage().doPreMarketEngagementPageContent();
+	}
+	
+	@When("Buyers clicks on {string} link.")
+	public void buyers_clicks_on_link(String string) {
+	   
+		objectManager.getDoPreMarketEngagementPage().clickOnNameyourProjectLink();
 	}
 
-	@When("Buyers clicks on {string} button under section {string}")
-	public void buyers_clicks_on_button_under_section(String string, String string2) {
-	  
-		objectManager.getProcurementOverviewPage().clickOnStartPremarketEngagementBtn();
-	}
-
-	
-	
 }

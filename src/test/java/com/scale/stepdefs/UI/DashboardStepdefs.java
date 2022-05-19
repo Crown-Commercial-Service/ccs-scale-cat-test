@@ -1,4 +1,4 @@
-package com.scale.stepdefs;
+package com.scale.stepdefs.UI;
 
 
 import org.apache.logging.log4j.LogManager;

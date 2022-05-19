@@ -3,7 +3,7 @@
 Feature: POST request to create project
 
 #SCAT-1850, SCC-740
-  @Run
+  @API
   Scenario Outline: Create a Project with the status as "Running" in Jaggaer
     Given an API endpoint to create new project
     When an user from an organisation sends a request to create a project using "<Payload>"
@@ -14,7 +14,7 @@ Feature: POST request to create project
       |TD001|
 
 #SCC-741
-  @Run
+  @API
   Scenario Outline: Two Users from same Org creating project for same Agreement and Lot
     Given an API endpoint to create new project
     When an user from an organisation sends a request to create a project using "<Payload 1>"
@@ -25,7 +25,7 @@ Feature: POST request to create project
       |TD001    |TD002    |
 
 #SCC-742
-  @Run
+  @API
   Scenario Outline: Two Users from different Org creating project for same Agreement and Lot
     Given an API endpoint to create new project
     When an user from an organisation sends a request to create a project using "<Payload 1>"
@@ -36,7 +36,7 @@ Feature: POST request to create project
       |TD001    |TD003    |
 
 #SCC-743
-  @Run
+  @API
   Scenario Outline: Created projects should have different default name and procurement ID
     Given an API endpoint to create new project
     When an user from an organisation sends a request to create a project using "<Payload 1>"
@@ -47,7 +47,7 @@ Feature: POST request to create project
       |TD001    |TD004   |
 
 #SCC-744
-  @Run
+  @API
   Scenario Outline: Created projects should be mapped in Tenders DB against Jaggaer Project Identifier
     Given an API endpoint to create new project
     When an user from an organisation sends a request to create a project using "<Payload>"
@@ -57,7 +57,7 @@ Feature: POST request to create project
       |TD001  |
 
 #SCAT-2154
-  @Run
+  @API
   Scenario Outline: Rename an existing project
     Given an API endpoint to update project name
     When Buyer updates default project name with new "<Name>"
