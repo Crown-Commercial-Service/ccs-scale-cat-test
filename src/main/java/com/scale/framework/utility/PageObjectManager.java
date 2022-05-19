@@ -4,6 +4,7 @@ import com.scale.framework.utility.API.Auth;
 import com.scale.pages.ChooseACommercialAgreementPage;
 import com.scale.pages.CommonToAllPage;
 import com.scale.pages.DashboardPage;
+import com.scale.pages.DoPreMarketEngagementPage;
 import com.scale.pages.LoginPage;
 import com.scale.pages.ProcurementOverviewPage;
 
@@ -19,6 +20,7 @@ public class PageObjectManager {
 	private ChooseACommercialAgreementPage chooseACommercialAgreementPage;
 	private ProcurementOverviewPage procurementOverviewPage;
 	private CommonToAllPage commonToAllPage;
+	private DoPreMarketEngagementPage doPreMarketEngagement;
 	private Auth auth;
 	
 	public PageObjectManager(WebDriver driver, Scenario scenario) {
@@ -48,6 +50,10 @@ public class PageObjectManager {
 	
 	public CommonToAllPage getcommonToAllPage() {
 		return commonToAllPage == null ? commonToAllPage = new CommonToAllPage(driver,scenario) : commonToAllPage;
+	}
+	
+	public DoPreMarketEngagementPage getDoPreMarketEngagementPage() {
+		return doPreMarketEngagement == null ? doPreMarketEngagement = new DoPreMarketEngagementPage(driver,scenario) : doPreMarketEngagement;
 	}
 	
 	

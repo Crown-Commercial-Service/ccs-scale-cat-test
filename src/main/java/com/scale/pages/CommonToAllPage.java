@@ -1,9 +1,7 @@
 package com.scale.pages;
 
 import static org.junit.Assert.assertTrue;
-
 import java.time.Duration;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebDriver;
@@ -11,13 +9,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import com.scale.context.TestContext;
 import com.scale.framework.utility.Actions;
 import com.scale.framework.utility.BrowserFactory;
 import com.scale.framework.utility.ConfigurationReader;
 import com.scale.framework.utility.PageObjectManager;
-
 import io.cucumber.java.Scenario;
 
 /**
@@ -69,6 +65,13 @@ public class CommonToAllPage extends Actions {
 
 	@FindBy(xpath = "//h1[contains(text(),'Procurement overview')]")
 	private WebElement procurementOverviewPageTitle;
+	
+	/**
+	 * Page title
+	 */
+	@FindBy(xpath = "//h1[contains(text(),'Do pre-market engagement')]")
+	private WebElement  pageTitleDoPreMarketEngagement;
+
 
 	/**
 	 * HEADER Xpaths
@@ -198,6 +201,7 @@ public class CommonToAllPage extends Actions {
 
 	@FindBy(xpath = "//footer//a/img")
 	private WebElement footerGoToTheCCSHomepage;
+	
 
 	/**
 	 * validateHeaderBannerHelpSectionFooter method validates the HEADER, BANNER,
@@ -342,6 +346,28 @@ public class CommonToAllPage extends Actions {
 			scenario.log("Buyer validates the page title: " + getText(procurementOverviewPageTitle));
 			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
 			log.info("Buyer validates the page title: " + getText(procurementOverviewPageTitle));
+			break;
+			
+		case "<Do pre-market engagement>":
+
+			waitForSeconds(1);
+			assertTrue(getText(pageTitleDoPreMarketEngagement).equalsIgnoreCase(TestContext.OneFCTestDataMap.get(TestContext.TDID).get("DoPreMarketEngagement_PageTitle")));
+			scenario.log("Buyer validates the page title: " + getText(pageTitleDoPreMarketEngagement));
+			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+			log.info("Buyer validates the page title: " + getText(pageTitleDoPreMarketEngagement));
+
+			break;
+			
+			
+		case "<Name your project>":
+
+			waitForSeconds(1);
+			assertTrue(getText(pageTitleDoPreMarketEngagement).equalsIgnoreCase(TestContext.OneFCTestDataMap.get(TestContext.TDID).get("DoPreMarketEngagement_PageTitle")));
+			scenario.log("Buyer validates the page title: " + getText(pageTitleDoPreMarketEngagement));
+			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+			log.info("Buyer validates the page title: " + getText(pageTitleDoPreMarketEngagement));
+
+			break;
 			
 		}
 

@@ -7,11 +7,24 @@ import com.scale.framework.utility.PageObjectManager;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
+/**
+ * Class CommonToAllPageStepdefs
+ * @author 571154
+ *
+ */
 public class CommonToAllPageStepdefs {
 	
+	/**
+	 * Variables declaration
+	 */
 	private PageObjectManager objectManager;
 	public ScenarioContext scenarioContext;
-
+	
+	/**
+	 * CommonToAllPageStepdefs class constructor has overloaded
+	 * @param testContextObj
+	 * @param scenarioContext
+	 */
 	public CommonToAllPageStepdefs(TestContext testContextObj, ScenarioContext scenarioContext) {
 		testContextObj.getDriver();
 		objectManager = testContextObj.getObjectManager();

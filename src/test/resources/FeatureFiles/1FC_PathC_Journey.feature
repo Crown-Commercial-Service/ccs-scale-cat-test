@@ -5,7 +5,8 @@ Feature: Create 1FC Path C journey
   @RFI-Flow
   Scenario Outline: 
   	#<Login> Page
-		Given Active or Registered buyer launches CAS application landing page
+  	
+  	Given Active or Registered buyer launches CAS application landing page
     When Buyer enters valid "<UserName>" and "<Password>" of the "<TestData>"
     And Buyer clicks on Sign In button
     
@@ -26,9 +27,18 @@ Feature: Create 1FC Path C journey
     And Buyer validates the page content
     When Buyers clicks on "<Start pre-market engagement>" button under section "<2. Do pre-market engagement>"
     
-    #<Procurement overview> Page <Step-2>
-    Then Buyer navigates to "<Find suppliers and run your procurement online.>" page
-    
+    #<Do pre-market engagement> Page <Step-2>
+    Then Buyer navigates to "<Do pre-market engagement>" page
+    And Buyer validates "<Procurement overview>" page "<Header>" "<Banner>" "<HelpSection>" & "<Footer>" is as per figma.
+    And Buyer validates "<Procurement overview>" page "<AgreementDetails>" & "<RelatedContent>" is as per figma.
+   	And Buyer validates the Do pre-market engagement page content
+    When Buyers clicks on "<Name your project>" link.
+        
+    #<Name your project> Page <Step-3>
+    #Then Buyer navigates to "<Name your project>" page
+    And Buyer validates "<Procurement overview>" page "<Header>" "<Banner>" "<HelpSection>" & "<Footer>" is as per figma.
+    And Buyer validates "<Procurement overview>" page "<AgreementDetails>" & "<RelatedContent>" is as per figma.
+   	
     Examples: 
       | TestData |
       | TD001    |

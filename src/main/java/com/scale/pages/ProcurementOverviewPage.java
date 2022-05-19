@@ -234,8 +234,8 @@ public class ProcurementOverviewPage extends Actions{
 		// Section2 Status check
 		assertTrue(section6Content[1].equalsIgnoreCase(contentDetails[14]));
 		
-		scenario.log("Buyer validated the WriteAndPublishYourRequirements page contents");
-		log.info("Buyer validated the WriteAndPublishYourRequirements page contents");
+		scenario.log("Buyer validated the ProcurementOverview page contents");
+		log.info("Buyer validated the ProcurementOverview page contents");
 		textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
 	}
 	

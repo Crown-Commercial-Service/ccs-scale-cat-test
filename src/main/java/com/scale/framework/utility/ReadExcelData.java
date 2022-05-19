@@ -20,7 +20,7 @@ public class ReadExcelData {
 
     private static Workbook WORK_BOOK;
     private static Sheet WORK_SHEET;
-    private static String TESTDATA_FILE_PATH = System.getProperty("user.dir")  + "\\src\\test\\resources\\TestData\\TestData.xlsx";
+    private static String TESTDATA_FILE_PATH = System.getProperty("user.dir")  + "\\src\\test\\resources\\TestData\\UI_TestData.xlsx";
 
 
     /**
