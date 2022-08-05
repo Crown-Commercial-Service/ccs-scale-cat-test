@@ -34,7 +34,10 @@ public class DashboardPage extends Actions {
 	 */
 	ConfigurationReader configReader;
 	private PageObjectManager objectManager;
-	private static final Logger log = LogManager.getLogger(LoginPage.class);
+	/**
+	 * Logger
+	 */
+	private static final Logger log = LogManager.getLogger(DashboardPage.class);
 
 	/**
 	 * DashboardPage constructor overloaded
@@ -55,6 +58,9 @@ public class DashboardPage extends Actions {
 	 */
 	@FindBy(xpath = "//a[contains(text(),'Start a new Project')]")
 	private WebElement startANewProject;
+	
+	@FindBy(xpath = "//button[contains(text(),'Accept all cookies')]")
+	private WebElement acceptAllCookiesBtn;
 
 	@FindBy(xpath = "//a[@id='active-data-next']")
 	private WebElement next;
@@ -65,6 +71,19 @@ public class DashboardPage extends Actions {
 	@FindBy(xpath = "//a[contains(text(),'Management Consultancy Framework Three (MCF3)')]")
 	private WebElement managementConsultancyFrameworkThreeMCF3;
 
+	
+	/**
+	 * This method clicks on "Accept all cookies" button
+	 */
+	public void clickOnAcceptAllCookiesBtn() {
+
+		textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+		clickElement(acceptAllCookiesBtn);
+		scenario.log("Buyer clicks on 'Accept all cookie' button");
+		log.info("Buyer clicks on 'Accept all cookie' button");
+		waitForSeconds(1);
+	}
+	
 	/**
 	 * This method clicks on "StarANewProject" Link
 	 */
@@ -76,5 +95,8 @@ public class DashboardPage extends Actions {
 		log.info("Buyer clicks on 'Star a new Project' link");
 		waitForSeconds(1);
 	}
+	
+	
+	
 
 }

@@ -38,7 +38,11 @@ public class ProcurementOverviewPage extends Actions{
 	 */
 	ConfigurationReader configReader;
 	private PageObjectManager objectManager;
-	private static final Logger log = LogManager.getLogger(LoginPage.class);
+	
+	/**
+	 * Logger
+	 */
+	private static final Logger log = LogManager.getLogger(ProcurementOverviewPage.class);
 	
 	/**
 	 * ProcurementOverviewPage constructor overloaded
@@ -90,6 +94,9 @@ public class ProcurementOverviewPage extends Actions{
 
 	@FindBy(xpath = "//span[contains(text(),'2.')]/../strong")
 	private WebElement  section2StatusOptional;
+	
+	@FindBy(xpath = "//a[contains(text(),'Write and publish requirements')]")
+	private WebElement  WriteAndPublishYourRequirementsBtn;
 
 	/**
 	 * Section 3 locator (3. Write and publish your requirements)
@@ -241,16 +248,38 @@ public class ProcurementOverviewPage extends Actions{
 	
 	
 	/**
-	 * clickOnWriteAndPublishYourRequirementsBtn method clicks on WriteAndPublishYourRequirements Btn
+	 * clickOnWriteAndPublishYourRequirementsBtn method clicks 
+	 * the button mentioned in the excel data
 	 * 
 	 */
 	public void clickOnStartPremarketEngagementBtn() {
 		
-		clickElement(StartPreMarketEngagementBtn);
-		textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
-		scenario.log("Buyer clicks on StartPreMarketEngagement Button");
-		log.info("Buyer clicks on StartPreMarketEngagement Button");
+		String section = TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S1_Section");
 		
+		switch (section) {
+		
+		case "2. Do pre-market engagement":
+
+			waitForSeconds(1);
+			clickElement(StartPreMarketEngagementBtn);
+			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+			scenario.log("Buyer clicks on StartPreMarketEngagement Button");
+			log.info("Buyer clicks on StartPreMarketEngagement Button");
+		
+			break;
+
+		case "3. Write and publish your requirements":
+
+			waitForSeconds(1);
+			clickElement(WriteAndPublishYourRequirementsBtn);
+			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+			scenario.log("Buyer clicks on WriteAndPublishYourRequirements Button");
+			log.info("Buyer clicks on WriteAndPublishYourRequirements Button");
+		
+			break;
+			
 	}
 
+}
+	
 }

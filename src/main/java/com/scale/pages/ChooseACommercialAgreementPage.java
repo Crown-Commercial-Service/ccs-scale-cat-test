@@ -18,13 +18,26 @@ import com.scale.framework.utility.PageObjectManager;
 
 import io.cucumber.java.Scenario;
 
+/**
+ * Class Login Page has extend the Actions class
+ * 
+ * @author 571154
+ *
+ */
 public class ChooseACommercialAgreementPage extends Actions{
 	
+	/**
+	 * Variables declaration
+	 */
 	TestContext textContext=new TestContext();
 	ConfigurationReader configReader;
 	private BrowserFactory browserFactory = new BrowserFactory();
 	private PageObjectManager objectManager;
-	private static final Logger log = LogManager.getLogger(LoginPage.class);
+	
+	/**
+	 * Logger initialization
+	 */
+	private static final Logger log = LogManager.getLogger(ChooseACommercialAgreementPage.class);
 	
 	public ChooseACommercialAgreementPage(WebDriver driver, Scenario scenario) {
 		super.driver = driver;
@@ -34,6 +47,9 @@ public class ChooseACommercialAgreementPage extends Actions{
 		this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(30));
 	}
 	
+	/**
+	 * ChooseACommercialAgreementPage Xpaths
+	 */
 	@FindBy(xpath = "//button[@id='accordion-default-heading-1']")
 	private WebElement  digitalSpecialistRolesAndProgrammesRM626;
 
@@ -56,13 +72,17 @@ public class ChooseACommercialAgreementPage extends Actions{
 	private WebElement  suppliers11;
 
 
-	
+	/**
+	 * This method select the lot provided in the excel
+	 * @param lotType
+	 * @param CommercialAgreementType
+	 */
 	public void selectCALot(String lotType, String CommercialAgreementType) {
 
 		if (CommercialAgreementType.contains("Digital Specialists and Programmes (RM6263)")) {
 
 			clickElement(digitalSpecialistRolesAndProgrammesRM626);
-			String lotTypeString = TestContext.OneFCTestDataMap.get(TestContext.TDID).get("Lot");
+			String lotTypeString = TestContext.OneFCTestDataMap.get(TestContext.TDID).get("ChooseAgreement_Lot");
 
 			switch (lotTypeString) {
 

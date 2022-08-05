@@ -30,22 +30,6 @@ public class LoginPage extends Actions {
 	private static final Logger log = LogManager.getLogger(LoginPage.class);
 
 	/**
-	 * LoginPage Xpaths
-	 */
-
-	@FindBy(xpath = "//button[contains(text(),'Accept all cookies')]")
-	private WebElement acceptAllCookies;
-
-	@FindBy(xpath = "//input[contains(@id,'email')]")
-	private WebElement userName;
-
-	@FindBy(xpath = "//input[contains(@id,'password')]")
-	private WebElement password;
-
-	@FindBy(xpath = "//button[@type='submit']")
-	private WebElement signInBtn;
-
-	/**
 	 * Login Page constructor has overloaded
 	 * 
 	 * @param driver
@@ -60,6 +44,24 @@ public class LoginPage extends Actions {
 		textContext = new TestContext();
 	}
 
+	
+	/**
+	 * LoginPage Xpaths
+	 */
+
+	@FindBy(xpath = "//button[contains(text(),'Accept additional cookies')]")
+	private WebElement acceptAllCookies;
+
+	@FindBy(xpath = "//input[contains(@id,'email')]")
+	private WebElement userName;
+
+	@FindBy(xpath = "//input[contains(@id,'password')]")
+	private WebElement password;
+
+	@FindBy(xpath = "//button[@type='submit']")
+	private WebElement signInBtn;
+
+	
 	/**
 	 * This method clicks on AcceptAllCookies button, & SignIn link & Enters Values
 	 * in UserName and Password text field
@@ -70,7 +72,7 @@ public class LoginPage extends Actions {
 	public void loginByuerUi(String UserName, String Password) {
 		clickElement(acceptAllCookies);
 		waitForSeconds(1);
-		clickByLinkText(signIn);
+		//clickByLinkText(signIn);
 		waitForSeconds(1);
 		enterText(userName, UserName);
 		enterText(password, Password);

@@ -52,10 +52,15 @@ public class TestContext extends BrowserFactory {
 	protected WebDriverWait wait;
 	
 	public static HashMap<String, String> ConfigData = GlobalContext.getGlobalInstance().getGlobalData();
-	public static Map<String, Map<String, String>> OneFCTestDataMap = ReadExcelData.extractData("UI_Testdata.xlsx","OneFCFlowTestData");
+	public static Map<String, Map<String, String>> OneFCTestDataMap = ReadExcelData.extractData("UI_Testdata.xlsx","OneFCFlowTestDataSanity");
 	public static String TDID;
 	
-	
+	/**
+	 * This method execute before the steps and setups
+	 * the connection for configReader, Screenshot.
+	 * @param scenario
+	 * @throws MalformedURLException
+	 */
 	@Before
 	public void setUp(Scenario scenario) throws MalformedURLException {
 		log.info("=================" + scenario.getName() + " execution starts" + "===================");
@@ -72,7 +77,11 @@ public class TestContext extends BrowserFactory {
 	}
 
 
-	
+	/**
+	 * This method executes at the end of the steps
+	 * and closes all the connections
+	 * @throws Exception
+	 */
 	@After
 	public void cleanUp() throws Exception {
 		if (configReader.get("browserName").equalsIgnoreCase("chrome_profile")
@@ -97,11 +106,19 @@ public class TestContext extends BrowserFactory {
 		}
 
 	}
-
+	
+	/**
+	 * This method will return the Object of the class
+	 * @return
+	 */
 	public PageObjectManager getObjectManager() {
 		return objectManager;
 	}
 
+	/**
+	 * This method will return the driver instance
+	 * @return
+	 */
 	public WebDriver getDriver() {
 		return this.driver;
 	}
@@ -109,7 +126,9 @@ public class TestContext extends BrowserFactory {
 		this.scenario.log(message);
 	}
 
-	
+	/**
+	 * This methods takes the screenshots
+	 */
 	public void takeSnapShot() {
 		// Code to take full page screenshot
 		ByteArrayOutputStream imageStream = new ByteArrayOutputStream();
@@ -162,19 +181,53 @@ public class TestContext extends BrowserFactory {
 
 	}
 	
-	
+	/**
+	 * This stepdef setups the environment
+	 * @param scenarioID
+	 */
 	@Given("^User has environment setup for ([^\"]*)$")
 	public void user_has_environment_setup_for(String scenarioID) {
 	    scenarioContext.setContext(jsonUtilityObj.convertJSONtoMAP(scenarioID));
 	    scenario.log("validating response when " + scenarioContext.getContext("scenarioID"));
 	}
 	
+	
+	/**
+	 * This stepdef launches the URL
+	 */
+	@Given("Active or Registered buyer launches CAS application landing page of the {string}")
+	public void active_or_Registered_buyer_launches_CAS_application_landing_page_of_the(String TDID) {
+		
+		try {
+			TestContext.TDID=TDID;
+			
+			this.driver = initiateDriver(configReader.getBrowserName(),scenario);
+			launchURL(configReader.get("CASURL"));
+			
+			objectManager = new PageObjectManager(this.driver, scenario);
+			assertTrue("Successfully launched the CAS application landing page",true);
+			log.info("Successfully launched the CAS application landing page");
+			//objectManager.getLoginPage().login();
+			
+		} catch (MalformedURLException e) {
+			
+			assertFalse("Unable to launched the CAS application landing page",false);
+			log.info("Unable to launched the CAS application landing page");
+		}
+	}
+
+	
+	
+	/**
+	 * This stepdef launches the URL
+	 */
 	@Given("Active or Registered buyer launches CAS application landing page")
 	public void active_or_registered_buyer_launches_cas_application_landing_page() {
 		
 		try {
 			this.driver = initiateDriver(configReader.getBrowserName(),scenario);
-			launchURL("https://int-ccs-scale-cat-buyer-ui.london.cloudapps.digital");
+			launchURL(configReader.get("CASURL"));
+			
 			objectManager = new PageObjectManager(this.driver, scenario);
 			assertTrue("Successfully launched the CAS application landing page",true);
 			log.info("Successfully launched the CAS application landing page");
@@ -187,5 +240,6 @@ public class TestContext extends BrowserFactory {
 		}
 		
 	}
+	
 
 }

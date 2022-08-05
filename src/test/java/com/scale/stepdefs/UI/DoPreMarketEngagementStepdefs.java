@@ -21,7 +21,7 @@ public class DoPreMarketEngagementStepdefs {
 	/**
 	 * Variables declaration
 	 */
-	private static final Logger log = LogManager.getLogger(LoginPage.class);
+	private static final Logger log = LogManager.getLogger(DoPreMarketEngagementStepdefs.class);
 	private PageObjectManager objectManager;
 	public ScenarioContext scenarioContext;
 	

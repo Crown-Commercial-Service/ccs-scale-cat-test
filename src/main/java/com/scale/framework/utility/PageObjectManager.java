@@ -2,11 +2,13 @@ package com.scale.framework.utility;
 
 import com.scale.framework.utility.API.Auth;
 import com.scale.pages.ChooseACommercialAgreementPage;
+import com.scale.pages.ChooseHowToFindASupplier;
 import com.scale.pages.CommonToAllPage;
 import com.scale.pages.DashboardPage;
 import com.scale.pages.DoPreMarketEngagementPage;
 import com.scale.pages.LoginPage;
 import com.scale.pages.ProcurementOverviewPage;
+import com.scale.pages.WriteAndPublishYourRequirements;
 
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +23,9 @@ public class PageObjectManager {
 	private ProcurementOverviewPage procurementOverviewPage;
 	private CommonToAllPage commonToAllPage;
 	private DoPreMarketEngagementPage doPreMarketEngagement;
+	private ChooseHowToFindASupplier chooseHowToFindASupplier;
+	private WriteAndPublishYourRequirements writeAndPublishYourRequirements;
+	
 	private Auth auth;
 	
 	public PageObjectManager(WebDriver driver, Scenario scenario) {
@@ -56,9 +61,16 @@ public class PageObjectManager {
 		return doPreMarketEngagement == null ? doPreMarketEngagement = new DoPreMarketEngagementPage(driver,scenario) : doPreMarketEngagement;
 	}
 	
+	public ChooseHowToFindASupplier getChooseHowToFindASupplier() {
+		return chooseHowToFindASupplier == null ? chooseHowToFindASupplier = new ChooseHowToFindASupplier(driver,scenario) : chooseHowToFindASupplier;
+	}
 	
 	
+	public WriteAndPublishYourRequirements getWriteAndPublishYourRequirements() {
+		return writeAndPublishYourRequirements == null ? writeAndPublishYourRequirements = new WriteAndPublishYourRequirements(driver,scenario) : writeAndPublishYourRequirements;
+	}
 	
+		
 	//API
 	/*public Auth getAuth() {
 		return auth == null ? auth = new Auth(driver,scenario) : auth;

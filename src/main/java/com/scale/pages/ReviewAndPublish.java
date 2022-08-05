@@ -9,8 +9,29 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
+/**
+ * Class ReviewAndPublish has extend the Actions class
+ * @author 571154
+ *
+ */
 public class ReviewAndPublish extends Actions {
 
+	/**
+	 * ReviewAndPublish constructor overloaded
+	 * @param driver
+	 * @param scenario
+	 */
+	public ReviewAndPublish(WebDriver driver, Scenario scenario) {
+        super.driver = driver;
+        this.scenario = scenario;
+        PageFactory.initElements(driver, this);
+        this.wait = new WebDriverWait(super.driver, Duration.ofSeconds(30));
+    }
+	
+	
+	/**
+	 * ReviewAndPublish Page Xpaths
+	 */
     //TODO: - Add Elements
 
     @FindBy(xpath = "//a[contains(text(), 'Return to Do Pre-market engagement')]")
@@ -25,11 +46,6 @@ public class ReviewAndPublish extends Actions {
     @FindBy(xpath = "//h1[contains(text(),'Upload documents or add links (Optional)')]")
     private WebElement lbl_UploadFilesTitle;
 
-    public ReviewAndPublish(WebDriver driver, Scenario scenario) {
-        super.driver = driver;
-        this.scenario = scenario;
-        PageFactory.initElements(driver, this);
-        this.wait = new WebDriverWait(super.driver, Duration.ofSeconds(30));
-    }
+    
 
 }
