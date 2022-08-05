@@ -7,6 +7,12 @@ import org.openqa.selenium.support.PageFactory;
 
 import com.scale.framework.utility.Actions;
 
+/**
+ * Class Login Page has extend the Actions class
+ * 
+ * @author 571154
+ *
+ */
 public class BackgroundForYourProcurementPage extends Actions {
 	
 	public BackgroundForYourProcurementPage(WebDriver driver) {

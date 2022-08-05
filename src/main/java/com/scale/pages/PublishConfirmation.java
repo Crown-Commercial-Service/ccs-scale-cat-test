@@ -9,8 +9,28 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
+/**
+ * Class PublishConfirmation has extend the Actions class
+ * @author 571154
+ *
+ */
 public class PublishConfirmation extends Actions {
 
+	/**
+	 * PublishConfirmation constructor overloaded
+	 * @param driver
+	 * @param scenario
+	 */
+    public PublishConfirmation(WebDriver driver, Scenario scenario) {
+        super.driver = driver;
+        this.scenario = scenario;
+        PageFactory.initElements(driver, this);
+        this.wait = new WebDriverWait(super.driver, Duration.ofSeconds(30));
+    }
+    
+    /**
+	 * PublishConfirmation Page Xpaths
+	 */
     @FindBy(xpath = "//h1[contains(text(),'Your RfI is published')]")
     private WebElement lbl_ConfirmationTitle;
 
@@ -29,10 +49,5 @@ public class PublishConfirmation extends Actions {
     @FindBy(xpath = "//a[contains(text(), 'Return to procurement overview')]  ")
     private WebElement btn_ReturnTo;
 
-    public PublishConfirmation(WebDriver driver, Scenario scenario) {
-        super.driver = driver;
-        this.scenario = scenario;
-        PageFactory.initElements(driver, this);
-        this.wait = new WebDriverWait(super.driver, Duration.ofSeconds(30));
-    }
+    
 }

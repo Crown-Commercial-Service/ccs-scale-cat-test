@@ -16,6 +16,12 @@ import com.scale.framework.utility.ConfigurationReader;
 import com.scale.framework.utility.PageObjectManager;
 import io.cucumber.java.Scenario;
 
+/**
+ * Class DoPreMarketEngagementPage has extend the Actions class
+ * 
+ * @author 571154
+ *
+ */
 public class DoPreMarketEngagementPage extends Actions {
 	
 	/**
@@ -29,7 +35,11 @@ public class DoPreMarketEngagementPage extends Actions {
 	 */
 	ConfigurationReader configReader;
 	private PageObjectManager objectManager;
-	private static final Logger log = LogManager.getLogger(LoginPage.class);
+	
+	/**
+	 * Logger
+	 */
+	private static final Logger log = LogManager.getLogger(DoPreMarketEngagementPage.class);
 	
 	/**
 	 * DoPreMarketEngagement constructor overloaded

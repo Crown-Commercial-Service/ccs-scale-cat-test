@@ -35,7 +35,7 @@ public class CommonToAllPage extends Actions {
 	 */
 	ConfigurationReader configReader;
 	private PageObjectManager objectManager;
-	private static final Logger log = LogManager.getLogger(LoginPage.class);
+	private static final Logger log = LogManager.getLogger(CommonToAllPage.class);
 
 	/**
 	 * CommonToAllPage constructor overloaded
@@ -63,15 +63,23 @@ public class CommonToAllPage extends Actions {
 	@FindBy(xpath = "//h1[contains(text(),'Find suppliers and run your procurement online.')]")
 	private WebElement pageTitleDashboard;
 
-	@FindBy(xpath = "//h1[contains(text(),'Procurement overview')]")
+	@FindBy(xpath = "//strong[contains(text(),'Procurement overview')]")
 	private WebElement procurementOverviewPageTitle;
+	
+	@FindBy(xpath = "//strong[contains(text(),'Choose how to find a supplier')]")
+	private WebElement chooseHowToFindASuppliePageTitle;
+	
+	@FindBy(xpath = "//h1[contains(text(),'Write and publish your requirements')]")
+	private WebElement writeAndPublishYourRequirementsPageTitle;
 	
 	/**
 	 * Page title
 	 */
 	@FindBy(xpath = "//h1[contains(text(),'Do pre-market engagement')]")
 	private WebElement  pageTitleDoPreMarketEngagement;
-
+	
+	@FindBy(xpath = "//h1[contains(text(),'Sign in to the Public Procurement Gateway')]")
+	private WebElement  pageTitleSignInToThePublicProcurementGateway;
 
 	/**
 	 * HEADER Xpaths
@@ -316,12 +324,23 @@ public class CommonToAllPage extends Actions {
 	public void validatePageTitle(String pageName) {
 
 		switch (pageName) {
+		
+		case "<Sign in to the Public Procurement Gateway>":
+
+			waitForSeconds(1);
+			assertTrue(getText(pageTitleSignInToThePublicProcurementGateway)
+					.equalsIgnoreCase(TestContext.OneFCTestDataMap.get(TestContext.TDID).get("Login_Title")));
+			scenario.log("Buyer validates the page title: " + getText(pageTitleSignInToThePublicProcurementGateway));
+			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+			log.info("Buyer validates the page title: " + getText(pageTitleSignInToThePublicProcurementGateway));
+
+			break;
 
 		case "<Find suppliers and run your procurement online>":
 
 			waitForSeconds(1);
 			assertTrue(getText(pageTitleDashboard)
-					.equalsIgnoreCase(TestContext.OneFCTestDataMap.get(TestContext.TDID).get("Dashboard_PageTitle")));
+					.equalsIgnoreCase(TestContext.OneFCTestDataMap.get(TestContext.TDID).get("Dashboard_Title")));
 			scenario.log("Buyer validates the page title: " + getText(pageTitleDashboard));
 			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
 			log.info("Buyer validates the page title: " + getText(pageTitleDashboard));
@@ -332,7 +351,7 @@ public class CommonToAllPage extends Actions {
 
 			waitForSeconds(1);
 			assertTrue(getText(pageTitleChooseAgreement).equalsIgnoreCase(
-					TestContext.OneFCTestDataMap.get(TestContext.TDID).get("ChooseAgreemnt_PageTitle")));
+					TestContext.OneFCTestDataMap.get(TestContext.TDID).get("ChooseAgreement_Title")));
 			scenario.log("Buyer validates the page title: " + getText(pageTitleChooseAgreement));
 			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
 			log.info("Buyer validates the page title: " + getText(pageTitleChooseAgreement));
@@ -342,10 +361,31 @@ public class CommonToAllPage extends Actions {
 
 			waitForSeconds(1);
 			assertTrue(getText(procurementOverviewPageTitle).equalsIgnoreCase(
-					TestContext.OneFCTestDataMap.get(TestContext.TDID).get("ProcOverview_PageTitle")));
+					TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S1_Title")));
 			scenario.log("Buyer validates the page title: " + getText(procurementOverviewPageTitle));
 			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
 			log.info("Buyer validates the page title: " + getText(procurementOverviewPageTitle));
+			break;
+			
+		case "<Choose how to find a supplier>":
+
+			waitForSeconds(1);
+			assertTrue(getText(chooseHowToFindASuppliePageTitle).equalsIgnoreCase(
+					TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S2_Title")));
+			scenario.log("Buyer validates the page title: " + getText(chooseHowToFindASuppliePageTitle));
+			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+			log.info("Buyer validates the page title: " + getText(chooseHowToFindASuppliePageTitle));
+			break;
+			
+			
+		case "<Write and publish your requirements>":
+
+			waitForSeconds(1);
+			assertTrue(getText(writeAndPublishYourRequirementsPageTitle).equalsIgnoreCase(
+					TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S3_Title")));
+			scenario.log("Buyer validates the page title: " + getText(writeAndPublishYourRequirementsPageTitle));
+			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+			log.info("Buyer validates the page title: " + getText(writeAndPublishYourRequirementsPageTitle));
 			break;
 			
 		case "<Do pre-market engagement>":
