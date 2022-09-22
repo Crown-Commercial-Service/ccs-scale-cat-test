@@ -1,5 +1,6 @@
 package com.scale.stepdefs.UI;
 
+import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -50,7 +51,7 @@ public class CommonToAllPageStepdefs {
 	 */
 	@Then("Buyer navigates to {string} page")
 	public void buyer_navigates_to_page(String pageName) {
-		objectManager.getcommonToAllPage().validatePageTitle(pageName);
+		objectManager.getcommonToAllPage().validatePageTitles(pageName);
 	}
 
 	
@@ -92,6 +93,17 @@ public class CommonToAllPageStepdefs {
 	   objectManager.getcommonToAllPage().validateProjectOverviewRelatedContent();
 	}
 
+	/**
+	 * This stepdef calls the method clickOnStarANewProject
+	 * that clicks on StarANewProject link
+	 */
+	@When("Buyer clicks on {string} link")
+	public void buyer_clicks_on_link(String linkName) {
+		objectManager.getDashboard().clickOnStarANewProject();
+	}
 
-
+	@When("Buyer clicks on {string} button")
+	public void buyerClicksOnButton(String arg0) {
+		objectManager.getcommonToAllPage().clickSaveandContinue();
+	}
 }

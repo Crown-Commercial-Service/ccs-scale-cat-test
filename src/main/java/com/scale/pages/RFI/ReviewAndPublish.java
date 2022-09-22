@@ -1,4 +1,4 @@
-package com.scale.pages;
+package com.scale.pages.RFI;
 
 import com.scale.framework.utility.Actions;
 import io.cucumber.java.Scenario;
