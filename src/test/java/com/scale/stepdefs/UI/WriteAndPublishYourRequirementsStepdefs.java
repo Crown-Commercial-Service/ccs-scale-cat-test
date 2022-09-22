@@ -1,5 +1,7 @@
 package com.scale.stepdefs.UI;
 
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -41,5 +43,13 @@ public class WriteAndPublishYourRequirementsStepdefs {
 		objectManager = testContextObj.getObjectManager();
 		this.scenarioContext = scenarioContext;
 	}
-	
+
+	/**
+	 * This stepdef calls the method clickOnStarANewProject
+	 * that clicks on StarANewProject link
+	 */
+	@When("Buyer clicks on {string} page link.")
+	public void buyer_clicks_on_link(String linkName) {
+		objectManager.getWriteAndPublishYourRequirements().clickLink(linkName);
+	}
 }

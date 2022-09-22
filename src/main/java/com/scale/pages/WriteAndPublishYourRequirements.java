@@ -4,7 +4,10 @@ import java.time.Duration;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -33,7 +36,7 @@ public class WriteAndPublishYourRequirements extends Actions  {
 	private static final Logger log = LogManager.getLogger(LoginPage.class);
 
 	/**
-	 * Login Page constructor has overloaded
+	 * Page constructor has overloaded
 	 * 
 	 * @param driver
 	 * @param scenario
@@ -49,7 +52,20 @@ public class WriteAndPublishYourRequirements extends Actions  {
 
 	
 	/**
-	 * LoginPage Xpaths
+	 * Locators
 	 */
+	@FindBy(xpath="//a[contains(text(),'Choose the roles you need')]")
+	private WebElement ChooseRoles;
+
+	@FindBy(xpath="//a[contains(text(),'Choose the roles you need')]")
+	private WebElement SecurityVetting;
+
+	public void clickLink(String Link){
+		waitForSeconds(1);
+		clickElement(driver.findElement(By.xpath("//a[contains(text(),'"+Link+"')]")));
+		textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+		scenario.log("Buyer clicks on '"+Link+"' link");
+		log.info("Buyer clicks on '"+Link+"' link");
+	}
 
 }

@@ -1,4 +1,4 @@
-package com.scale.pages;
+package com.scale.pages.RFI;
 
 import static org.junit.Assert.assertTrue;
 import java.time.Duration;

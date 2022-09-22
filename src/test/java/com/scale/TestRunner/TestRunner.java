@@ -1,14 +1,16 @@
 package com.scale.TestRunner;
 
 import com.scale.context.GlobalContext;
-import com.scale.framework.utility.AWSParameterStore;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Properties;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
@@ -24,12 +26,21 @@ import java.util.HashMap;
 public class TestRunner {
 
     @BeforeClass
-    public static void aws() {
-        AWSParameterStore PS = new AWSParameterStore();
+    public static void aws() throws IOException {
+
+        Properties props = new Properties();
+        props.load(new FileInputStream( "C:\\MyProperties.txt"));
+
         HashMap<String, String> param = new HashMap<>();
-        param.putAll(PS.getValuesByPath("/cat/int/"));
-        param.putAll(PS.getValuesByPath("/cat/test-team/"));
+        props.forEach((k, v) -> param.put(k.toString(), v.toString()));
         GlobalContext.getGlobalInstance().setGlobalData(param);
+
+        //AWSParameterStore PS = new AWSParameterStore();
+        //HashMap<String, String> param = new HashMap<>();
+        //param.putAll(PS.getValuesByPath("/cat/int/"));
+        //param.putAll(PS.getValuesByPath("/cat/test-team/"));
+        //GlobalContext.getGlobalInstance().setGlobalData(param);
+
 
         //TODO: - Trigger only for API Tests
         /*
