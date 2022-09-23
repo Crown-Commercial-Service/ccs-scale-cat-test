@@ -3,7 +3,7 @@ Feature: Create 1FC Path C journey
 
   
     #US-SCAT-4676 1FC Flow Sanity
-    @UI
+    @1FC, @UI, @Sanity
     Scenario Outline: 
     
   	#<Login> Page

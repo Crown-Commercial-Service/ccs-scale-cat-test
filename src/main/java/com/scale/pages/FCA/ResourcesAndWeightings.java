@@ -1,15 +1,13 @@
-package com.scale.pages;
+package com.scale.pages.FCA;
 
 import com.scale.context.TestContext;
 import com.scale.framework.utility.Actions;
 import com.scale.framework.utility.BrowserFactory;
 import com.scale.framework.utility.ConfigurationReader;
 import com.scale.framework.utility.PageObjectManager;
-import com.scale.pages.LoginPage;
 import io.cucumber.java.Scenario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,11 +15,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 /**
- * Class ScoringCriteria has extend the Actions class
+ * Class ResourcesAndWeightings has extend the Actions class
  *
  * @author 321020
  */
-public class ScoringCriteria extends Actions {
+public class ResourcesAndWeightings extends Actions {
 
     /**
      * Object creation
@@ -34,15 +32,15 @@ public class ScoringCriteria extends Actions {
      */
     ConfigurationReader configReader;
     private PageObjectManager objectManager;
-    private static final Logger log = LogManager.getLogger(ScoringCriteria.class);
+    private static final Logger log = LogManager.getLogger(ResourcesAndWeightings.class);
 
     /**
-     * ScoringCriteria constructor overloaded
+     * ResourcesAndWeightings constructor overloaded
      *
      * @param driver
      * @param scenario
      */
-    public ScoringCriteria(WebDriver driver, Scenario scenario) {
+    public ResourcesAndWeightings(WebDriver driver, Scenario scenario) {
         super.driver = driver;
         this.scenario = scenario;
         configReader = new ConfigurationReader();
@@ -50,7 +48,7 @@ public class ScoringCriteria extends Actions {
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(30));
     }
 
-    public void setScoringCriteria(String Data) {
-        driver.findElement(By.xpath("//a[text()= 'Use a "+ Data +"-tier scoring criteria']")).click();
+    public void enterResourcesAndWeightings() {
+
     }
 }

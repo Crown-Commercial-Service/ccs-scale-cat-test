@@ -1,4 +1,4 @@
-package com.scale.pages;
+package com.scale.pages.ONE_FC;
 
 import com.scale.context.TestContext;
 import com.scale.framework.utility.Actions;

@@ -22,7 +22,7 @@ public class SD_ChooseRoles {
     /**
      * Variables declaration
      */
-    private static final Logger log = LogManager.getLogger(WriteAndPublishYourRequirementsStepdefs.class);
+    private static final Logger log = LogManager.getLogger(SD_ChooseRoles.class);
     private PageObjectManager objectManager;
     public ScenarioContext scenarioContext;
     ConfigurationReader configReader = new ConfigurationReader();

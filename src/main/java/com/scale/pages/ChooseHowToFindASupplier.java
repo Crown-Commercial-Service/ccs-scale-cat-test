@@ -88,8 +88,13 @@ public class ChooseHowToFindASupplier extends Actions{
 		
 			break;
 
-		case "<2FC>":
+		case "2FC":
 
+			waitForSeconds(1);
+			clickElementWithJavaScript("//input[@value='2-stage']");
+			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+			scenario.log("Buyer has selected the 'Further competition with capability assessment' radio Button");
+			log.info("Buyer has selected the 'Further competition with capability assessment' radio Button");
 			
 			break;
 	}

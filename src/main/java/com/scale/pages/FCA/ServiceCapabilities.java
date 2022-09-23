@@ -1,4 +1,4 @@
-package com.scale.pages;
+package com.scale.pages.FCA;
 
 import com.scale.context.TestContext;
 import com.scale.framework.utility.Actions;
@@ -8,21 +8,18 @@ import com.scale.framework.utility.PageObjectManager;
 import io.cucumber.java.Scenario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
 /**
- * Class QualityPriceWeighting has extend the Actions class
+ * Class ServiceCapabilities has extend the Actions class
  *
  * @author 321020
  */
-public class QualityPriceWeighting extends Actions {
+public class ServiceCapabilities extends Actions {
 
     /**
      * Object creation
@@ -35,15 +32,15 @@ public class QualityPriceWeighting extends Actions {
      */
     ConfigurationReader configReader;
     private PageObjectManager objectManager;
-    private static final Logger log = LogManager.getLogger(QualityPriceWeighting.class);
+    private static final Logger log = LogManager.getLogger(ServiceCapabilities.class);
 
     /**
-     * QualityPriceWeighting constructor overloaded
+     * ServiceCapabilities constructor overloaded
      *
      * @param driver
      * @param scenario
      */
-    public QualityPriceWeighting(WebDriver driver, Scenario scenario) {
+    public ServiceCapabilities(WebDriver driver, Scenario scenario) {
         super.driver = driver;
         this.scenario = scenario;
         configReader = new ConfigurationReader();
@@ -51,17 +48,8 @@ public class QualityPriceWeighting extends Actions {
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(30));
     }
 
-    @FindBy(xpath="//input[@id='Question 1']")
-    private WebElement Quality;
+    public void selectServiceCapabilities() {
 
-    @FindBy(xpath="//input[@id='Question 2']")
-    private WebElement Price;
-
-    public void setQualityPriceWeighting(String data) {
-        waitForSeconds(1);
-        Quality.clear();
-        Quality.sendKeys(data.split("~")[0]);
-        Price.clear();
-        Price.sendKeys(data.split("~")[1]);
     }
+
 }
