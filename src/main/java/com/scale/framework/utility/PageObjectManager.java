@@ -1,7 +1,8 @@
 package com.scale.framework.utility;
 
-import com.scale.TheBusinessProblem;
+
 import com.scale.framework.utility.API.Auth;
+
 import com.scale.pages.AboutAddingContextAndRequirements;
 import com.scale.pages.AddAnyPerformanceIncentives;
 import com.scale.pages.AddBackgroundToYourProcurement;
@@ -13,7 +14,7 @@ import com.scale.pages.ChooseIfThisIsNewReplacementOrExpanded;
 import com.scale.pages.CommonToAllPage;
 import com.scale.pages.ConfirmIfYouNeedAContractedOutService;
 import com.scale.pages.DashboardPage;
-import com.scale.pages.DoPreMarketEngagementPage;
+
 import com.scale.pages.EnterYourProjectRequirements;
 import com.scale.pages.HowLongTheProjectWillLast;
 import com.scale.pages.LoginPage;
@@ -25,6 +26,12 @@ import com.scale.pages.UploadYourPricingSchedule;
 import com.scale.pages.WhichPhaseTheProjectIsIn;
 import com.scale.pages.WhichPhasesTheProjectNeedResource;
 import com.scale.pages.WriteAndPublishYourRequirements;
+
+import com.scale.pages.*;
+import com.scale.pages.FCA.*;
+import com.scale.pages.ONE_FC.*;
+import com.scale.pages.RFI.DoPreMarketEngagementPage;
+
 
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.WebDriver;
@@ -41,6 +48,7 @@ public class PageObjectManager {
 	private DoPreMarketEngagementPage doPreMarketEngagement;
 	private ChooseHowToFindASupplier chooseHowToFindASupplier;
 	private WriteAndPublishYourRequirements writeAndPublishYourRequirements;
+
 	private UploadYourPricingSchedule uploadYourPricingSchedule;
 	private UploadPricingSchedulesAndOtherDocuments uploadPricingSchedulesAndOtherDocuments;
 	private ConfirmIfYouNeedAContractedOutService confirmIfYouNeedAContractedOutService;
@@ -59,6 +67,32 @@ public class PageObjectManager {
 	private EnterYourProjectRequirements enterYourProjectRequirements;
 	
 	
+
+	private ChooseRoles chooseRoles;
+	private SecurityVetting securityVetting;
+	private SkillCapability skillCapability;
+	private Location location;
+	private AssessmentCriteria assessmentCriteria;
+	private QualityPriceWeighting qualityPriceWeighting;
+	private QualityWeighting qualityWeighting;
+	private TechnicalQuestions technicalQuestions;
+	private CulturalFitQuestions culturalFitQuestions;
+	private SocialValueQuestions socialValueQuestions;
+	private ScoringCriteria scoringCriteria;
+	private ReviewandPublish reviewandPublish;
+	private FCPublished fcPublished;
+	private EnterWeightings enterWeightings;
+	private GrowthScale growthScale;
+	private NextSteps nextSteps;
+	private NumberofSuppliers numberofSuppliers;
+	private ResourcesAndWeightings resourcesAndWeightings;
+	private ReviewSuitableSuppliers reviewSuitableSuppliers;
+	private FCASecurityVetting fcaSecurityVetting;
+	private ServiceCapabilities serviceCapabilities;
+	private Subcontractors subcontractors;
+
+
+
 	private Auth auth;
 	
 	public PageObjectManager(WebDriver driver, Scenario scenario) {
@@ -97,11 +131,11 @@ public class PageObjectManager {
 	public ChooseHowToFindASupplier getChooseHowToFindASupplier() {
 		return chooseHowToFindASupplier == null ? chooseHowToFindASupplier = new ChooseHowToFindASupplier(driver,scenario) : chooseHowToFindASupplier;
 	}
-	
-	
+
 	public WriteAndPublishYourRequirements getWriteAndPublishYourRequirements() {
 		return writeAndPublishYourRequirements == null ? writeAndPublishYourRequirements = new WriteAndPublishYourRequirements(driver,scenario) : writeAndPublishYourRequirements;
 	}
+
 	
 	
 	public UploadYourPricingSchedule getUploadYourPricingSchedule() {
@@ -175,5 +209,84 @@ public class PageObjectManager {
 	}*/
 	
 
-	
+
+	public ChooseRoles getChooseRoleObj() {
+		return chooseRoles == null ? chooseRoles = new ChooseRoles(driver,scenario) : chooseRoles;
+	}
+
+	public SecurityVetting getSecurityVettingObj() {
+		return securityVetting == null ? securityVetting = new SecurityVetting(driver,scenario) : securityVetting;
+	}
+
+	public SkillCapability getSkillCapabilityObj() {
+		return skillCapability == null ? skillCapability = new SkillCapability(driver,scenario) : skillCapability;
+	}
+	public Location getLocationObj() {
+		return location == null ? location = new Location(driver,scenario) : location;
+	}
+	public AssessmentCriteria getAssessmentCriteriaObj() {
+		return assessmentCriteria == null ? assessmentCriteria = new AssessmentCriteria(driver,scenario) : assessmentCriteria;
+	}
+
+	public QualityPriceWeighting getQualityPriceWeightingObj() {
+		return qualityPriceWeighting == null ? qualityPriceWeighting = new QualityPriceWeighting(driver,scenario) : qualityPriceWeighting;
+	}
+	public QualityWeighting getQualityWeightingObj() {
+		return qualityWeighting == null ? qualityWeighting = new QualityWeighting(driver,scenario) : qualityWeighting;
+	}
+	public TechnicalQuestions getTechnicalQuestionsObj() {
+		return technicalQuestions == null ? technicalQuestions = new TechnicalQuestions(driver,scenario) : technicalQuestions;
+	}
+	public CulturalFitQuestions getCulturalFitQuestionsObj() {
+		return culturalFitQuestions == null ? culturalFitQuestions = new CulturalFitQuestions(driver,scenario) : culturalFitQuestions;
+	}
+	public SocialValueQuestions getSocialValueQuestionsObj() {
+		return socialValueQuestions == null ? socialValueQuestions = new SocialValueQuestions(driver,scenario) : socialValueQuestions;
+	}
+	public ScoringCriteria getScoringCriteriaObj() {
+		return scoringCriteria == null ? scoringCriteria = new ScoringCriteria(driver,scenario) : scoringCriteria;
+	}
+	public ReviewandPublish getReviewandPublishObj() {
+		return reviewandPublish == null ? reviewandPublish = new ReviewandPublish(driver,scenario) : reviewandPublish;
+	}
+	public FCPublished getFCPublishedObj() {
+		return fcPublished == null ? fcPublished = new FCPublished(driver,scenario) : fcPublished;
+	}
+	public EnterWeightings getEnterWeightingsObj() {
+		return enterWeightings == null ? enterWeightings = new EnterWeightings(driver,scenario) : enterWeightings;
+	}
+	public GrowthScale getGrowthScaleObj() {
+		return growthScale == null ? growthScale = new GrowthScale(driver,scenario) : growthScale;
+	}
+
+	public NextSteps getNextStepsObj() {
+		return nextSteps == null ? nextSteps = new NextSteps(driver,scenario) : nextSteps;
+	}
+
+	public NumberofSuppliers getNumberofSuppliersObj() {
+		return numberofSuppliers == null ? numberofSuppliers = new NumberofSuppliers(driver,scenario) : numberofSuppliers;
+	}
+
+	public ResourcesAndWeightings getResourcesAndWeightingsObj() {
+		return resourcesAndWeightings == null ? resourcesAndWeightings = new ResourcesAndWeightings(driver,scenario) : resourcesAndWeightings;
+	}
+
+	public ReviewSuitableSuppliers getReviewSuitableSuppliersObj() {
+		return reviewSuitableSuppliers == null ? reviewSuitableSuppliers = new ReviewSuitableSuppliers(driver,scenario) : reviewSuitableSuppliers;
+	}
+
+	public FCASecurityVetting getFCASecurityVettingObj() {
+		return fcaSecurityVetting == null ? fcaSecurityVetting = new FCASecurityVetting(driver,scenario) : fcaSecurityVetting;
+	}
+
+	public ServiceCapabilities getServiceCapabilitiesObj() {
+		return serviceCapabilities == null ? serviceCapabilities = new ServiceCapabilities(driver,scenario) : serviceCapabilities;
+	}
+
+	public Subcontractors getSubcontractorsObj() {
+		return subcontractors == null ? subcontractors = new Subcontractors(driver,scenario) : subcontractors;
+	}
+
+
+
 }

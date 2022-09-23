@@ -1,4 +1,4 @@
-package com.scale;
+package com.scale.pages;
 
 import java.time.Duration;
 

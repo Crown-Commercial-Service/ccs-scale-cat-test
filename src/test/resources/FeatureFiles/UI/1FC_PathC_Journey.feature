@@ -8,7 +8,7 @@ Feature: Create 1FC Path C journey
     
   	#<Login> Page
   	Given Active or Registered buyer launches CAS application landing page of the "<TestData>"
-  	Then Buyer navigates to "<Sign in to the Public Procurement Gateway>" page
+  	Then Buyer navigates to "Sign in to the Public Procurement Gateway" page
   	When Buyer enters valid "<UserName>" and "<Password>" of the "<TestData>"
     And Buyer clicks on Sign In button
     

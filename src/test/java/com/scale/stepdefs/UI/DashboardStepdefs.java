@@ -1,6 +1,8 @@
 package com.scale.stepdefs.UI;
 
 
+import com.scale.context.GlobalContext;
+import io.cucumber.java.en.And;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -13,6 +15,7 @@ import com.scale.pages.LoginPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
 
 
 /**
@@ -59,15 +62,14 @@ public class DashboardStepdefs {
 		objectManager.getDashboard().clickOnAcceptAllCookiesBtn();
 	}
 
-
-	/**
-	 * This stepdef calls the method clickOnStarANewProject
-	 * that clicks on StarANewProject link
-	 */
-	@When("Buyer clicks on {string} link")
-	public void buyer_clicks_on_link(String linkName) {
-	    
-		objectManager.getDashboard().clickOnStarANewProject();
+	@Then("Buyer clicks on the event {string} link")
+	public void buyerClicksOnTheEventLink(String arg0) {
+		objectManager.getDashboard().clickOnEventLink(arg0);
 	}
 
+    @And("Buyer validates the published event")
+    public void buyerValidatesThePublishedEvent() {
+		Assert.assertEquals("Validate Published Event Status: ",objectManager.getDashboard().getPublishedEventStatus(),"Published");
+		objectManager.getDashboard().clickOnEventLink(GlobalContext.getGlobalInstance().getGlobalDataValue("EventID"));
+    }
 }

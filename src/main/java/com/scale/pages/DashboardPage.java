@@ -1,8 +1,11 @@
 package com.scale.pages;
 
 import java.time.Duration;
+
+import com.scale.context.GlobalContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -91,12 +94,24 @@ public class DashboardPage extends Actions {
 
 		textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
 		clickElement(startANewProject);
-		scenario.log("Buyer clicks on 'Star a new Project' link");
-		log.info("Buyer clicks on 'Star a new Project' link");
+		scenario.log("Buyer clicks on 'Start a new Project' link");
+		log.info("Buyer clicks on 'Start a new Project' link");
 		waitForSeconds(1);
 	}
-	
-	
+	/**
+	 * This method clicks on a Event Link
+	 */
+	public void clickOnEventLink(String EventID) {
+		clickElement(driver.findElement(By.xpath("//a[text()='"+EventID+"']")));
+		scenario.log("Buyer clicked on "+EventID+" link");
+		log.info("Buyer clicked on "+EventID+" link");
+		waitForSeconds(1);
+	}
+
+	public String getPublishedEventStatus(){
+		String EventID= GlobalContext.getGlobalInstance().getGlobalDataValue("EventID");
+		return driver.findElement(By.xpath("//a[text()='"+EventID+"']/ancestor::tr/td[4]")).getText();
+	}
 	
 
 }

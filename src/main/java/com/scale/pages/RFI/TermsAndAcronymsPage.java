@@ -1,4 +1,4 @@
-package com.scale.pages;
+package com.scale.pages.RFI;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
