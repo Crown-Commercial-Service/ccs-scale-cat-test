@@ -72,6 +72,44 @@ public class CommonToAllPage extends Actions {
 	@FindBy(xpath = "//h1[contains(text(),'Write and publish your requirements')]")
 	private WebElement writeAndPublishYourRequirementsPageTitle;
 	
+	@FindBy(xpath = "//h1[contains(text(),'2. Upload  pricing schedules and other documents')]")
+	private WebElement uploadPricingSchedulesAndOtherDocumentsPageTitle;
+	
+	@FindBy(xpath = "//strong[contains(text(),'Upload your pricing schedule')]")
+	private WebElement uploadYourPricingSchedulePageTitle;
+	
+	@FindBy(xpath = "//strong[contains(text(),'Upload your terms and conditions and other documents')]")
+	private WebElement uploadYourTermsAndConditionsAndOtherDocumentsPageTitle;
+	
+	
+	@FindBy(xpath = "//strong[contains(text(),'Confirm if you need a contracted out service or supply of resource')]")
+	private WebElement confirmIfYouNeedAContractedPageTitle;
+	
+	@FindBy(xpath = "//h1[(text()='Add context and requirements')]")
+	private WebElement addContextToYourOneStagePageTitle;
+	
+	@FindBy(xpath = "//strong[(text()=' About adding context and requirements ')]")
+	private WebElement aboutAddingContextAndRqrmtPageTitle;
+	
+	@FindBy(xpath = "//strong[(text()=' Terms and acronyms (Optional) ')]")
+	private WebElement termsAndAcronymsPageTitle;
+	
+	@FindBy(xpath = "//strong[(text()=' Add background to your procurement ')]")
+	private WebElement addBackgroundToYourProcurementTitle;
+	
+	@FindBy(xpath = "//strong[(text()=' The business problem you need to solve ')]")
+	private WebElement theBusinessProblemYouNeedToSolveTitle;
+	
+	@FindBy(xpath = "//strong[(text()=' The people who will use your product or service (Optional) ')]")
+	private WebElement thePeopleWhoWillUseYourProductOptionalTitle;
+	
+	@FindBy(xpath = "//strong[(text()=' Which phase the project is in ')]")
+	private WebElement whichPhaseTheProjectIsInTitle;
+	
+	@FindBy(xpath = "//strong[(text()=' Which phases of the project you need resource for ')]")
+	private WebElement whichPhasesTheProjectNeedResource;
+	
+	
 	/**
 	 * Page title
 	 */
@@ -388,6 +426,87 @@ public class CommonToAllPage extends Actions {
 			log.info("Buyer validates the page title: " + getText(writeAndPublishYourRequirementsPageTitle));
 			break;
 			
+		case "<2. Upload pricing schedules and other documents>":
+
+			waitForSeconds(1);
+			assertTrue(getText(uploadPricingSchedulesAndOtherDocumentsPageTitle).equalsIgnoreCase(
+					TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S4_Title")));
+			scenario.log("Buyer validates the page title: " + getText(uploadPricingSchedulesAndOtherDocumentsPageTitle));
+			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+			log.info("Buyer validates the page title: " + getText(uploadPricingSchedulesAndOtherDocumentsPageTitle));
+			break;
+			
+		case "<Upload your pricing schedule>":
+
+			waitForSeconds(1);
+			assertTrue(getText(uploadYourPricingSchedulePageTitle).equalsIgnoreCase(
+					TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S5_Title")));
+			scenario.log("Buyer validates the page title: " + getText(uploadYourPricingSchedulePageTitle));
+			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+			log.info("Buyer validates the page title: " + getText(uploadYourPricingSchedulePageTitle));
+			break;
+			
+		case "<Upload your terms and conditions and other documents>":
+
+			waitForSeconds(1);
+			assertTrue(getText(uploadYourTermsAndConditionsAndOtherDocumentsPageTitle).equalsIgnoreCase(
+					TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S6_Title")));
+			scenario.log("Buyer validates the page title: " + getText(uploadYourTermsAndConditionsAndOtherDocumentsPageTitle));
+			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+			log.info("Buyer validates the page title: " + getText(uploadYourTermsAndConditionsAndOtherDocumentsPageTitle));
+			break;
+			
+		case "<Confirm if you need a contracted out service or supply of resource>":
+
+			waitForSeconds(1);
+			assertTrue(getText(confirmIfYouNeedAContractedPageTitle).equalsIgnoreCase(
+					TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S7_Title")));
+			scenario.log("Buyer validates the page title: " + getText(confirmIfYouNeedAContractedPageTitle));
+			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+			log.info("Buyer validates the page title: " + getText(confirmIfYouNeedAContractedPageTitle));
+			break;
+			
+		case "<Add context and requirements>":
+
+			waitForSeconds(1);
+			assertTrue(getText(addContextToYourOneStagePageTitle).equalsIgnoreCase(
+					TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S8_Title")));
+			scenario.log("Buyer validates the page title: " + getText(addContextToYourOneStagePageTitle));
+			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+			log.info("Buyer validates the page title: " + getText(addContextToYourOneStagePageTitle));
+			break;
+			
+		case "<About adding context and requirements>":
+
+			waitForSeconds(1);
+			assertTrue(getText(aboutAddingContextAndRqrmtPageTitle).equalsIgnoreCase(
+					TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S9_Title")));
+			scenario.log("Buyer validates the page title: " + getText(aboutAddingContextAndRqrmtPageTitle));
+			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+			log.info("Buyer validates the page title: " + getText(aboutAddingContextAndRqrmtPageTitle));
+			break;		
+			
+		case "<Terms and acronyms (Optional)>":
+
+			waitForSeconds(1);
+			assertTrue(getText(termsAndAcronymsPageTitle).equalsIgnoreCase(
+					TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S10_Title")));
+			scenario.log("Buyer validates the page title: " + getText(termsAndAcronymsPageTitle));
+			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+			log.info("Buyer validates the page title: " + getText(termsAndAcronymsPageTitle));
+			break;	
+			
+		case "<Add background to your procurement>":
+
+			waitForSeconds(1);
+			assertTrue(getText(addBackgroundToYourProcurementTitle).equalsIgnoreCase(
+					TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S11_Title")));
+			scenario.log("Buyer validates the page title: " + getText(addBackgroundToYourProcurementTitle));
+			textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
+			log.info("Buyer validates the page title: " + getText(addBackgroundToYourProcurementTitle));
+			break;	
+			
+					
 		case "<Do pre-market engagement>":
 
 			waitForSeconds(1);

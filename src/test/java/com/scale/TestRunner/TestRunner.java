@@ -8,7 +8,11 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Properties;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
@@ -25,17 +29,40 @@ public class TestRunner {
 
     @BeforeClass
     public static void aws() {
-        AWSParameterStore PS = new AWSParameterStore();
-        HashMap<String, String> param = new HashMap<>();
-        param.putAll(PS.getValuesByPath("/cat/int/"));
-        param.putAll(PS.getValuesByPath("/cat/test-team/"));
-        GlobalContext.getGlobalInstance().setGlobalData(param);
+        //AWSParameterStore PS = new AWSParameterStore();
+        //HashMap<String, String> param = new HashMap<>();
+        //param.putAll(PS.getValuesByPath("/cat/int/"));
+        //param.putAll(PS.getValuesByPath("/cat/test-team/"));
+        //GlobalContext.getGlobalInstance().setGlobalData(param);
 
+    	//New Code
+    	
+    	Properties props = new Properties();
+        try {
+			props.load(new FileInputStream( "C:\\Users\\571154\\OneDrive - Cognizant\\Desktop\\MyProperties.txt"));
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+		} catch (IOException e) {
+	
+			e.printStackTrace();
+		}
+
+
+
+       HashMap<String, String> param = new HashMap<>();
+        props.forEach((k, v) -> param.put(k.toString(), v.toString()));
+        GlobalContext.getGlobalInstance().setGlobalData(param);
+    	
+    	
+    	
         //TODO: - Trigger only for API Tests
         /*
         Auth auth =new Auth();
         GlobalContext.getGlobalInstance().setGlobalDataValue("Jag_Token", auth.Authenticaion("Jaggaer"));
         */
+    	
+    	
     }
 
     @AfterClass
