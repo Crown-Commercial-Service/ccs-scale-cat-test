@@ -1,4 +1,4 @@
-package com.scale.pages;
+package com.scale.pages.FCA;
 
 import com.scale.context.TestContext;
 import com.scale.framework.utility.Actions;
@@ -8,22 +8,18 @@ import com.scale.framework.utility.PageObjectManager;
 import io.cucumber.java.Scenario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
 /**
- * Class ReviewandPublish has extend the Actions class
+ * Class ReviewSuitableSuppliers has extend the Actions class
  *
  * @author 321020
  */
-public class ReviewandPublish extends Actions {
+public class ReviewSuitableSuppliers extends Actions {
 
     /**
      * Object creation
@@ -36,15 +32,15 @@ public class ReviewandPublish extends Actions {
      */
     ConfigurationReader configReader;
     private PageObjectManager objectManager;
-    private static final Logger log = LogManager.getLogger(ReviewandPublish.class);
+    private static final Logger log = LogManager.getLogger(ReviewSuitableSuppliers.class);
 
     /**
-     * ReviewandPublish constructor overloaded
+     * ReviewSuitableSuppliers constructor overloaded
      *
      * @param driver
      * @param scenario
      */
-    public ReviewandPublish(WebDriver driver, Scenario scenario) {
+    public ReviewSuitableSuppliers(WebDriver driver, Scenario scenario) {
         super.driver = driver;
         this.scenario = scenario;
         configReader = new ConfigurationReader();
@@ -52,18 +48,8 @@ public class ReviewandPublish extends Actions {
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(30));
     }
 
-    @FindBy(xpath="//input[@id='rfp_publish_confirmation']")
-    private WebElement CheckBox;
+    public void selectSuitableSuppliers() {
 
-    @FindBy(xpath="//button[contains(text(),'Publish and continue')]")
-    private WebElement Publish;
-
-    public void clickCheckBox() {
-        CheckBox.click();
-    }
-
-    public void clickPublish() {
-        Publish.click();
     }
 
 }

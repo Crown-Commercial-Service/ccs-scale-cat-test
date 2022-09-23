@@ -2,6 +2,8 @@ package com.scale.framework.utility;
 
 import com.scale.framework.utility.API.Auth;
 import com.scale.pages.*;
+import com.scale.pages.FCA.*;
+import com.scale.pages.ONE_FC.*;
 import com.scale.pages.RFI.DoPreMarketEngagementPage;
 
 import io.cucumber.java.Scenario;
@@ -32,6 +34,16 @@ public class PageObjectManager {
 	private ScoringCriteria scoringCriteria;
 	private ReviewandPublish reviewandPublish;
 	private FCPublished fcPublished;
+	private EnterWeightings enterWeightings;
+	private GrowthScale growthScale;
+	private NextSteps nextSteps;
+	private NumberofSuppliers numberofSuppliers;
+	private ResourcesAndWeightings resourcesAndWeightings;
+	private ReviewSuitableSuppliers reviewSuitableSuppliers;
+	private FCASecurityVetting fcaSecurityVetting;
+	private ServiceCapabilities serviceCapabilities;
+	private Subcontractors subcontractors;
+
 
 	private Auth auth;
 	
@@ -118,5 +130,41 @@ public class PageObjectManager {
 	public FCPublished getFCPublishedObj() {
 		return fcPublished == null ? fcPublished = new FCPublished(driver,scenario) : fcPublished;
 	}
+	public EnterWeightings getEnterWeightingsObj() {
+		return enterWeightings == null ? enterWeightings = new EnterWeightings(driver,scenario) : enterWeightings;
+	}
+	public GrowthScale getGrowthScaleObj() {
+		return growthScale == null ? growthScale = new GrowthScale(driver,scenario) : growthScale;
+	}
+
+	public NextSteps getNextStepsObj() {
+		return nextSteps == null ? nextSteps = new NextSteps(driver,scenario) : nextSteps;
+	}
+
+	public NumberofSuppliers getNumberofSuppliersObj() {
+		return numberofSuppliers == null ? numberofSuppliers = new NumberofSuppliers(driver,scenario) : numberofSuppliers;
+	}
+
+	public ResourcesAndWeightings getResourcesAndWeightingsObj() {
+		return resourcesAndWeightings == null ? resourcesAndWeightings = new ResourcesAndWeightings(driver,scenario) : resourcesAndWeightings;
+	}
+
+	public ReviewSuitableSuppliers getReviewSuitableSuppliersObj() {
+		return reviewSuitableSuppliers == null ? reviewSuitableSuppliers = new ReviewSuitableSuppliers(driver,scenario) : reviewSuitableSuppliers;
+	}
+
+	public FCASecurityVetting getFCASecurityVettingObj() {
+		return fcaSecurityVetting == null ? fcaSecurityVetting = new FCASecurityVetting(driver,scenario) : fcaSecurityVetting;
+	}
+
+	public ServiceCapabilities getServiceCapabilitiesObj() {
+		return serviceCapabilities == null ? serviceCapabilities = new ServiceCapabilities(driver,scenario) : serviceCapabilities;
+	}
+
+	public Subcontractors getSubcontractorsObj() {
+		return subcontractors == null ? subcontractors = new Subcontractors(driver,scenario) : subcontractors;
+	}
+
+
 
 }

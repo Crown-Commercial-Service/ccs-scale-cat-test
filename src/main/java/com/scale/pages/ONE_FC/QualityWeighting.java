@@ -1,4 +1,4 @@
-package com.scale.pages;
+package com.scale.pages.ONE_FC;
 
 import com.scale.context.TestContext;
 import com.scale.framework.utility.Actions;
@@ -8,22 +8,20 @@ import com.scale.framework.utility.PageObjectManager;
 import io.cucumber.java.Scenario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
 /**
- * Class ReviewandPublish has extend the Actions class
+ * Class QualityWeighting has extend the Actions class
  *
  * @author 321020
  */
-public class FCPublished extends Actions {
+public class QualityWeighting extends Actions {
 
     /**
      * Object creation
@@ -36,15 +34,15 @@ public class FCPublished extends Actions {
      */
     ConfigurationReader configReader;
     private PageObjectManager objectManager;
-    private static final Logger log = LogManager.getLogger(FCPublished.class);
+    private static final Logger log = LogManager.getLogger(QualityWeighting.class);
 
     /**
-     * ReviewandPublish constructor overloaded
+     * QualityWeighting constructor overloaded
      *
      * @param driver
      * @param scenario
      */
-    public FCPublished(WebDriver driver, Scenario scenario) {
+    public QualityWeighting(WebDriver driver, Scenario scenario) {
         super.driver = driver;
         this.scenario = scenario;
         configReader = new ConfigurationReader();
@@ -52,19 +50,22 @@ public class FCPublished extends Actions {
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(30));
     }
 
-    @FindBy(xpath="//h1/strong[contains(text(),'Your further competition has been published')]")
-    private WebElement FCPublished_Title;
+    @FindBy(xpath="//input[@id='Question 1']")
+    private WebElement Technical;
 
-    @FindBy(xpath="//a[contains(text(),'Go to your project dashboard')]")
-    private WebElement GotoDashboard;
+    @FindBy(xpath="//input[@id='Question 2']")
+    private WebElement Cultural;
 
-    public String getEventID() {
-        wait.until(ExpectedConditions.visibilityOf(FCPublished_Title));
-        return driver.findElement(By.xpath("//div/strong")).getText();
+    @FindBy(xpath="//input[@id='Question 3']")
+    private WebElement SocialValue;
+
+    public void setQualityWeighting(String data) {
+        waitForSeconds(1);
+        Technical.clear();
+        Technical.sendKeys(data.split("~")[0]);
+        Cultural.clear();
+        Cultural.sendKeys(data.split("~")[1]);
+        SocialValue.clear();
+        SocialValue.sendKeys(data.split("~")[2]);
     }
-
-    public void clickGotoDashboard() {
-        GotoDashboard.click();
-    }
-
 }

@@ -1,4 +1,4 @@
-package com.scale.pages;
+package com.scale.pages.ONE_FC;
 
 import com.scale.context.TestContext;
 import com.scale.framework.utility.Actions;
@@ -8,7 +8,6 @@ import com.scale.framework.utility.PageObjectManager;
 import io.cucumber.java.Scenario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
