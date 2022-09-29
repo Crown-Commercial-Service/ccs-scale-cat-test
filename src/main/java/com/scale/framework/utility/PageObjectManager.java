@@ -43,8 +43,7 @@ public class PageObjectManager {
 	private FCASecurityVetting fcaSecurityVetting;
 	private ServiceCapabilities serviceCapabilities;
 	private Subcontractors subcontractors;
-
-
+	private OnlineOffline onlineOffline;
 	private Auth auth;
 	
 	public PageObjectManager(WebDriver driver, Scenario scenario) {
@@ -165,6 +164,9 @@ public class PageObjectManager {
 		return subcontractors == null ? subcontractors = new Subcontractors(driver,scenario) : subcontractors;
 	}
 
+	public OnlineOffline getOnlineOfflineObj() {
+		return onlineOffline == null ? onlineOffline = new OnlineOffline(driver,scenario) : onlineOffline;
+	}
 
 
 }

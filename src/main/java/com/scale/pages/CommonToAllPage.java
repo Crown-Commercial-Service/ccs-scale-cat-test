@@ -167,6 +167,12 @@ public class CommonToAllPage extends Actions {
     private WebElement saveAndContinue;
 
     /**
+     * CONTINUE Xpaths
+     */
+    @FindBy(xpath = "//button[contains(text(), 'Continue')]")
+    private WebElement Continue;
+
+    /**
      * RETURN TO CTA's Xpaths
      */
     @FindBy(xpath = "//a[text()='Return to Build your Request for Information (RfI)']")
@@ -437,6 +443,10 @@ public class CommonToAllPage extends Actions {
 
     public void clickSaveandContinue() {
         saveAndContinue.click();
+    }
+
+    public void clickContinue(String ButtonName) {
+        driver.findElement(By.xpath("//button[contains(text(), '"+ButtonName+"')]")).click();
     }
 
 }

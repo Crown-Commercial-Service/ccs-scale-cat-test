@@ -37,9 +37,7 @@ public class SD_FCA_NumberOfSuppliers {
     }
     @When("Buyer enters number of suppliers")
     public void buyerEntersNumberOfSuppliers() {
-
-        objectManager.getNumberofSuppliersObj().enterNumberofSuppliers();
-
+        objectManager.getNumberofSuppliersObj().enterNumberofSuppliers(TestContext.FCATestDataMap.get(TestContext.TDID).get("S18_Numberofsuppliers"));
     }
 
 

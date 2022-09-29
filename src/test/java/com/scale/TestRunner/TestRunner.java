@@ -29,7 +29,7 @@ public class TestRunner {
     public static void aws() throws IOException {
 
         Properties props = new Properties();
-        props.load(new FileInputStream( "C:\\MyProperties.txt"));
+        props.load(new FileInputStream( "C:\\Users\\SPalaniswamy\\Desktop\\MyProperties.txt"));
 
         HashMap<String, String> param = new HashMap<>();
         props.forEach((k, v) -> param.put(k.toString(), v.toString()));

@@ -7,6 +7,10 @@ import com.scale.framework.utility.PageObjectManager;
 import io.cucumber.java.en.When;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Class SD_FCA_ServiceCapabilities
@@ -38,6 +42,15 @@ public class SD_FCA_ServiceCapabilities {
 
     @When("Buyer selects service capabilities")
     public void buyerSelectsServiceCapabilities() {
-        objectManager.getServiceCapabilitiesObj().selectServiceCapabilities();
+        Map<String, String> ClusterData = new HashMap<>();
+        for (String Key : TestContext.FCATestDataMap.get(TestContext.TDID).keySet()) {
+            if (Key.contains("S15_Cluster_")) {
+                ClusterData.put(Key.replace("S15_Cluster_", ""), TestContext.FCATestDataMap.get(TestContext.TDID).get(Key));
+            }
+        }
+        if(ClusterData.isEmpty()){
+            Assert.fail("No proper testdata");
+        }
+        objectManager.getServiceCapabilitiesObj().selectServiceCapabilities(ClusterData);
     }
 }

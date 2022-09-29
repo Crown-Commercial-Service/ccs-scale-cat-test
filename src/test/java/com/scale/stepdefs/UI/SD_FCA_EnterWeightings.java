@@ -37,6 +37,6 @@ public class SD_FCA_EnterWeightings {
     }
     @When("Buyer enters the dimension weightings")
     public void buyerEntersTheDimensionWeightings() {
-        objectManager.getEnterWeightingsObj().enterDimensionWeightings();
+        objectManager.getEnterWeightingsObj().enterDimensionWeightings(TestContext.FCATestDataMap.get(TestContext.TDID).get("S10_EnterWeightings"));
     }
 }

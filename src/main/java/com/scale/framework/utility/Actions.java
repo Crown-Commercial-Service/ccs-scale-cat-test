@@ -192,7 +192,7 @@ public class Actions {
 	}
 
 	public void clickButton(String buttonName) {
-		waitForSeconds(2);
+		waitForSeconds(1);
 		String XPATH = "//button[contains(text(),'" + buttonName + "')]";
 		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH)));
 		// ((JavascriptExecutor)
@@ -302,26 +302,6 @@ public class Actions {
 
 	public int randomBunmber(int bound) {
 		return new Random().nextInt(bound);
-	}
-
-	public void clickActionsLinkOfCustomer(String customerCIN, String linkName, WebDriver webDriver) {
-		waitForSeconds(5);
-		WebElement linkElement = (new WebDriverWait(webDriver, Duration.ofSeconds(50)))
-				.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[contains(text(),'" + customerCIN
-						+ "')]/following::div/a[contains(@title,'" + linkName + "')]")));
-		linkElement.click();
-	}
-
-	public void clickActionsLinkOfUser(String CPID, String linkIcon, WebDriver webDriver) {
-		WebElement linkElement = (new WebDriverWait(webDriver, Duration.ofSeconds(50))).until(ExpectedConditions.elementToBeClickable(By
-				.xpath("//*[contains(text(),'" + CPID + "')]/following::div/a[contains(@title,'" + linkIcon + "')]")));
-		linkElement.click();
-	}
-
-	public void clickTab(String tabID) {
-		String XPATH = "//a[contains(@id,'" + tabID + "')]";
-		WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH)));
-		element.click();
 	}
 
 	public void moveToelement(WebElement element) {

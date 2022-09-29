@@ -38,6 +38,6 @@ public class SD_FCA_Subcontractors {
 
     @When("Buyer selects a subcontractors option")
     public void buyerSelectsASubcontractorsOption() {
-        objectManager.getSubcontractorsObj().selectSubcontractors();
+        objectManager.getSubcontractorsObj().selectSubcontractors(TestContext.FCATestDataMap.get(TestContext.TDID).get("S11_subcontractors"));
     }
 }

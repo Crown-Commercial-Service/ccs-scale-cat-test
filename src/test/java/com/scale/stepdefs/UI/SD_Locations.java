@@ -34,6 +34,6 @@ public class SD_Locations {
 
     @When("Buyer selects the regions")
     public void buyerSelectsTheRegions() {
-        objectManager.getLocationObj().selectLocation(TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S37_Locations"));
+        objectManager.getLocationObj().selectLocation(TestContext.FCATestDataMap.get(TestContext.TDID).get("S17_Locations"));
     }
 }
