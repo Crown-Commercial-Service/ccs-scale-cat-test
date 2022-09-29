@@ -167,12 +167,6 @@ public class CommonToAllPage extends Actions {
     private WebElement saveAndContinue;
 
     /**
-     * CONTINUE Xpaths
-     */
-    @FindBy(xpath = "//button[contains(text(), 'Continue')]")
-    private WebElement Continue;
-
-    /**
      * RETURN TO CTA's Xpaths
      */
     @FindBy(xpath = "//a[text()='Return to Build your Request for Information (RfI)']")

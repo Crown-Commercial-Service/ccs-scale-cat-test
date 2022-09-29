@@ -20,11 +20,13 @@ import io.cucumber.java.Scenario;
 
 /**
  * Class ChooseHowToFindASupplier has extend the Actions class
+ * This class contains all the methods related to 
+ * ChooseHowToFindASupplier page
  * 
  * @author 571154
  *
  */
-public class ChooseHowToFindASupplier extends Actions{
+public class ChooseHowToFindASupplier extends Actions {
 	
 	
 	/**
@@ -68,7 +70,7 @@ public class ChooseHowToFindASupplier extends Actions{
 	private String furtherCompetitionRadioBtnStrng="//*[@id='fc_route_to_market-2']";
 	
 	/**
-	 * This method clicks on Selects the radio button option
+	 * This method Selects the radio button option
 	 * given in the excel data sheet
 	 */
 	public void selectRadioButton() {
