@@ -52,7 +52,7 @@ public class TestContext extends BrowserFactory {
 	protected WebDriverWait wait;
 	
 	public static HashMap<String, String> ConfigData = GlobalContext.getGlobalInstance().getGlobalData();
-	public static Map<String, Map<String, String>> OneFCTestDataMap = ReadExcelData.extractData("UI_Testdata_sabs.xlsx","OneFCFlowTestDataSanity");
+	public static Map<String, Map<String, String>> OneFCTestDataMap = ReadExcelData.extractData("UI_Testdata.xlsx","OneFCFlowTestDataSanity");
 	public static String TDID;
 	
 	/**

@@ -18,7 +18,7 @@ import java.util.Properties;
         glue={"com.scale.stepdefs", "com.scale.context"},
         monochrome = true,
         plugin = { "pretty", "html:target/cucumber-html-reports/report.html", "json:target/cucumber-html-reports/cucumber.json"},
-        //tags = "@1FC-Flow",
+        tags = "@1FC-Flow",
         dryRun = false
 )
 
@@ -26,6 +26,7 @@ import java.util.Properties;
 public class TestRunner {
 
     @BeforeClass
+
     public static void aws() throws IOException {
 
         Properties props = new Properties();
@@ -42,11 +43,14 @@ public class TestRunner {
         //GlobalContext.getGlobalInstance().setGlobalData(param);
 
 
+
         //TODO: - Trigger only for API Tests
         /*
         Auth auth =new Auth();
         GlobalContext.getGlobalInstance().setGlobalDataValue("Jag_Token", auth.Authenticaion("Jaggaer"));
         */
+    	
+    	
     }
 
     @AfterClass

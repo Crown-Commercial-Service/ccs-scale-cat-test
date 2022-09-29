@@ -25,6 +25,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class CommonToAllPage extends Actions {
 
+
     /**
      * Object creation
      */
@@ -438,5 +439,6 @@ public class CommonToAllPage extends Actions {
     public void clickSaveandContinue() {
         saveAndContinue.click();
     }
+
 
 }

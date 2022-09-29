@@ -11,6 +11,8 @@ import io.cucumber.java.en.Given;
 
 /**
  * Class ChooseHowToFindASupplierStepdefs
+ * contains all the stepdefs related to
+ * ChooseHowToFindASupplierStepdefs page
  * 
  * @author 571154
  *
