@@ -82,7 +82,7 @@ public class ChooseACommercialAgreementPage extends Actions{
 		if (CommercialAgreementType.contains("Digital Specialists and Programmes (RM6263)")) {
 
 			clickElement(digitalSpecialistRolesAndProgrammesRM626);
-			String lotTypeString = TestContext.OneFCTestDataMap.get(TestContext.TDID).get("ChooseAgreement_Lot");
+			String lotTypeString = TestContext.CommonTestDataMap.get(TestContext.TDID).get("ChooseAgreement_Lot");
 
 			switch (lotTypeString) {
 

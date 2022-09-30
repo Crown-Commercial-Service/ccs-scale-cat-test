@@ -38,6 +38,6 @@ public class SD_FCA_SecurityVetting {
 
     @When("Buyer selects the security and vetting requirements")
     public void buyerSelectsTheSecurityAndVettingRequirements() {
-        objectManager.getFCASecurityVettingObj().enterSecurityVetting();
+        objectManager.getFCASecurityVettingObj().enterSecurityVetting(TestContext.FCATestDataMap.get(TestContext.TDID).get("S13_Security"));
     }
 }

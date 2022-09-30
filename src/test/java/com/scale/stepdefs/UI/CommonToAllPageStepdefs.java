@@ -103,7 +103,7 @@ public class CommonToAllPageStepdefs {
 	}
 
 	@When("Buyer clicks on {string} button")
-	public void buyerClicksOnButton(String arg0) {
-		objectManager.getcommonToAllPage().clickSaveandContinue();
+	public void buyerClicksOnButton(String ButtonName) {
+		objectManager.getcommonToAllPage().clickButton(ButtonName);
 	}
 }

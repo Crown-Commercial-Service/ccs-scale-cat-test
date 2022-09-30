@@ -1,5 +1,7 @@
 package com.scale.pages;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 
 import org.apache.logging.log4j.LogManager;
@@ -82,10 +84,10 @@ public class UploadYourPricingSchedule extends Actions {
 	/**
 	 * This method clicks selects the document
 	 */
-	public void selectDocument() {
+	public void selectDocument() throws IOException {
 		
 		textContext.takeSnapShot(configReader.get("allPageScreenshot"), scenario, driver);
-		enterText(chooseFilebutton, TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S5_DocPath"));
+		enterText(chooseFilebutton, new File(TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S5_DocPath")).getCanonicalPath());
 		scenario.log("Buyer selects the document");
 		log.info("Buyer selects the document");
 		waitForSeconds(1);

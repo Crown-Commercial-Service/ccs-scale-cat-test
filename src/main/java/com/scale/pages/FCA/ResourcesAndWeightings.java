@@ -8,11 +8,13 @@ import com.scale.framework.utility.PageObjectManager;
 import io.cucumber.java.Scenario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Map;
 
 /**
  * Class ResourcesAndWeightings has extend the Actions class
@@ -48,7 +50,23 @@ public class ResourcesAndWeightings extends Actions {
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(30));
     }
 
-    public void enterResourcesAndWeightings() {
+    public void enterResourcesAndWeightings(Map<String, String> Data){
+        for(String Cluster: Data.keySet()){
+            driver.findElement(By.xpath("//li/a[text()='"+Cluster+"']")).click();
+            waitForSeconds(2);
+            String[] pairs = Data.get(Cluster).split("~");
+            for (String pair : pairs) {
+                String[] values = pair.split("\\|");
+                String RoleFamily = values[0].replaceAll(" ", "");
+                driver.findElement(By.xpath("//input[contains(@id,'"+RoleFamily+"')][@name='weight_staff']")).clear();
+                driver.findElement(By.xpath("//input[contains(@id,'"+RoleFamily+"')][@name='weight_staff']")).sendKeys(values[1]);
 
+                driver.findElement(By.xpath("//input[contains(@id,'"+RoleFamily+"')][@name='weight_vetting']")).clear();
+                driver.findElement(By.xpath("//input[contains(@id,'"+RoleFamily+"')][@name='weight_vetting']")).sendKeys(values[2]);
+
+                driver.findElement(By.xpath("//div[text()='"+values[3]+"']/preceding-sibling::input[@name='SFIA_weightage']")).clear();
+                driver.findElement(By.xpath("//div[text()='"+values[3]+"']/preceding-sibling::input[@name='SFIA_weightage']")).sendKeys(values[4]);;
+            }
+        }
     }
 }

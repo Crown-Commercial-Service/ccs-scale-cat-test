@@ -49,8 +49,7 @@ public class SecurityVetting extends Actions{
 		PageFactory.initElements(driver, this);
 		this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(30));
 	}
-	//div[@id='conditional-ccs_rfp_choose_security-2']/div/input
-	//input[contains(@value,'BPSS')]/parent::div/following-sibling::div/div/input[@type='number']
+
 	@FindBy(xpath="//input[contains(@value,'None')]")
 	private WebElement No;
 

@@ -8,6 +8,7 @@ import com.scale.framework.utility.PageObjectManager;
 import io.cucumber.java.Scenario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -48,7 +49,8 @@ public class NumberofSuppliers extends Actions {
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(30));
     }
 
-    public void enterNumberofSuppliers() {
-
+    public void enterNumberofSuppliers(String Count) {
+        driver.findElement(By.xpath("//input[@name='ca_supplier_count']")).clear();
+        driver.findElement(By.xpath("//input[@name='ca_supplier_count']")).sendKeys(Count);
     }
 }

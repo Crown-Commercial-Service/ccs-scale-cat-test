@@ -9,6 +9,8 @@ import com.scale.framework.utility.PageObjectManager;
 
 import io.cucumber.java.en.Given;
 
+import java.io.IOException;
+
 /**
  * Class UploadYourPricingScheduleStepdefs
  * contains all the stepdefs related to
@@ -48,7 +50,7 @@ public class UploadYourPricingScheduleStepdefs {
 	 * 
 	 */
 	@Given("Buyer selects the document in page Upload your pricing schedule")
-	public void buyer_selects_the_document_in_page_Upload_your_pricing_schedule() {
+	public void buyer_selects_the_document_in_page_Upload_your_pricing_schedule() throws IOException {
 	    
 		objectManager.getUploadYourPricingSchedule().selectDocument();
 	}

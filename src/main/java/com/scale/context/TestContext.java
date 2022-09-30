@@ -52,7 +52,9 @@ public class TestContext extends BrowserFactory {
 	protected WebDriverWait wait;
 	
 	public static HashMap<String, String> ConfigData = GlobalContext.getGlobalInstance().getGlobalData();
-	public static Map<String, Map<String, String>> OneFCTestDataMap = ReadExcelData.extractData("UI_Testdata.xlsx","OneFCFlowTestDataSanity");
+	public static Map<String, Map<String, String>> CommonTestDataMap = ReadExcelData.extractData("UI_Common_Testdata.xlsx","CommonTestData");
+	public static Map<String, Map<String, String>> OneFCTestDataMap = ReadExcelData.extractData("UI_1FC_Testdata.xlsx","OneFCFlowTestDataSanity");
+	public static Map<String, Map<String, String>> FCATestDataMap = ReadExcelData.extractData("UI_FCA_TestData.xlsx","FCATestData");
 	public static String TDID;
 	
 	/**
@@ -93,7 +95,7 @@ public class TestContext extends BrowserFactory {
 
 		if (driver != null) {
 			//takeSnapShot();
-			driver.quit();
+			//driver.quit();
 			driver = null;
 		}
 

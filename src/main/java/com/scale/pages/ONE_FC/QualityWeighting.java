@@ -50,13 +50,13 @@ public class QualityWeighting extends Actions {
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(30));
     }
 
-    @FindBy(xpath="//input[@id='Question 1']")
+    @FindBy(xpath="//input[@id='Question_0']")
     private WebElement Technical;
 
-    @FindBy(xpath="//input[@id='Question 2']")
+    @FindBy(xpath="//input[@id='Question_1']")
     private WebElement Cultural;
 
-    @FindBy(xpath="//input[@id='Question 3']")
+    @FindBy(xpath="//input[@id='Question_2']")
     private WebElement SocialValue;
 
     public void setQualityWeighting(String data) {

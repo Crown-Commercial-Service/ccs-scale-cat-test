@@ -25,7 +25,6 @@ import static org.junit.Assert.assertTrue;
  */
 public class CommonToAllPage extends Actions {
 
-
     /**
      * Object creation
      */
@@ -440,5 +439,8 @@ public class CommonToAllPage extends Actions {
         saveAndContinue.click();
     }
 
+    public void clickContinue(String ButtonName) {
+        driver.findElement(By.xpath("//button[contains(text(), '"+ButtonName+"')]")).click();
+    }
 
 }

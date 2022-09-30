@@ -57,10 +57,10 @@ public class LoginPageStepdefs {
 	 */
 	@When("Buyer enters valid {string} and {string} of the {string}")
 	public void buyer_enters_valid_and_of_the(String userName, String password, String TDID) {
-		
+
 		TestContext.TDID=TDID;
-		TestContext.OneFCTestDataMap.get(TDID).get("UserID");
-		objectManager.getLoginPage().loginByuerUi(TestContext.ConfigData.get(TestContext.OneFCTestDataMap.get(TDID).get("UserID")), TestContext.ConfigData.get("data-key"));
+		TestContext.CommonTestDataMap.get(TDID).get("UserID");
+		objectManager.getLoginPage().loginByuerUi(TestContext.ConfigData.get(TestContext.CommonTestDataMap.get(TDID).get("UserID")), TestContext.ConfigData.get("data-key"));
 		
 	}
 	

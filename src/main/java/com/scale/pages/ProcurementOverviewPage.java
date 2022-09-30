@@ -254,7 +254,7 @@ public class ProcurementOverviewPage extends Actions{
 	 */
 	public void clickOnStartPremarketEngagementBtn() {
 		
-		String section = TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S1_Section");
+		String section = TestContext.CommonTestDataMap.get(TestContext.TDID).get("S1_Section");
 		
 		switch (section) {
 		

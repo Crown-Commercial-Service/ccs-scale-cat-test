@@ -37,6 +37,6 @@ public class SD_FCA_GrowthScale {
     }
     @When("Buyer selects a growth range")
     public void buyerSelectsAGrowthRange() {
-        objectManager.getGrowthScaleObj().setGrowthScale();
+        objectManager.getGrowthScaleObj().setGrowthScale(TestContext.FCATestDataMap.get(TestContext.TDID).get("S16_Scale"));
     }
 }
