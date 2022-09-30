@@ -1,7 +1,6 @@
 package com.scale.framework.utility;
 
 import com.scale.framework.utility.API.Auth;
-
 import com.scale.pages.AboutAddingContextAndRequirements;
 import com.scale.pages.AddAnyPerformanceIncentives;
 import com.scale.pages.AddBackgroundToYourProcurement;
@@ -13,7 +12,6 @@ import com.scale.pages.ChooseIfThisIsNewReplacementOrExpanded;
 import com.scale.pages.CommonToAllPage;
 import com.scale.pages.ConfirmIfYouNeedAContractedOutService;
 import com.scale.pages.DashboardPage;
-
 import com.scale.pages.EnterYourProjectRequirements;
 import com.scale.pages.HowLongTheProjectWillLast;
 import com.scale.pages.LoginPage;
@@ -46,7 +44,6 @@ public class PageObjectManager {
 	private DoPreMarketEngagementPage doPreMarketEngagement;
 	private ChooseHowToFindASupplier chooseHowToFindASupplier;
 	private WriteAndPublishYourRequirements writeAndPublishYourRequirements;
-
 	private UploadYourPricingSchedule uploadYourPricingSchedule;
 	private UploadPricingSchedulesAndOtherDocuments uploadPricingSchedulesAndOtherDocuments;
 	private ConfirmIfYouNeedAContractedOutService confirmIfYouNeedAContractedOutService;
@@ -63,9 +60,6 @@ public class PageObjectManager {
 	private AddYourServiceLevelsAndKPIs addYourServiceLevelsAndKPIs;
 	private AddAnyPerformanceIncentives addAnyPerformanceIncentives;
 	private EnterYourProjectRequirements enterYourProjectRequirements;
-
-
-
 	private ChooseRoles chooseRoles;
 	private SecurityVetting securityVetting;
 	private SkillCapability skillCapability;
@@ -89,17 +83,12 @@ public class PageObjectManager {
 	private ServiceCapabilities serviceCapabilities;
 	private Subcontractors subcontractors;
 	private OnlineOffline onlineOffline;
-	private Auth auth;
 	
 	public PageObjectManager(WebDriver driver, Scenario scenario) {
 		this.driver = driver;
 		this.scenario = scenario;
 	}
-	
-	public TakeScreenShot getScreeShot() {
-		return tekeScreenShot == null ? tekeScreenShot = new TakeScreenShot(driver,scenario) : tekeScreenShot;
-	}
-	
+
 	public LoginPage getLoginPage() {
 		return loginPage == null ? loginPage = new LoginPage(driver,scenario) : loginPage;
 	}
@@ -131,8 +120,6 @@ public class PageObjectManager {
 	public WriteAndPublishYourRequirements getWriteAndPublishYourRequirements() {
 		return writeAndPublishYourRequirements == null ? writeAndPublishYourRequirements = new WriteAndPublishYourRequirements(driver,scenario) : writeAndPublishYourRequirements;
 	}
-
-
 
 	public UploadYourPricingSchedule getUploadYourPricingSchedule() {
 		return uploadYourPricingSchedule == null ? uploadYourPricingSchedule = new UploadYourPricingSchedule(driver,scenario) : uploadYourPricingSchedule;
@@ -198,14 +185,6 @@ public class PageObjectManager {
 		return enterYourProjectRequirements == null ? enterYourProjectRequirements = new EnterYourProjectRequirements(driver,scenario) : enterYourProjectRequirements;
 	}
 
-
-	//API
-	/*public Auth getAuth() {
-		return auth == null ? auth = new Auth(driver,scenario) : auth;
-	}*/
-
-
-
 	public ChooseRoles getChooseRoleObj() {
 		return chooseRoles == null ? chooseRoles = new ChooseRoles(driver,scenario) : chooseRoles;
 	}
@@ -217,9 +196,11 @@ public class PageObjectManager {
 	public SkillCapability getSkillCapabilityObj() {
 		return skillCapability == null ? skillCapability = new SkillCapability(driver,scenario) : skillCapability;
 	}
+
 	public Location getLocationObj() {
 		return location == null ? location = new Location(driver,scenario) : location;
 	}
+
 	public AssessmentCriteria getAssessmentCriteriaObj() {
 		return assessmentCriteria == null ? assessmentCriteria = new AssessmentCriteria(driver,scenario) : assessmentCriteria;
 	}
@@ -286,6 +267,5 @@ public class PageObjectManager {
 	public OnlineOffline getOnlineOfflineObj() {
 		return onlineOffline == null ? onlineOffline = new OnlineOffline(driver,scenario) : onlineOffline;
 	}
-
 
 }

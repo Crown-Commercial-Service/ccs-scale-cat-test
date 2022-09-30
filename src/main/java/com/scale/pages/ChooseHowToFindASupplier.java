@@ -76,7 +76,7 @@ public class ChooseHowToFindASupplier extends Actions {
 	public void selectRadioButton() {
 		
 		
-		String radioButttonOptn = TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S2_Radiobutton");
+		String radioButttonOptn = TestContext.CommonTestDataMap.get(TestContext.TDID).get("S2_Radiobutton");
 		
 		switch (radioButttonOptn) {
 		

@@ -50,10 +50,10 @@ public class QualityPriceWeighting extends Actions {
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(30));
     }
 
-    @FindBy(xpath="//input[@id='Question 1']")
+    @FindBy(xpath="//input[@id='Question_1_0']")
     private WebElement Quality;
 
-    @FindBy(xpath="//input[@id='Question 2']")
+    @FindBy(xpath="//input[@id='Question_2_1']")
     private WebElement Price;
 
     public void setQualityPriceWeighting(String data) {

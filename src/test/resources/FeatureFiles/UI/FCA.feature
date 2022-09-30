@@ -22,7 +22,6 @@ Feature: Create a Further competition with Capability Assessment (FCA) event
 
     #<Procurement overview> Page <Step-1>
     Then Buyer navigates to "Procurement overview" page
-    #When Buyers clicks on "<Start pre-market engagement>" button under section "<2. Do pre-market engagement>"
     When Buyers clicks on "<Write and publish requirements>" button under section "<3. Write and publish your requirements>"
 
     #<Choose how to find a supplier> Page <Step-2>
@@ -75,7 +74,7 @@ Feature: Create a Further competition with Capability Assessment (FCA) event
 
     #<Where the work will be done> Page <Step-17>
     Then Buyer navigates to "Where the work will be done" page
-    When Buyer selects the regions
+    When Buyer selects the regions for Capability Assessment
     And Buyer clicks on "Save and continue" button
 
     #<Number of suppliers to take to further competition> Page <Step-18>

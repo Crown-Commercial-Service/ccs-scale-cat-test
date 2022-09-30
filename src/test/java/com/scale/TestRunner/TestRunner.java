@@ -18,7 +18,7 @@ import java.util.Properties;
         glue={"com.scale.stepdefs", "com.scale.context"},
         monochrome = true,
         plugin = { "pretty", "html:target/cucumber-html-reports/report.html", "json:target/cucumber-html-reports/cucumber.json"},
-        tags = "@1FC-Flow",
+        //tags = "@1FC-Flow",
         dryRun = false
 )
 
@@ -30,7 +30,7 @@ public class TestRunner {
     public static void aws() throws IOException {
 
         Properties props = new Properties();
-        props.load(new FileInputStream( "C:\\Users\\SPalaniswamy\\Desktop\\MyProperties.txt"));
+        props.load(new FileInputStream( "config//ApplicationConfig.properties"));
 
         HashMap<String, String> param = new HashMap<>();
         props.forEach((k, v) -> param.put(k.toString(), v.toString()));
@@ -42,15 +42,11 @@ public class TestRunner {
         //param.putAll(PS.getValuesByPath("/cat/test-team/"));
         //GlobalContext.getGlobalInstance().setGlobalData(param);
 
-
-
         //TODO: - Trigger only for API Tests
         /*
         Auth auth =new Auth();
         GlobalContext.getGlobalInstance().setGlobalDataValue("Jag_Token", auth.Authenticaion("Jaggaer"));
         */
-    	
-    	
     }
 
     @AfterClass

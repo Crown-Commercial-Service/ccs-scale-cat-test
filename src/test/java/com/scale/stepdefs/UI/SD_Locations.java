@@ -32,8 +32,13 @@ public class SD_Locations {
         this.scenarioContext = scenarioContext;
     }
 
-    @When("Buyer selects the regions")
-    public void buyerSelectsTheRegions() {
-        objectManager.getLocationObj().selectLocation(TestContext.FCATestDataMap.get(TestContext.TDID).get("S17_Locations"));
+    @When("Buyer selects the regions for Further Competition")
+    public void buyerSelectsTheRegionsfor1FC() {
+        objectManager.getLocationObj().selectLocationfor1FC(TestContext.OneFCTestDataMap.get(TestContext.TDID).get("S37_Locations"));
+    }
+
+    @When("Buyer selects the regions for Capability Assessment")
+    public void buyerSelectsTheRegionsforFCA() {
+        objectManager.getLocationObj().selectLocationforFCA(TestContext.FCATestDataMap.get(TestContext.TDID).get("S17_Locations"));
     }
 }

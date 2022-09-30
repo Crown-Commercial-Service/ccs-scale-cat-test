@@ -53,7 +53,7 @@ public class ResourcesAndWeightings extends Actions {
     public void enterResourcesAndWeightings(Map<String, String> Data){
         for(String Cluster: Data.keySet()){
             driver.findElement(By.xpath("//li/a[text()='"+Cluster+"']")).click();
-            waitForSeconds(1);
+            waitForSeconds(2);
             String[] pairs = Data.get(Cluster).split("~");
             for (String pair : pairs) {
                 String[] values = pair.split("\\|");

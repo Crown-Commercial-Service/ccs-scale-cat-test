@@ -33,4 +33,4 @@ Feature: Retrieve,Create and Update an event
       |Agreement|Lot|Buyer|Event-types|
       |RM6263   |Lot 1|data1|RFI,FCA,FC|
       |RM6263   |Lot 2|data1|RFI,FCA,DAA,DA,FC|
-      |RM6187   |Lot 2|data1|RFI,EOI,DA,FC|
+      #|RM6187   |Lot 2|data1|RFI,EOI,DA,FC|

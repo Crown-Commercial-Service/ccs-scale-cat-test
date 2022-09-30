@@ -48,11 +48,15 @@ public class Location extends Actions{
 		this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(30));
 	}
 
-	public void selectLocation(String data){
+	public void selectLocationfor1FC(String data){
+		for(String Region : data.split("~")){
+			driver.findElement(By.xpath("//label[contains(text(),'"+Region+"')]/preceding-sibling::input")).click();
+		}
+	}
+
+	public void selectLocationforFCA(String data){
 		for(String Region : data.split("~")){
 			driver.findElement(By.xpath("//input[contains(@id,\""+Region.split("\\|")[0]+"\")]")).sendKeys(Region.split("\\|")[1]);
-			//driver.findElement(By.xpath("//label[contains(text(),'"+Region+"')]/following-sibling::div//input")).click();
-			//driver.findElement(By.xpath("//label[contains(text(),'"+Region+"')]/preceding-sibling::input")).click();
 		}
 	}
 }
