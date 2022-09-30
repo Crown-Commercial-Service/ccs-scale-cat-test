@@ -95,7 +95,7 @@ public class TestContext extends BrowserFactory {
 
 		if (driver != null) {
 			//takeSnapShot();
-			//driver.quit();
+			driver.quit();
 			driver = null;
 		}
 
